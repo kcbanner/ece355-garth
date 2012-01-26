@@ -64,7 +64,104 @@ intruders attempting to break in through windows or doors.
 
 \section{Use case model}
 
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{NFCDisarmSystem} \\ \hline
+Participating Actors & Initiated by \texttt{Resident} \\ \hline
+Flow of Events & 
 
+\begin{enumerate}
+ \item The \texttt{Resident} enters the home while in possession of an NFC device.
+ \item The system begins the disarm countdown.
+ \item The \texttt{Resident} approaches the console and holds the NFC within 0.2 meters of the console.
+ \item The data on the NFC device is read and validated by the system.
+ \item The system enters the disarmed state and the disarm countdown is halted.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The system is in the armed state and the Resident
+enters the home in possession an NFC device. \\ \hline
+
+Exit Condition & The system is disarmed. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{KeyPadDisarmSystem} \\ \hline
+Participating Actors & Initiated by \texttt{Resident} \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The \texttt{Resident} enters the home.
+ \item The system begins the disarm countdown.
+ \item The \texttt{Resident} approaches the console and enters their code using the keypad on the console.
+ \item The entered code is validated by the system.
+ \item The system enters the disarmed state and the disarm countdown is halted.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The system is in the armed state and the Resident
+enters the home. \\ \hline
+
+Exit Condition & The system is disarmed. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{NFCArmSystem} \\ \hline
+Participating Actors & Initiated by \texttt{Resident} \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The \texttt{Resident} approaches the console and holds the NFC within 0.2 meters of the console.
+ \item The data on the NFC device is read and validated by the system.
+ \item The system begins the arm countdown.
+ \item The \texttt{Resident} leaves the home.
+ \item The system arm countdown completes and the system enters the armed state.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The system is in the disarmed state and the \texttt{Resident} wishes to arm it 
+using an NFC device. \\ \hline
+
+Exit Condition & The system is armed. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{KeyPadArmSystem} \\ \hline
+Participating Actors & Initiated by \texttt{Resident} \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The \texttt{Resident} approaches the console and enters their code.
+ \item The entered code is validated by the system.
+ \item The system begins the arm countdown.
+ \item The \texttt{Resident} leaves the home.
+ \item The system arm countdown completes and the system enters the armed state.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The system is in the disarmed state and the \texttt{Resident} wishes to arm it
+using the keypad. \\ \hline
+Exit Condition & The system is armed. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
 
 \section{Object model}
 
