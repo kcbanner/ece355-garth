@@ -81,7 +81,56 @@ that these areas of the home have been accessed.
 
 \section{Scenarios}
 
+\subsection*{Arming the System - NFC Device}
 
+The resident is leaving the home and wishes to arm the security system. The resident can
+do so by approaching the security console and holding their NFC device within 0.2 meters
+of the interface. The resident must hold their NFC device near the console until the device
+is read and identified by the system as belonging to the resident of the home. Once this is
+confirmed, the user may leave the home while the system initiates the arm countdown. Once
+the system completes the countdown, the system has been successfully armed.
+
+\subsection*{Disarming the System - NFC Device}
+
+The procedure for disarming the system using an NFC device is very similar to the arming
+procedure. The resident enters the home at which point the disarm countdown begins. The
+resident holds his NFC device up to the console to disarm the system. The NFC device is
+identified and the security system is disarmed and the countdown is interrupted.
+
+\subsection*{Arming the System - Keypad}
+
+The resident wishes to arm the security system, but is not in possession of an NFC device.
+The resident can arm the system by entering a valid security code. Once the code has been
+entered, it is validated by the system. The system initiates the arm countdown, and the
+resident may now leave the home. The arm countdown completes and the system is now armed.
+
+\subsection*{Disarming the System - Keypad}
+
+The procedure for disarming the system using the keypad is very similar to the arming
+procedure. The resident enters the home at which point the disarm countdown begins. The
+resident enters a valid security code into the console using the keypad to disarm the system. 
+The NFC device is identified and the security system is disarmed and the countdown is interrupted.
+
+\subsection*{Childproof Cabinets}
+
+A child in the home has accessed a cabinet that contains hazardous or dangerous materials. The
+contact sensor installed on the cabinet door triggers a countdown. When the countdown reaches
+zero, and audible alarm is produced and an SMS is sent to the resident of the home to notify them
+of the event.
+
+Separately, an adult resident of the home accesses the same cabinet. The contact sensor on the
+cabinet door triggers the countdown. The resident pushes a hidden actuator located on the
+inside of the cabinet to halt the countdown. The resident closes the cabinet door when he / she is
+finished and the sensor notifies the process to go back to its normal wait state.
+
+\subsection*{Child Bedroom Safety}
+% TODO how does the resident arm the child safety system? With their phone? Console in the bedroom? 
+
+The resident of the home has placed his child in the crib for the night. When the resident leaves
+the bedroom, he arms the child bedroom safety system and closes the door. During the middle
+of the night, the child climbs out the crib and falls to the floor. Motion sensors installed in the room
+detect this unexpected activity and sound an alarm in the parents' bedroom to notify them of the
+event.
 
 \section{Use case model}
 
@@ -214,14 +263,38 @@ Flow of Events &
 \begin{enumerate}
  \item A door is opened.
  \item The system begins the alarm countdown.
- \item The iniating actor does not disarm the system.
- \item The alarm countdown reaches zero and the system enters the alarm state.
+ \item The initiating actor does not disarm the system.
+ \item The alarm countdown reaches zero.
+ \item The system enters the alarm state.
 \end{enumerate}
 
 \\ \hline
 
 Entry Condition & The system is in the armed state and a door is opened. \\ \hline
 Exit Condition & The system alarm is triggered. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{FridgeOpenNotification} \\ \hline
+Participating Actors & Initiated by any actor. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The initiating actor opens the fridge door.
+ \item The system begins a countdown.
+ \item The countdown completes without the fridge door being closed.
+ \item A notification is broadcast via SMS and loudspeaker throughout the house, depending
+       on configuration.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & Fridge door is opened. \\ \hline
+Exit Condition & A ``fridge has been left open'' notification is broadcast. \\ \hline
 Quality requirements & TODO \\ \hline
 
 \hline
