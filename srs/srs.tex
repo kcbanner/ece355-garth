@@ -337,11 +337,16 @@ It is relatively simple application. Figure~\ref{fig:wireframe-home} shows a
 wireframe of the first screen seen when the application is started. This is the
 main navigation between the different features. A simple settings wireframe is
 shown in Figure~\ref{fig:wireframe-settings}. Not all capabilities are shown in
-the wireframes to reduce complexity. What is displayed is dependent on the
-capabilities of the system and the installed modules. Navigation flow is also
-omitted to avoid any platform specific paradigms. Access control is required to
-prevent younger family members from accidently unlocking doors or disarming the
-security system.
+the wireframes to reduce complexity. Navigation flow is also omitted to avoid
+any platform specific paradigms. Access control is required to prevent younger
+family members from accidently unlocking doors or disarming the security
+system.
+
+% API is an acronym
+Features of this application are determined by the sensors and actuators in the
+system. The application will need to use a secure API accessible through a
+website hosted by the server. This setup is described in
+Section~\ref{sec:web-portal}.
 
 \begin{figure}[H]
     \centering
@@ -414,6 +419,6 @@ is located.
 \section{Near-field Communication Keypad}
 
 \section{Web Portal}
-
+\label{sec:web-portal}
 
 \end{document}
