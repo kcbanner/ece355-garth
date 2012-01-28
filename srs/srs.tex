@@ -183,6 +183,49 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{WindowIntrusionAlarm} \\ \hline
+Participating Actors & Initiated by any actor. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item A window is opened.
+ \item The system receives the signal that the window has been opened.
+ \item The system enters the alarm state.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The system is in the armed state and a window is opened. \\ \hline
+Exit Condition & The system alarm is triggered. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{DoorIntrusionAlarm} \\ \hline
+Participating Actors & Initiated by any actor. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item A door is opened.
+ \item The system begins the alarm countdown.
+ \item The iniating actor does not disarm the system.
+ \item The alarm countdown reaches zero and the system enters the alarm state.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The system is in the armed state and a door is opened. \\ \hline
+Exit Condition & The system alarm is triggered. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
 \section{Object model}
 
 
