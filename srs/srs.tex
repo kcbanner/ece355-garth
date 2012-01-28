@@ -110,6 +110,29 @@ procedure. The resident enters the home at which point the disarm countdown begi
 resident enters a valid security code into the console using the keypad to disarm the system. 
 The NFC device is identified and the security system is disarmed and the countdown is interrupted.
 
+\subsection*{Window Intrusion}
+%TODO what happens during the alarm state?
+
+The security system is in the armed state. An intruder attempts to open a window from outside
+the home. The system receives a signal from the window's sensor that notifies the system that
+a window has been opened. The system enters its alarm state.
+
+\subsection*{Door Intrusion}
+%TODO what happens during the alarm state?
+
+The security system is in the armed state. An intruder picks the lock on the front door and opens it.
+The system begins the alarm countdown alongside audible beeping once the intruder opens the door.
+The intruder leaves the premises while the countdown continues. The countdown reaches zero and the
+system enters the alarm state.
+
+\subsection*{Fridge Left Open}
+
+The resident opens the fridge door for a drink, and does not close it fully. Unaware, the resident leaves
+the kitchen and sits down in the living room. Meanwhile, a countdown has begun while the fridge door
+remains open. The countdown finishes and a notification is sent to the resident via SMS. The kitchen speaker
+broadcasts an audible message stating that the fridge door has been left open. The user enters the
+kitchen and closes the fridge door, resetting the system. 
+
 \subsection*{Childproof Cabinets}
 
 A child in the home has accessed a cabinet that contains hazardous or dangerous materials. The
