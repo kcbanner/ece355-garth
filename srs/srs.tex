@@ -10,6 +10,7 @@
 \begin{document}
 
 \tableofcontents
+\listoffigures
 
 \chapter{Introduction}
 
@@ -259,13 +260,83 @@ thermostat, and lights -- both interior and exterior. The final duty is to
 track the status of each family member through GPS integrated into the mobile
 device. 
 
-\begin{figure}
+It is relatively simple application. Figure~\ref{fig:wireframe-home} shows a
+wireframe of the first screen seen when the application is started. This is the
+main navigation between the different features. A simple settings wireframe is
+shown in Figure~\ref{fig:wireframe-settings}. Not all capabilities are shown in
+the wireframes to reduce complexity. What is displayed is dependent on the
+capabilities of the system and the installed modules. Navigation flow is also
+omitted to avoid any platform specific paradigms. Access control is required to
+prevent younger family members from accidently unlocking doors or disarming the
+security system.
+
+\begin{figure}[H]
     \centering
-    \includegraphics{mock_settings}
+    \includegraphics[scale=0.5]{mock_home}
+    \caption[Wireframe of the home screen]
+            {Wireframe of the home screen}
+    \label{fig:wireframe-home}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{mock_settings}
     \caption[Wireframe of the settings screen]
             {Wireframe of the settings screen}
     \label{fig:wireframe-settings}
 \end{figure}
+
+Various portions of the security system can be controlled through the wireframe
+in Figure~\ref{fig:wireframe-security}. The entire system can be armed and
+disarmed, locks on doors activated and deactivated, and the status of the
+windows can be reported. Pressing on the button for window status will bring up
+another more detailed screen that lists individual windows and reports their
+status, closed or open. Door locks, if it is supported can be locked or
+unlocked from this screen if the lock supports it.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{mock_security}
+    \caption[Wireframe of the security screen]
+            {Wireframe of the security screen}
+    \label{fig:wireframe-security}
+\end{figure}
+
+Environmental details are controlled in Figure~\ref{fig:wireframe-environment}. The
+temperature of the house can be monitored and set. Pressing on the button
+labeled "HISTORY" will bring up a graph of the household temperature over a
+period of time. This screen can also display images from cameras at the doors
+to allow for the user to check who is at the door before unlocking it.
+Details from more specific portions of the enviroment can be displayed here as
+well. For example, the status of the stove and oven in the kitchen. It is also
+possible to report the internal temperature of the oven to ensure that it is
+not overheating.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{mock_environment}
+    \caption[Wireframe of the environment screen]
+            {Wireframe of the environment screen}
+    \label{fig:wireframe-environment}
+\end{figure}
+
+Family member locations -- at least those with smartphones and this
+application -- are displayed in Figure~\ref{fig:wireframe-locations}. Each family
+member will have a pin on the map to show their location using their device's
+GPS capabilities. Clicking on a name will move the map to the present location
+of that person. It will also display in text where the family member presently
+is located.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{mock_locations}
+    \caption[Wireframe of the locations screen]
+            {Wireframe of the locations screen}
+    \label{fig:wireframe-locations}
+\end{figure}
+
+
 
 \section{Near-field Communication Keypad}
 
