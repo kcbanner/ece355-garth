@@ -213,14 +213,38 @@ Flow of Events &
 \begin{enumerate}
  \item A door is opened.
  \item The system begins the alarm countdown.
- \item The iniating actor does not disarm the system.
- \item The alarm countdown reaches zero and the system enters the alarm state.
+ \item The initiating actor does not disarm the system.
+ \item The alarm countdown reaches zero.
+ \item The system enters the alarm state.
 \end{enumerate}
 
 \\ \hline
 
 Entry Condition & The system is in the armed state and a door is opened. \\ \hline
 Exit Condition & The system alarm is triggered. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{FridgeOpenNotification} \\ \hline
+Participating Actors & Initiated by any actor. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The initiating actor opens the fridge door.
+ \item The system begins a countdown.
+ \item The countdown completes without the fridge door being closed.
+ \item A notification is broadcast via SMS and loudspeaker throughout the house, depending
+       on configuration.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & Fridge door is opened. \\ \hline
+Exit Condition & A ``fridge has been left open'' notification is broadcast. \\ \hline
 Quality requirements & TODO \\ \hline
 
 \hline
