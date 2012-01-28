@@ -1,4 +1,11 @@
 \documentclass{report}
+\usepackage{graphicx}
+\usepackage{float}
+
+\graphicspath{{./images/}}
+
+\floatstyle{boxed}
+\restylefloat{figure}
 
 \begin{document}
 
@@ -208,6 +215,14 @@ control over various sub-systems such as the state of the security system,
 thermostat, and lights -- both interior and exterior. The final duty is to
 track the status of each family member through GPS integrated into the mobile
 device. 
+
+\begin{figure}
+    \centering
+    \includegraphics{mock_settings}
+    \caption[Wireframe of the settings screen]
+            {Wireframe of the settings screen}
+    \label{fig:wireframe-settings}
+\end{figure}
 
 \section{Near-field Communication Keypad}
 
