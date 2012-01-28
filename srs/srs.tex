@@ -323,6 +323,53 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{CabinetAlarm} \\ \hline
+Participating Actors & Initiated by any actor. \texttt{Resident} is a participant. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item A secure cabinet is opened by the initiating actor.
+ \item The contact sensor within the cabinet is tripped and a countdown begins.
+ \item The countdown timer reaches zero.
+ \item An audible alarm is produced by the system and an SMS is sent to the \texttt{Resident}
+       notifying them of the intrusion.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & A secure cabinet is opened. \\ \hline
+Exit Condition & An audible alarm is produced and an SMS alert is sent to
+                 the \texttt{Resident} \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{CabinetAccess} \\ \hline
+Participating Actors & Initiated by \texttt{Resident}. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item A secure cabinet is opened by the \texttt{Resident}.
+ \item The contact sensor within the cabinet is tripped and a countdown begins.
+ \item The \texttt{Resident} pushes a hidden actuator within the cabinet.
+ \item The countdown timer is stopped.
+ \item The \texttt{Resident} closes the cabinet after they are finished.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & A secure cabinet is opened. \\ \hline
+Exit Condition & The secure cabinet is closed. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
 \section{Object model}
 
 
