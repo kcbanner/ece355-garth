@@ -35,11 +35,10 @@ The most crucial part of the system that ties all of the other parts together
 is the sensor network. They are the interface between the real world and the
 controllers. They detect if the house has been intruded upon by outsiders
 through sensors on the windows and doors. They can alert the family if somebody
-left the stove top on. Living patterns can be established and monitored to
-warn of health problems or to control the HVAC so that energy is not wasted
-when nobody is home or they are all asleep. Cameras, motion detectors, hall
-effect sensors, and other miscellaneous sensors comprise the majority of this
-network.
+left the stove top on. Living patterns can be established and monitored to warn
+of health problems or to control the HVAC so that energy is not wasted when
+nobody is home or they are all asleep. Cameras, motion detectors, hall effect
+sensors, and other miscellaneous sensors comprise the majority of this network.
 
 Cameras play multiple roles in the sensor network. Facial recognition can be
 used to detect family members entering and leaving the house to track their
@@ -48,11 +47,11 @@ or are on the premises in either a friendly manner or in a more cautious one
 depending on the family members currently at home.
 
 Motion detectors provide the security system with the means to trigger alerts 
-when motion is detected in certain areas of the home while the system is armed. 
-A network of motion detector sensors will be positioned in the hallways of the home, 
-with particular attention to entries to the home. Motion detectors outside the 
-house will be able to control the lighting system such that people approaching the 
-home can be illuminated and easily identified.
+when motion is detected in certain areas of the home while the system is armed.
+A network of motion detector sensors will be positioned in the hallways of the
+home, with particular attention to entries to the home. Motion detectors
+outside the house will be able to control the lighting system such that people
+approaching the home can be illuminated and easily identified.
 
 Temperature sensors and hall effect sensors are two other major components.
 Temperature sensors can be used by both physical security, to ensure that the
@@ -65,13 +64,14 @@ intruders attempting to break in through windows or doors.
 
 \subsection{Family Safety}
 
-In addition to necessary home security functionality, the system will incorporate 
-methods to provide safety to members of the users' family. Child safety is a particular 
-concern that will be addressed by this portion of the home security system. Sensors 
-will be implemented on cabinets as well as certain areas of the home that may contain 
-hazardous materials that could be harmful to children. Contact sensors will be present 
-on medicine cabinets, closets with cleaning materials, and knife drawers to alert the user
-that these areas of the home have been accessed.
+In addition to necessary home security functionality, the system will
+incorporate methods to provide safety to members of the users' family. Child
+safety is a particular concern that will be addressed by this portion of the
+home security system. Sensors will be implemented on cabinets as well as
+certain areas of the home that may contain hazardous materials that could be
+harmful to children. Contact sensors will be present on medicine cabinets,
+closets with cleaning materials, and knife drawers to alert the user that these
+areas of the home have been accessed.
 
 \subsection{Security System}
 
@@ -83,77 +83,88 @@ that these areas of the home have been accessed.
 
 \subsection*{Arming the System - NFC Device}
 
-The resident is leaving the home and wishes to arm the security system. The resident can
-do so by approaching the security console and holding their NFC device within 0.2 meters
-of the interface. The resident must hold their NFC device near the console until the device
-is read and identified by the system as belonging to the resident of the home. Once this is
-confirmed, the user may leave the home while the system initiates the arm countdown. Once
-the system completes the countdown, the system has been successfully armed.
+The resident is leaving the home and wishes to arm the security system. The
+resident can do so by approaching the security console and holding their NFC
+device within 0.2 meters of the interface. The resident must hold their NFC
+device near the console until the device is read and identified by the system
+as belonging to the resident of the home. Once this is confirmed, the user may
+leave the home while the system initiates the arm countdown. Once the system
+completes the countdown, the system has been successfully armed.
 
 \subsection*{Disarming the System - NFC Device}
 
-The procedure for disarming the system using an NFC device is very similar to the arming
-procedure. The resident enters the home at which point the disarm countdown begins. The
-resident holds his NFC device up to the console to disarm the system. The NFC device is
-identified and the security system is disarmed and the countdown is interrupted.
+The procedure for disarming the system using an NFC device is very similar to
+the arming procedure. The resident enters the home at which point the disarm
+countdown begins. The resident holds his NFC device up to the console to disarm
+the system. The NFC device is identified and the security system is disarmed
+and the countdown is interrupted.
 
 \subsection*{Arming the System - Keypad}
 
-The resident wishes to arm the security system, but is not in possession of an NFC device.
-The resident can arm the system by entering a valid security code. Once the code has been
-entered, it is validated by the system. The system initiates the arm countdown, and the
-resident may now leave the home. The arm countdown completes and the system is now armed.
+The resident wishes to arm the security system, but is not in possession of an
+NFC device.  The resident can arm the system by entering a valid security code.
+Once the code has been entered, it is validated by the system. The system
+initiates the arm countdown, and the resident may now leave the home. The arm
+countdown completes and the system is now armed.
 
 \subsection*{Disarming the System - Keypad}
 
-The procedure for disarming the system using the keypad is very similar to the arming
-procedure. The resident enters the home at which point the disarm countdown begins. The
-resident enters a valid security code into the console using the keypad to disarm the system. 
-The NFC device is identified and the security system is disarmed and the countdown is interrupted.
+The procedure for disarming the system using the keypad is very similar to the
+arming procedure. The resident enters the home at which point the disarm
+countdown begins. The resident enters a valid security code into the console
+using the keypad to disarm the system.  The NFC device is identified and the
+security system is disarmed and the countdown is interrupted.
 
 \subsection*{Window Intrusion}
 %TODO what happens during the alarm state?
 
-The security system is in the armed state. An intruder attempts to open a window from outside
-the home. The system receives a signal from the window's sensor that notifies the system that
-a window has been opened. The system enters its alarm state.
+The security system is in the armed state. An intruder attempts to open a
+window from outside the home. The system receives a signal from the window's
+sensor that notifies the system that a window has been opened. The system
+enters its alarm state.
 
 \subsection*{Door Intrusion}
 %TODO what happens during the alarm state?
 
-The security system is in the armed state. An intruder picks the lock on the front door and opens it.
-The system begins the alarm countdown alongside audible beeping once the intruder opens the door.
-The intruder leaves the premises while the countdown continues. The countdown reaches zero and the
+The security system is in the armed state. An intruder picks the lock on the
+front door and opens it.  The system begins the alarm countdown alongside
+audible beeping once the intruder opens the door.  The intruder leaves the
+premises while the countdown continues. The countdown reaches zero and the
 system enters the alarm state.
 
 \subsection*{Fridge Left Open}
 
-The resident opens the fridge door for a drink, and does not close it fully. Unaware, the resident leaves
-the kitchen and sits down in the living room. Meanwhile, a countdown has begun while the fridge door
-remains open. The countdown finishes and a notification is sent to the resident via SMS. The kitchen speaker
-broadcasts an audible message stating that the fridge door has been left open. The user enters the
-kitchen and closes the fridge door, resetting the system. 
+The resident opens the fridge door for a drink, and does not close it fully.
+Unaware, the resident leaves the kitchen and sits down in the living room.
+Meanwhile, a countdown has begun while the fridge door remains open. The
+countdown finishes and a notification is sent to the resident via SMS. The
+kitchen speaker broadcasts an audible message stating that the fridge door has
+been left open. The user enters the kitchen and closes the fridge door,
+resetting the system. 
 
 \subsection*{Childproof Cabinets}
 
-A child in the home has accessed a cabinet that contains hazardous or dangerous materials. The
-contact sensor installed on the cabinet door triggers a countdown. When the countdown reaches
-zero, and audible alarm is produced and an SMS is sent to the resident of the home to notify them
-of the event.
+A child in the home has accessed a cabinet that contains hazardous or dangerous
+materials. The contact sensor installed on the cabinet door triggers a
+countdown. When the countdown reaches zero, and audible alarm is produced and
+an SMS is sent to the resident of the home to notify them of the event.
 
-Separately, an adult resident of the home accesses the same cabinet. The contact sensor on the
-cabinet door triggers the countdown. The resident pushes a hidden actuator located on the
-inside of the cabinet to halt the countdown. The resident closes the cabinet door when he / she is
-finished and the sensor notifies the process to go back to its normal wait state.
+Separately, an adult resident of the home accesses the same cabinet. The
+contact sensor on the cabinet door triggers the countdown. The resident pushes
+a hidden actuator located on the inside of the cabinet to halt the countdown.
+The resident closes the cabinet door when he / she is finished and the sensor
+notifies the process to go back to its normal wait state.
 
 \subsection*{Child Bedroom Safety}
-% TODO how does the resident arm the child safety system? With their phone? Console in the bedroom? 
+% TODO how does the resident arm the child safety system? With their phone?
+% Console in the bedroom? 
 
-The resident of the home has placed his child in the crib for the night. When the resident leaves
-the bedroom, he arms the child bedroom safety system and closes the door. During the middle
-of the night, the child climbs out the crib and falls to the floor. Motion sensors installed in the room
-detect this unexpected activity and sound an alarm in the parents' bedroom to notify them of the
-event.
+The resident of the home has placed his child in the crib for the night. When
+the resident leaves the bedroom, he arms the child bedroom safety system and
+closes the door. During the middle of the night, the child climbs out the crib
+and falls to the floor. Motion sensors installed in the room detect this
+unexpected activity and sound an alarm in the parents' bedroom to notify them
+of the event.
 
 \section{Use case model}
 
@@ -164,17 +175,19 @@ Participating Actors & Initiated by \texttt{Resident} \\ \hline
 Flow of Events & 
 
 \begin{enumerate}
- \item The \texttt{Resident} enters the home while in possession of an NFC device.
+ \item The \texttt{Resident} enters the home while in possession of an NFC 
+        device.
  \item The system begins the disarm countdown.
- \item The \texttt{Resident} approaches the console and holds the NFC within 0.2 meters of the console.
+ \item The \texttt{Resident} approaches the console and holds the NFC within
+        0.2 meters of the console.
  \item The data on the NFC device is read and validated by the system.
  \item The system enters the disarmed state and the disarm countdown is halted.
 \end{enumerate}
 
 \\ \hline
 
-Entry Condition & The system is in the armed state and the Resident
-enters the home in possession an NFC device. \\ \hline
+Entry Condition & The system is in the armed state and the Resident enters the
+home in possession an NFC device. \\ \hline
 
 Exit Condition & The system is disarmed. \\ \hline
 Quality requirements & TODO \\ \hline
@@ -191,7 +204,8 @@ Flow of Events &
 \begin{enumerate}
  \item The \texttt{Resident} enters the home.
  \item The system begins the disarm countdown.
- \item The \texttt{Resident} approaches the console and enters their code using the keypad on the console.
+ \item The \texttt{Resident} approaches the console and enters their code using
+       the keypad on the console.
  \item The entered code is validated by the system.
  \item The system enters the disarmed state and the disarm countdown is halted.
 \end{enumerate}
@@ -214,7 +228,8 @@ Participating Actors & Initiated by \texttt{Resident} \\ \hline
 Flow of Events & 
 
 \begin{enumerate}
- \item The \texttt{Resident} approaches the console and holds the NFC within 0.2 meters of the console.
+ \item The \texttt{Resident} approaches the console and holds the NFC within
+       0.2 meters of the console.
  \item The data on the NFC device is read and validated by the system.
  \item The system begins the arm countdown.
  \item The \texttt{Resident} leaves the home.
@@ -223,8 +238,8 @@ Flow of Events &
 
 \\ \hline
 
-Entry Condition & The system is in the disarmed state and the \texttt{Resident} wishes to arm it 
-using an NFC device. \\ \hline
+Entry Condition & The system is in the disarmed state and the \texttt{Resident}
+wishes to arm it using an NFC device. \\ \hline
 
 Exit Condition & The system is armed. \\ \hline
 Quality requirements & TODO \\ \hline
@@ -248,8 +263,8 @@ Flow of Events &
 
 \\ \hline
 
-Entry Condition & The system is in the disarmed state and the \texttt{Resident} wishes to arm it
-using the keypad. \\ \hline
+Entry Condition & The system is in the disarmed state and the \texttt{Resident}
+    wishes to arm it using the keypad. \\ \hline
 Exit Condition & The system is armed. \\ \hline
 Quality requirements & TODO \\ \hline
 
@@ -270,7 +285,8 @@ Flow of Events &
 
 \\ \hline
 
-Entry Condition & The system is in the armed state and a window is opened. \\ \hline
+Entry Condition & The system is in the armed state and a window is opened. \\ 
+\hline
 Exit Condition & The system alarm is triggered. \\ \hline
 Quality requirements & TODO \\ \hline
 
@@ -310,8 +326,8 @@ Flow of Events &
  \item The initiating actor opens the fridge door.
  \item The system begins a countdown.
  \item The countdown completes without the fridge door being closed.
- \item A notification is broadcast via SMS and loudspeaker throughout the house, depending
-       on configuration.
+ \item A notification is broadcast via SMS and loudspeaker throughout the
+        house, depending on configuration.
 \end{enumerate}
 
 \\ \hline
@@ -333,8 +349,8 @@ Flow of Events &
  \item A secure cabinet is opened by the initiating actor.
  \item The contact sensor within the cabinet is tripped and a countdown begins.
  \item The countdown timer reaches zero.
- \item An audible alarm is produced by the system and an SMS is sent to the \texttt{Resident}
-       notifying them of the intrusion.
+ \item An audible alarm is produced by the system and an SMS is sent to the
+       \texttt{Resident} notifying them of the intrusion.
 \end{enumerate}
 
 \\ \hline
@@ -391,6 +407,7 @@ system.
 %Paired with near-field communication it will
 
 \section{Smartphone Application}
+\label{sec:mobile-app}
 A smartphone application will allow the user to monitor their residence as well
 as turn on or off various components of the system. If the device has
 near-field communication built into it, then it will be able to be used to
@@ -416,7 +433,7 @@ system.
 Features of this application are determined by the sensors and actuators in the
 system. The application will need to use a secure API accessible through a
 website hosted by the server. This setup is described in
-Section~\ref{sec:web-portal}.
+Section~\ref{sec:web-server}.
 
 \begin{figure}[H]
     \centering
@@ -453,7 +470,7 @@ unlocked from this screen if the lock supports it.
 
 Environmental details are controlled in Figure~\ref{fig:wireframe-environment}. The
 temperature of the house can be monitored and set. Pressing on the button
-labeled "HISTORY" will bring up a graph of the household temperature over a
+labeled ``HISTORY'' will bring up a graph of the household temperature over a
 period of time. This screen can also display images from cameras at the doors
 to allow for the user to check who is at the door before unlocking it.
 Details from more specific portions of the enviroment can be displayed here as
@@ -488,7 +505,14 @@ is located.
 
 \section{Near-field Communication Keypad}
 
-\section{Web Portal}
-\label{sec:web-portal}
+\section{Web Server}
+\label{sec:web-server}
+A web server serves two purposes. It provides an interface between the mobile
+application described in Section~\ref{sec:mobile-app} and the system
+controller. Data can be accessed remotely through API requests and the state of
+the system can be modified by sending requests to it. The other purpose is to
+maintain a log of all the events for trend analysis and household history. The
+server should be located at a remote location for data security.
+
 
 \end{document}
