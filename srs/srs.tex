@@ -2,6 +2,9 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{fullpage}
+\usepackage{array}
+
+\setlength{\extrarowheight}{4pt}
 
 \graphicspath{{./images/}}
 
@@ -394,12 +397,61 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{ChildMotionDetected} \\ \hline
+Participating Actors & Initiated by \texttt{Child}. \texttt{Resident} participates. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The child moves within the room.
+ \item Motion sensors detect the movement and compare it to acceptable ranges.
+ \item If the motion is out of the acceptable range, the child motion
+       detector enters the alarm state and an alarm is sounded in the
+       \texttt{Resident}'s bedroom.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The child motion detector is in the armed state and the child moves
+                  out of the acceptable range. \\ \hline
+Exit Condition & Alarm is sounded in the \texttt{Resident}'s bedroom. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{CarbonMonoxideDetected} \\ \hline
+Participating Actors & \texttt{Resident} participates. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item Sensors installed in the house detect that carbon monoxide (CO) levels have
+       risen above acceptable values.
+ \item SMS messages are sent to \texttt{Resident} alerting them of rising CO levels.
+ \item If the CO levels continue to rise above a predefined level, the carbon monoxide
+       detector goes into its alarm state. SMS message are again sent to \texttt{Resident}
+       and an audible alarm is sounded throughout the house.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & Carbon monoxide levels in the home rise above an acceptable level. \\ \hline
+Exit Condition & SMS messages are sent to \texttt{Resident} and an audible
+                 alarm is sounded. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+
+
 \section{Object model}
 
 
-
 \section{Dynamic model}
-
 
 
 \section{Interfaces}
