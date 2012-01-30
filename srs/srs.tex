@@ -84,8 +84,8 @@ areas of the home have been accessed.
 \subsection*{Arming the System - NFC Device}
 
 The resident is leaving the home and wishes to arm the security system. The
-resident can do so by approaching the security console and holding their NFC
-device within 0.2 meters of the interface. The resident must hold their NFC
+resident can do so by approaching the security console and tapping their NFC
+device against the console. The resident must hold their NFC
 device near the console until the device is read and identified by the system
 as belonging to the resident of the home. Once this is confirmed, the user may
 leave the home while the system initiates the arm countdown. Once the system
@@ -178,8 +178,8 @@ Flow of Events &
  \item The \texttt{Resident} enters the home while in possession of an NFC 
         device.
  \item The system begins the disarm countdown.
- \item The \texttt{Resident} approaches the console and holds the NFC within
-        0.2 meters of the console.
+ \item The \texttt{Resident} approaches the console and tapping the NFC device
+       against the console.
  \item The data on the NFC device is read and validated by the system.
  \item The system enters the disarmed state and the disarm countdown is halted.
 \end{enumerate}
@@ -228,8 +228,8 @@ Participating Actors & Initiated by \texttt{Resident} \\ \hline
 Flow of Events & 
 
 \begin{enumerate}
- \item The \texttt{Resident} approaches the console and holds the NFC within
-       0.2 meters of the console.
+ \item The \texttt{Resident} approaches the console and taps their NFC device
+       against the console.
  \item The data on the NFC device is read and validated by the system.
  \item The system begins the arm countdown.
  \item The \texttt{Resident} leaves the home.
@@ -326,8 +326,7 @@ Flow of Events &
  \item The initiating actor opens the fridge door.
  \item The system begins a countdown.
  \item The countdown completes without the fridge door being closed.
- \item A notification is broadcast via SMS and loudspeaker throughout the
-        house, depending on configuration.
+ \item A notification is broadcast via SMS and the kitchen speaker, depending on configuration.
 \end{enumerate}
 
 \\ \hline
