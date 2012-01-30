@@ -119,6 +119,16 @@ countdown begins. The resident enters a valid security code into the console
 using the keypad to disarm the system.  The NFC device is identified and the
 security system is disarmed and the countdown is interrupted.
 
+\subsection*{System Armed - Door Unlocked}
+
+The resident arms the system, and leaves the house without locking the door.
+A very brief countdown begins waiting for the door to lock. The countdown
+ends and a loud audible beeping is emitted from a speaker near the door. The
+resident returns and locks the door, at which point the beeping ceases.
+Similarly if the resident leaves and does not notice that he has forgotten to
+lock the door, the beeping ceases after a timeout and informs the resident with
+an SMS.
+
 \subsection*{Window Intrusion}
 %TODO what happens during the alarm state?
 
@@ -179,15 +189,25 @@ been reached. The carbon monoxide detector goes into its alarm state, notifying 
 resident via SMS and sounding an audible alarm throughout the house.
 
 \subsection*{Flood Detection}
+%TODO define alarm states (minor, intermediate, major?)
 
 The basement's sump pump fails and groundwater begins to seep into the basement.
 Flood detectors installed in the system detect that water has risen above the 
 acceptable level. The resident is notified via SMS that the basement is flooded, and
 a minor alarm is sounded throughout the home to alert the residents of the flood.
 
+\subsection*{Thermostat Left On}
+%TODO define home inactivity
+
+The residents of the home have the thermostat set to hold at 73 degrees Fahrenheit.
+The residents leave for vacation, but forget to turn the thermostat off. After 24 hours
+of home inactivity, the system sends an SMS to the resident to let them know that
+the thermostat has been set while nobody has been home for 24 hours. The resident
+replies to the SMS which then turns the thermostat off.
+
 \section{Use case model}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{NFCDisarmSystem} \\ \hline
 Participating Actors & Initiated by \texttt{Resident} \\ \hline
@@ -214,7 +234,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{KeyPadDisarmSystem} \\ \hline
 Participating Actors & Initiated by \texttt{Resident} \\ \hline
@@ -240,7 +260,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{NFCArmSystem} \\ \hline
 Participating Actors & Initiated by \texttt{Resident} \\ \hline
@@ -266,7 +286,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{KeyPadArmSystem} \\ \hline
 Participating Actors & Initiated by \texttt{Resident} \\ \hline
@@ -290,7 +310,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{WindowIntrusionAlarm} \\ \hline
 Participating Actors & Initiated by any actor. \\ \hline
@@ -312,7 +332,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{DoorIntrusionAlarm} \\ \hline
 Participating Actors & Initiated by any actor. \\ \hline
@@ -335,7 +355,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{FridgeOpenNotification} \\ \hline
 Participating Actors & Initiated by any actor. \\ \hline
@@ -357,7 +377,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{CabinetAlarm} \\ \hline
 Participating Actors & Initiated by any actor. \texttt{Resident} is a participant. \\ \hline
@@ -381,7 +401,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{CabinetAccess} \\ \hline
 Participating Actors & Initiated by \texttt{Resident}. \\ \hline
@@ -404,7 +424,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{ChildMotionDetected} \\ \hline
 Participating Actors & Initiated by \texttt{Child}. \texttt{Resident} participates. \\ \hline
@@ -428,7 +448,7 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
-\begin{tabular}{| l | p{7cm} |}
+\begin{tabular}{| l | p{11cm} |}
 \hline
 Use case name & \texttt{CarbonMonoxideDetected} \\ \hline
 Participating Actors & \texttt{Resident} participates. \\ \hline
@@ -448,6 +468,28 @@ Flow of Events &
 Entry Condition & Carbon monoxide levels in the home rise above an acceptable level. \\ \hline
 Exit Condition & SMS messages are sent to \texttt{Resident} and an audible
                  alarm is sounded. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{11cm} |}
+\hline
+Use case name & \texttt{FloodDetected} \\ \hline
+Participating Actors & \texttt{Resident} participates. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item Flood detectors installed in the basement detect rising water levels.
+ \item \texttt{Resident} is notified of the flood via SMS message and a minor alarm
+       is sounded throughout the home.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & Rising water levels are detected by flood sensors. \\ \hline
+Exit Condition & \texttt{Resident} is sent an SMS message and a minor alarm
+                 is sounded throughout the home. \\ \hline
 Quality requirements & TODO \\ \hline
 
 \hline
