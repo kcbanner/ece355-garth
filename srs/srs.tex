@@ -1,6 +1,10 @@
 \documentclass{report}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{fullpage}
+\usepackage{array}
+
+\setlength{\extrarowheight}{4pt}
 
 \graphicspath{{./images/}}
 
@@ -410,12 +414,83 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{ChildMotionDetected} \\ \hline
+Participating Actors & Initiated by \texttt{Child}. \texttt{Resident} participates. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The child moves within the room.
+ \item Motion sensors detect the movement and compare it to acceptable ranges.
+ \item If the motion is out of the acceptable range, the child motion
+       detector enters the alarm state and an alarm is sounded in the
+       \texttt{Resident}'s bedroom.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The child motion detector is in the armed state and the child moves
+                  out of the acceptable range. \\ \hline
+Exit Condition & Alarm is sounded in the \texttt{Resident}'s bedroom. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{CarbonMonoxideDetected} \\ \hline
+Participating Actors & \texttt{Resident} participates. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item Sensors installed in the house detect that carbon monoxide (CO) levels have
+       risen above acceptable values.
+ \item SMS messages are sent to \texttt{Resident} alerting them of rising CO levels.
+ \item If the CO levels continue to rise above a predefined level, the carbon monoxide
+       detector goes into its alarm state. SMS message are again sent to \texttt{Resident}
+       and an audible alarm is sounded throughout the house.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & Carbon monoxide levels in the home rise above an acceptable level. \\ \hline
+Exit Condition & SMS messages are sent to \texttt{Resident} and an audible
+                 alarm is sounded. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+\begin{tabular}{| l | p{7cm} |}
+\hline
+Use case name & \texttt{FloodDetected} \\ \hline
+Participating Actors & \texttt{Resident} participates. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item Flood detectors installed in the basement detect rising water levels.
+ \item \texttt{Resident} is notified of the flood via SMS message and a minor alarm
+       is sounded throughout the home.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & Rising water levels are detected by flood sensors. \\ \hline
+Exit Condition & \texttt{Resident} is sent an SMS message and a minor alarm
+                 is sounded throughout the home. \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+
+
 \section{Object model}
 
 
-
 \section{Dynamic model}
-
 
 
 \section{Interfaces}
@@ -443,6 +518,61 @@ user accesses the data and can send state updates through an API exposed by the
 web server. 
 
 \chapter{Non-Functional Requirements}
+% TODO :: intro paragraph...
+
+\section{Usability}
+There are several usability requirements since the system will be used by a
+variety of different users. It should be usuable by school-aged children,
+adults, caretakers and babysitters, and house cleaners. Unique user IDs need to
+be assigned for each user of the system. These IDs will allow for greater
+control over what each user can access or use. Users should only require
+minimal training on how to arm and disarm the system. Only parents, or the
+owner of the house, need to be fully trained on the entire system. The system
+should be intuitive and seemless in day to day life. Input and output devices
+should be simple to use. 
+
+% More about why the system needs to be intuitive
+
+% - should be usuable by school-aged children --
+% - unique user ids should be assigned to all users of the system (parents,
+%   children, caretakers/babysitters, cleaners, etc) -- 
+% - Only the parents should be fully trained in maintaining and understanding
+%   the system -- 
+% - System should be seemless in terms of usability 
+% - Simple user centeric I/O devices
+
+\section{Reliability}
+% - Handles power outages
+% - Any sensor placed outside need to be rugged and durable
+% - 
+
+\section{Performance}
+% - Controller needs to be able to handle all of the sensor requests
+
+\section{Supportability}
+% - 
+
+\section{Implementation}
+
+\section{System and Data Security}
+% - 
+
+\section{Interface}
+
+\section{Operational}
+
+\section{Packaging}
+% - Each wireless sensor should be individually packaged
+% - The whole system should be packaged as one unit with additional sensors
+%   available
+% - Outdoor sensors needs to be ruggedized for weather and animals
+
+\section{Legal Issues}
+% - Residents need to be informed of the legality of video and audio recording
+%   in their area and where these devices can be implemented.
+% - User should agree to an End User License Agreement to ensure that they
+%   understand the liabilities and coverage of the system.
+
 
 \chapter{User Interfaces}
 The main user interface for this system is the user's smart phone device. Most
