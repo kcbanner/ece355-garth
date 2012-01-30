@@ -119,6 +119,16 @@ countdown begins. The resident enters a valid security code into the console
 using the keypad to disarm the system.  The NFC device is identified and the
 security system is disarmed and the countdown is interrupted.
 
+\subsection*{System Armed - Door Unlocked}
+
+The resident arms the system, and leaves the house without locking the door.
+A very brief countdown begins waiting for the door to lock. The countdown
+ends and a loud audible beeping is emitted from a speaker near the door. The
+resident returns and locks the door, at which point the beeping ceases.
+Similarly if the resident leaves and does not notice that he has forgotten to
+lock the door, the beeping ceases after a timeout and informs the resident with
+an SMS.
+
 \subsection*{Window Intrusion}
 %TODO what happens during the alarm state?
 
