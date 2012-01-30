@@ -501,15 +501,25 @@ should be simple to use.
 
 % More about why the system needs to be intuitive
 
-% - should be usuable by school-aged children --
-% - unique user ids should be assigned to all users of the system (parents,
-%   children, caretakers/babysitters, cleaners, etc) -- 
-% - Only the parents should be fully trained in maintaining and understanding
-%   the system -- 
-% - System should be seemless in terms of usability 
-% - Simple user centeric I/O devices
-
 \section{Reliability}
+Reliability is essiential. The system needs to be able to handle two worse case
+scenarios. The first is a complete power outage of the house and premises. It
+needs to have a backup power supply in order to report the current status and
+still receive data from the sensors. The critical sensors such as smoke
+detectors and intrusion alarms should have their own backup power supply as
+well to maintain security. This will help prevent individuals from penetrating
+the security layer by cutting power to the household. The second scenario is
+the Internet connection is either blocked or goes down. In this case, the
+server will not receive any data updates and the user interfaces will not have
+the latest data. The controller should send out an SMS alert to the primary
+user if the connection is not restored within a half hour. The sensors should
+be able to handle reconnecting gracefully to the controller when their wireless
+connection is interrupted.
+
+Any sensors placed outside need to be rugged and durable. They need to be able
+to withstand cold, wet, and hot weather. Protection from wild animals is also
+required to prevent wildlife from harming the sensors.
+
 % - Handles power outages
 % - Any sensor placed outside need to be rugged and durable
 % - 
