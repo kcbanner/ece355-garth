@@ -526,6 +526,15 @@ communicate to the controller their current data and the controller needs to
 communicate to the actuators. Data from the controller needs to be sent to a
 central server, which is then accessible through other user interfaces.
 
+There are several interfaces between the system and the users to inform and
+alert them of any issues. SMS text messages can be sent to the home owners if
+any alarms have been tripped. If the owner does not acknowledge the issue, then
+it is escalated to the security company for them judge the problem and possible
+call the local emergency services. Two user interfaces are provided to display
+data and set system states. The first is a mobile application and the second is
+a web interface. These user interfaces are described in more detail in
+Chapter~\ref{ch:user-interfaces}
+
 \subsection{Physical Hardware and Controller}
 %TODO :: rename section?
 The hardware such as sensors and actuators communicate wirelessly through
@@ -543,6 +552,9 @@ the graphical user interfaces. The controller sends data, as appropriate, to
 the server on a regular basis. The server stores the data in a database. The
 user accesses the data and can send state updates through an API exposed by the
 web server. 
+
+\subsection{System to User}
+% TODO :: put in a flow chart of the escallation system that can be used here.
 
 \chapter{Non-Functional Requirements}
 % TODO :: intro paragraph...
@@ -632,6 +644,7 @@ family protection, and green management.
 
 
 \chapter{User Interfaces}
+\label{ch:user-interfaces}
 The main user interface for this system is the user's smart phone device. Most
 individuals have a smartphone, be it an iPhone or an Android device, and
 integration into these platforms would make it easy for users to adopt to the
