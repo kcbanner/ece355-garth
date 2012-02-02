@@ -207,17 +207,12 @@ replies to the SMS which then turns the thermostat off.
 
 \section{Use case model}
 
-\floatstyle{plain}
-\restylefloat{figure}
-
 \newlength{\originalParindent}
 \setlength{\originalParindent}{\parindent}
 \newlength{\originalParskip}
 \setlength{\originalParskip}{\parskip}
 \parindent 0pt
 \parskip 10pt
-
-\begin{figure}[h]
 
 \begin{tabular}{| l | p{12cm} |}
 \hline
@@ -245,7 +240,6 @@ Quality requirements & TODO \\ \hline
 
 \hline
 \end{tabular}
-\end{figure}
 
 \begin{tabular}{| l | p{12cm} |}
 \hline
@@ -508,11 +502,37 @@ Quality requirements & TODO \\ \hline
 \hline
 \end{tabular}
 
+\begin{tabular}{| l | p{12cm} |}
+\hline
+Use case name & \texttt{ThermostatReminder} \\ \hline
+Participating Actors & \texttt{Resident} participates. \\ \hline
+Flow of Events & 
+
+\begin{enumerate}
+ \item The \texttt{Resident} sets the house thermostat to hold a particular temperature.
+ \item The \texttt{Resident} arms the system. A thermostat hold timer begins counting.
+       this timer will be reset if the system is disarmed.
+ \item Once the timer reaches 24 hours, the system sends an SMS message to the \texttt{Resident}
+       to notify them that the thermostat has been in the hold state for 24 hours.
+ \item The \texttt{Resident} replies to the SMS message.
+ \item The system receives the SMS message from \texttt{Resident} and takes the thermostat
+       out of the hold temperature state, resuming the normal thermostat schedule.
+\end{enumerate}
+
+\\ \hline
+
+Entry Condition & The \texttt{Resident} sets the house thermostat to hold a particular
+                  temperature. \\ \hline
+Exit Condition &   \\ \hline
+Quality requirements & TODO \\ \hline
+
+\hline
+\end{tabular}
+
+
 % Reset floats back to normal and restore original parindent and parskip
 \setlength{\parindent}{\originalParindent}
 \setlength{\parskip}{\originalParskip}
-\floatstyle{boxed}
-\restylefloat{figure}
 
 \section{Object model}
 
