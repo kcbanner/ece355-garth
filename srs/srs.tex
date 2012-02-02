@@ -546,6 +546,15 @@ communicate to the controller their current data and the controller needs to
 communicate to the actuators. Data from the controller needs to be sent to a
 central server, which is then accessible through other user interfaces.
 
+There are several interfaces between the system and the users to inform and
+alert them of any issues. SMS text messages can be sent to the home owners if
+any alarms have been tripped. If the owner does not acknowledge the issue, then
+it is escalated to the security company for them judge the problem and possible
+call the local emergency services. Two user interfaces are provided to display
+data and set system states. The first is a mobile application and the second is
+a web interface. These user interfaces are described in more detail in
+Chapter~\ref{ch:user-interfaces}
+
 \subsection{Physical Hardware and Controller}
 %TODO :: rename section?
 The hardware such as sensors and actuators communicate wirelessly through
@@ -563,6 +572,9 @@ the graphical user interfaces. The controller sends data, as appropriate, to
 the server on a regular basis. The server stores the data in a database. The
 user accesses the data and can send state updates through an API exposed by the
 web server. 
+
+\subsection{System to User}
+% TODO :: put in a flow chart of the escallation system that can be used here.
 
 \chapter{Non-Functional Requirements}
 % TODO :: intro paragraph...
@@ -602,12 +614,29 @@ tampering, intentional or not, is also needed to protect maintain a safe
 system.
 
 \section{Performance}
-% - Controller needs to be able to handle all of the sensor requests
+The controller needs have enough throughput to be able to handle sensor events
+and data. The controller should have a scheduler that will prioritize requests
+from sensors based on criticality. Event driven sensors need to have
+confirmation from the base controller before dismissing the event. The
+controller and server should be able to communicate quickly in order to respond
+to events in real time. Data between components should be minimized to speed up
+response time.
 
 \section{Supportability}
-% - 
+Several levels of support are required. The system should be easily supported
+remotely for most minor issues. For major issues, parts should be sent back and
+replaced. Other issues should be handled by the discretion of the security
+company.
 
 \section{Implementation}
+Services should be offered by the security company or a contractor to install
+this system professionally for best results. An option should also be available
+for self-installation at the home owner's discretion. A list of sensors
+supported by the system needs to be available and these sensors should be
+readily available on the market. Users need to subscribe to the service
+provided by the security company. This will ensure that the system will be
+supported properly, offer optimal protection, and the setup will be maintained
+correctly.
 
 \section{System and Data Security}
 The system should be relatively secure. It needs to be able to
@@ -622,9 +651,21 @@ needs to be encrypted to ensure that if there is any data stolen from the
 database, that it will not be easily readable. This data should only be
 accessible by a select group of users.
 
-\section{Interface}
+%\section{Interface}
 
-\section{Operational}
+\section{Quality}
+% Downtime is completely arbitrary.
+The system must be reliable and be able to still operate even with missing
+sensors. Faults should be trapped and the user alerted of these occurances.
+This will allow the user to make repairs or replace faulty sensors or
+connections. Restarting the system after a failure such as a power outage
+should not take more then a minute for the main controller and the sensors
+should be able to start reporting their status as soon as they can connect to
+the main controller. Connections between base controller and sensors should be
+quick to connect. Downtime for sensors is dependent on sensor type and
+location. Controllers and critical sensors should have a downtime of less then
+1\% per 24-hour period. Less critical sensors should have a downtime of less
+then 5\% per 24-hour period. 
 
 \section{Packaging}
 Packaging requirements varies for each component. Each sensor should
@@ -652,12 +693,11 @@ family protection, and green management.
 
 
 \chapter{User Interfaces}
+\label{ch:user-interfaces}
 The main user interface for this system is the user's smart phone device. Most
 individuals have a smartphone, be it an iPhone or an Android device, and
 integration into these platforms would make it easy for users to adopt to the
 system.
-
-%Paired with near-field communication it will
 
 \section{Smartphone Application}
 \label{sec:mobile-app}
