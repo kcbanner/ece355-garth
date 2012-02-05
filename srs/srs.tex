@@ -10,11 +10,12 @@
 
 \floatstyle{boxed}
 \restylefloat{figure}
-\title{Green, Automated, R Home T}
-\author{Ben Ridder, Casey Banner, Zack Mac}
+%\title{Green, Automated, R Home T}
+%\author{Ben Ridder, Casey Banner, Zack Mac}
 
 \begin{document}
-\maketitle
+\input{title.tex}
+%\maketitle
 \tableofcontents
 \listoffigures
 
@@ -586,7 +587,6 @@ version. Network information such as the MAC addresses, and IP addresses of
 networked devices would also be available to the admin user from this interface.
 
 \subsection{System Alerts to Homeowner}
-% TODO :: put in a flow chart of the escallation system that can be used here.
 Besides the physical interfaces such as the hardware controller and user
 interfaces, the system alerts need to be interfaced with the user. The
 interaction between the system and the user needs to follow an escalation
@@ -733,13 +733,12 @@ location. Controllers and critical sensors should have a downtime of less then
 then 5\% per 24-hour period. 
 
 \section{Packaging}
-%TODO :: ruggidized? lol
 Packaging requirements varies for each component. Each sensor will be
 be individually packaged with wireless connectivity. High power sensors need to
 be plugged into a wall socket, but lower power sensors can be battery powered.
 If a sensor is battery powered, then the controller needs to be aware of its
 battery level. As mentioned previously, sensors located outdoor will be
-ruggidized against weather and wildlife. The controller needs to be wall
+ruggedized against weather and wildlife. The controller needs to be wall
 mounted near a common entrance to house.
 
 The whole system should be packaged for sale as one controller with a selection

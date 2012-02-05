@@ -10,4 +10,5 @@ beginfig(1);
   drawObjects(A);
 
 endfig;
+
 end
