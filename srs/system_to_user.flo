@@ -1,6 +1,18 @@
 Oval
     Alarm 
     Triggered
+Right
+Choice . . N Y
+    Is alarm 
+    major or
+    critical?
+Tag
+Right
+Oval
+    Sound local
+    notification
+ToTag
+Down
 Box
     Send SMS to
     homeowner.
@@ -50,6 +62,6 @@ Box
     emergency 
     services of
     the issue
-Box
+Oval
     End alarmed
     state
