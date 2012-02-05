@@ -11,9 +11,11 @@ beginfig(1);
   Class.SensorController("SensorController")
     ()
     ("+subscribeToEvent(event_type): void");
-
+  
   Class.SafetyController("SafetyController")()();
+
   Class.SecurityController("SecurityController")()();
+
   Class.EnergyController("EnergyController")()();
   
   leftToRight(20)(
