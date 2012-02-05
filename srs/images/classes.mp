@@ -204,8 +204,9 @@ endfig;
 
 beginfig(3);
   Class.Sensor("Sensor")
-    ("+sensorId: int")
-    ("+generateSensorEvent(): SensorEvent");
+    ("-sensorId: int")
+    ("+getSensorId(): int",
+      "+generateSensorEvent(): SensorEvent");
 
   classStereotypes.Sensor("<<interface>>");
 
@@ -274,4 +275,109 @@ beginfig(3);
   
 endfig;
 
+beginfig(4);
+  Class.InputDevice("InputDevice")
+    ("-deviceId: int")
+    ();
+
+  classStereotypes.Sensor("<<interface>>");
+
+  Class.KeypadInputDevice("KeypadInputDevice")
+    ()
+    ("-generateKeypadEvent(): KeypadEvent");
+
+  Class.NFCReaderInputDevice("NFCReaderInputDevice")
+    ()
+    ("-generateNFCEvent(): NFCEvent");
+
+  leftToRight.top(20)(
+      KeypadInputDevice,
+      NFCReaderInputDevice);
+  topToBottom(50)(
+      InputDevice,
+      KeypadInputDevice);
+  
+  drawObjects(
+      InputDevice,
+      KeypadInputDevice,
+      NFCReaderInputDevice);
+  
+  stepY := -20;
+  stepX := 60;
+  
+  link(inheritance)(pathStepY(
+        InputDevice.s,
+        KeypadInputDevice.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        InputDevice.s,
+        NFCReaderInputDevice.n,
+        stepY));
+  
+endfig;
+
+beginfig(5);
+  Class.AlarmDevice("AlarmDevice")
+    ("-deviceId: int")
+    ();
+
+  classStereotypes.AlarmDevice("<<interface>>");
+
+  Class.SirenAlarm("SirenAlarm")
+    ("-activated:boolean")
+    ("setActivated(activated: boolean): void");
+
+  Class.SpeechAlarm("SpeechAlarm")
+    ("-message:String", "-repeat:boolean")
+    ("+playMessage(message: String, repeat: boolean): void",
+      "+stopPlaying(): void");
+
+  Class.SMSAlarm("SMSAlarm")
+    ()
+    ("+sendMessage(phoneNumber: String, message: String): void");
+
+  Class.ExternalAlarm("ExternalAlarm")
+    ()
+    ("+externalAlarm(externalURL: String, alarmEvent: AlarmEvent): void");
+  
+  leftToRight.top(20)(
+      SirenAlarm,
+      SpeechAlarm);
+  leftToRight.top(20)(
+      SMSAlarm,
+      ExternalAlarm);
+  topToBottom(50)(
+      AlarmDevice,
+      SpeechAlarm,
+      ExternalAlarm);
+
+  drawObjects(
+      AlarmDevice,
+      SirenAlarm,
+      SpeechAlarm,
+      SMSAlarm,
+      ExternalAlarm);
+  
+  stepY := -20;
+  stepX := 60;
+  
+  link(inheritance)(pathStepY(
+        AlarmDevice.s,
+        SirenAlarm.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        AlarmDevice.s,
+        SpeechAlarm.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        AlarmDevice.s,
+        SMSAlarm.n - (50, 0),
+        stepY));
+  link(inheritance)(pathStepY(
+        AlarmDevice.s,
+        ExternalAlarm.n + (140, 0),
+        stepY));
+  
+endfig;
+  
 end
