@@ -562,7 +562,8 @@ Chapter~\ref{ch:user-interfaces}
 \subsection{Physical Hardware and Controller}
 %TODO :: rename section?
 %TODO :: there is an incomplete sentence here, not sure what it is supposed to say
-The hardware such as sensors and actuators communicate wirelessly through
+% WHAT SENTENCE?!
+The hardware, such as sensors and actuators, communicate wirelessly through
 bluetooth to the controller. Two way communication is required as the hardware
 needs to be able to register with the controller. The controller will also be
 able to poll each sensor on a regular schedule to ensure that they are
@@ -578,27 +579,43 @@ the server on a regular basis. The server stores the data in a database. The
 user accesses the data and can send state updates through an API exposed by the
 web server. 
 
-\subsection{System to User}
+\subsection{System Alerts to Homeowner}
 % TODO :: put in a flow chart of the escallation system that can be used here.
+Besides the physical interfaces such as the hardware controller and user
+interfaces, the system alerts need to be interfaced with the user. The
+interaction between the system and the user needs to follow an escalation
+system to ensure that alarms are responded to appropriately and quickly.
 
+Figure~\ref{fig:system_to_user_chart} shows the required flow of the escalation
+path. When an alarm is triggered, the system should first send an SMS message
+to the homeowner and wait a minimum period of time for a response via another
+SMS reply or a phone call. If the homeowner responses, then end the alarm
+state. Otherwise, inform the security company of the issue. The security
+company then calls the homeowner. If the homeowner picks up the call, then end
+the alarm state. Otherwise, the company needs to make an informed decision
+based on the severity of the alarm to either send one of their own employees
+or to call the local emergancy services. End the alarm state at this point.
 
 \begin{figure}[hp]
     \centering
-        \caption{}
+        \caption{System Alerts to Homeowner Escalation Flow Chart}
+        \scriptsize
         \setlength{\unitlength}{2.0em}
         \include{system_to_user}
+        \normalsize
     \label{fig:system_to_user_chart}
 \end{figure}
+
 \chapter{Non-Functional Requirements}
 There are specific requirements of the GARTH system that do not particularly
 pertain to how the system behaves. Usability requirements are crucial since the
-system needs to be adaptable to many different households that contain different
-family members. Reliability, performance, quality, and support requirements detail 
-how well the system performs, and what should happen in case of a critical system 
-failure. Implementation and packaging requirements address the installation
-and configuration of a GARTH system when it arrives in a new home. Other 
-requirements such as legality and data security are also important to make sure
-the user is protected in all cases.
+system needs to be adaptable to many different households that contain
+different family members. Reliability, performance, quality, and support
+requirements detail how well the system performs, and what should happen in
+case of a critical system failure. Implementation and packaging requirements
+address the installation and configuration of a GARTH system when it arrives in
+a new home. Other requirements such as legality and data security are also
+important to make sure the user is protected in all cases.
 
 
 \section{Usability}
@@ -607,12 +624,12 @@ variety of different users. It should be usuable by school-aged children,
 adults, caretakers and babysitters, and house cleaners. Unique user IDs need to
 be assigned for each user of the system. These IDs will allow for greater
 control over what each user can access or use. Users should only require
-minimal training on how to arm and disarm the system. Also, the user will be able 
-to decide which family members will have NFC devices in order to arm and disarm 
-the various alarms and systems in the home.  Only parents, or the owner of the 
-house, need to be fully trained on the entire system. The system should be 
-intuitive and seemless in day to day life. Input and output devices should be 
-simple to use.
+minimal training on how to arm and disarm the system. Also, the user will be
+able to decide which family members will have NFC devices in order to arm and
+disarm the various alarms and systems in the home.  Only parents, or the owner
+of the house, need to be fully trained on the entire system. The system should
+be intuitive and seemless in day to day life. Input and output devices should
+be simple to use.
 
 % More about why the system needs to be intuitive
 
