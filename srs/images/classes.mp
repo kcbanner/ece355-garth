@@ -53,7 +53,7 @@ endfig;
 
 beginfig(2);
   Class.Event("Event")
-    ("+type:int",
+    ("+type:EventType",
       "+timestamp:int")
     ();    
   classStereotypes.Event("<<interface>>");
@@ -69,6 +69,19 @@ beginfig(2);
     ();
   classStereotypes.SensorEvent("<<interface>>");
 
+  Class.InputEvent("InputEvent")
+    ("+inputType:InputType")
+    ();
+  classStereotypes.InputEvent("<<interface>>");
+
+  Class.KeypadEvent("KeypadEvent")
+    ("+input:char")
+    ();
+
+  Class.NFCEvent("NFCEvent")
+    ("+data:String")
+    ();
+  
   Class.DoorSensorEvent("DoorSensorEvent")
     ("+doorId:int",
       "+opened:boolean")
@@ -81,7 +94,7 @@ beginfig(2);
 
   Class.FloodSensorEvent("FloodSensorEvent")
     ("+waterHeight:int",
-      "+rising:boolean")
+      "+delta:int")
     ();
 
   Class.TempSensorEvent("TempSensorEvent")
@@ -89,25 +102,30 @@ beginfig(2);
       "+delta:int")
     ();
   
-  leftToRight.top(20)(SensorEvent, AlarmEvent);
+  leftToRight.top(20)(SensorEvent, AlarmEvent, InputEvent);
   leftToRight.top(20)(
       DoorSensorEvent,
       WindowSensorEvent,
       FloodSensorEvent,
-      TempSensorEvent);
+      TempSensorEvent,
+      KeypadEvent,
+      NFCEvent);
   topToBottom(50)(
       Event,
-      SensorEvent,
-      WindowSensorEvent);
+      AlarmEvent,
+      TempSensorEvent);
   
   drawObjects(
       Event,
       SensorEvent,
       AlarmEvent,
+      InputEvent,
       DoorSensorEvent,
       WindowSensorEvent,
       FloodSensorEvent,
-      TempSensorEvent);
+      TempSensorEvent,
+      KeypadEvent,
+      NFCEvent);
   
   stepY := -20;
   stepX := 60;
@@ -119,6 +137,10 @@ beginfig(2);
   link(inheritance)(pathStepY(
         Event.s,
         AlarmEvent.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Event.s,
+        InputEvent.n,
         stepY));
   link(inheritance)(pathStepY(
         SensorEvent.s,
@@ -135,6 +157,14 @@ beginfig(2);
   link(inheritance)(pathStepY(
         SensorEvent.s,
         TempSensorEvent.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        InputEvent.s,
+        KeypadEvent.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        InputEvent.s,
+        NFCEvent.n,
         stepY));
   
 endfig;
