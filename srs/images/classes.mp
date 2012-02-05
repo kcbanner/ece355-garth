@@ -6,19 +6,49 @@ beginfig(1);
     ()
     ("+handleEvent(event): void");
 
-  Controller.nw = (0, 0);
   classStereotypes.Controller("<<interface>>");
 
   Class.SensorController("SensorController")
     ()
     ("+subscribeToEvent(event_type): void");
 
-  SensorController.n = Controller.s - (0, 50);
+  Class.SafetyController("SafetyController")()();
+  Class.SecurityController("SecurityController")()();
+  Class.EnergyController("EnergyController")()();
   
-  drawObjects(Controller);
-  drawObjects(SensorController);
+  leftToRight(20)(
+      SensorController,
+      SafetyController,
+      SecurityController,
+      EnergyController);
+  topToBottom(50)(Controller, SafetyController);
+  
+  drawObjects(
+      Controller,
+      SensorController,
+      SafetyController,
+      SecurityController,
+      EnergyController);
 
-  link(association)(Controller.s -- SensorController.n);
+  stepY := -20;
+  stepX := 60;
+  
+  link(inheritance)(pathStepY(
+        Controller.s,
+        SensorController.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Controller.s,
+        SafetyController.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Controller.s,
+        SecurityController.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Controller.s,
+        EnergyController.n,
+        stepY));
   
 endfig;
 
