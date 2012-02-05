@@ -544,12 +544,13 @@ Quality requirements & TODO \\ \hline
 There are two interfaces between the components. The sensors need a way to
 communicate to the controller their current data and the controller needs to
 communicate to the actuators. Data from the controller needs to be sent to a
-central server, which is then accessible through other user interfaces.
+central server, which is then accessible through other user interfaces. The following
+interfaces will help fulfill these requirements.
 
 There are several interfaces between the system and the users to inform and
 alert them of any issues. SMS text messages can be sent to the home owners if
 any alarms have been tripped. If the owner does not acknowledge the issue, then
-it is escalated to the security company for them judge the problem and possible
+it is escalated to the security company for them judge the problem and if required,
 call the local emergency services. Two user interfaces are provided to display
 data and set system states. The first is a mobile application and the second is
 a web interface. These user interfaces are described in more detail in
@@ -557,9 +558,10 @@ Chapter~\ref{ch:user-interfaces}
 
 \subsection{Physical Hardware and Controller}
 %TODO :: rename section?
+%TODO :: there is an incomplete sentence here, not sure what it is supposed to say
 The hardware such as sensors and actuators communicate wirelessly through
 bluetooth to the controller. Two way communication is required as the hardware
-needs to be able to register with the controller. The controller should also be
+needs to be able to register with the controller. The controller will also be
 able to poll each sensor on a regular schedule to ensure that they are
 operational and functioning properly. Examples of these sensors include
 temperature, Some sensors need to report their status when an event occurs so
@@ -585,7 +587,16 @@ web server.
     \label{fig:system_to_user_chart}
 \end{figure}
 \chapter{Non-Functional Requirements}
-% TODO :: intro paragraph...
+There are specific requirements of the GARTH system that do not particularly
+pertain to how the system behaves. Usability requirements are crucial since the
+system needs to be adaptable to many different households that contain different
+family members. Reliability, performance, quality, and support requirements detail 
+how well the system performs, and what should happen in case of a critical system 
+failure. Implementation and packaging requirements address the installation
+and configuration of a GARTH system when it arrives in a new home. Other 
+requirements such as legality and data security are also important to make sure
+the user is protected in all cases.
+
 
 \section{Usability}
 There are several usability requirements since the system will be used by a
@@ -593,10 +604,12 @@ variety of different users. It should be usuable by school-aged children,
 adults, caretakers and babysitters, and house cleaners. Unique user IDs need to
 be assigned for each user of the system. These IDs will allow for greater
 control over what each user can access or use. Users should only require
-minimal training on how to arm and disarm the system. Only parents, or the
-owner of the house, need to be fully trained on the entire system. The system
-should be intuitive and seemless in day to day life. Input and output devices
-should be simple to use. 
+minimal training on how to arm and disarm the system. Also, the user will be able 
+to decide which family members will have NFC devices in order to arm and disarm 
+the various alarms and systems in the home.  Only parents, or the owner of the 
+house, need to be fully trained on the entire system. The system should be 
+intuitive and seemless in day to day life. Input and output devices should be 
+simple to use.
 
 % More about why the system needs to be intuitive
 
@@ -623,64 +636,79 @@ system.
 
 \section{Performance}
 The controller needs have enough throughput to be able to handle sensor events
-and data. The controller should have a scheduler that will prioritize requests
-from sensors based on criticality. Event driven sensors need to have
+and data. The controller will be able to interpret sensor interrupts in parallel, and 
+schedule those requests based on criticality. Event driven sensors need to have
 confirmation from the base controller before dismissing the event. The
-controller and server should be able to communicate quickly in order to respond
-to events in real time. Data between components should be minimized to speed up
-response time.
+controller and server will be able to communicate rapidly in order to respond
+to events in real time. Data between components will be minimized to speed up
+response time. Components that are able to be hard-wired easily throughout the
+home will be done so as to reduce latency.
 
 \section{Supportability}
-Several levels of support are required. The system should be easily supported
-remotely for most minor issues. For major issues, parts should be sent back and
-replaced. Other issues should be handled by the discretion of the security
-company.
+%TODO :: define RMA
+Several levels of support are required. The system will be easily supported
+remotely for most minor issues. Occasional firmware updates will be installed
+remotely to fix software bugs as they arise. These updates do not require any cues
+from the user to initiate, and will commence when the system is disarmed and
+in an idle state so that important events are not likely to be missed. For major hardware
+issues, parts should be sent back and replaced via a standard RMA procedure. 
+Other issues should be handled by the  discretion of the security company. A 
+contact number for the security company will be located on all of the consoles 
+within the home.
 
 \section{Implementation}
 Services should be offered by the security company or a contractor to install
-this system professionally for best results. An option should also be available
+this system professionally for best results. Since a full home installation will
+require some degree of networking experience, it is recommended that a
+professional does perform the installation. However, an option will also be available
 for self-installation at the home owner's discretion. A list of sensors
-supported by the system needs to be available and these sensors should be
+supported by the system will be available to the user and these sensors should be
 readily available on the market. Users need to subscribe to the service
 provided by the security company. This will ensure that the system will be
 supported properly, offer optimal protection, and the setup will be maintained
-correctly.
+correctly. There will also be a market for new-home installation. This means that
+a user will be able to purchase the GARTH system even before their new house is
+built. This ensures that all infrastructure is assembled correctly and gives the user
+the option to have all main components hard-wired instead of relying on wireless
+technology.
 
 \section{System and Data Security}
-The system should be relatively secure. It needs to be able to
-withstand most attempts to tamper with it by either alerting the users when
-sensors are missing or malfunctioning or by having enclosures and packaging
-capable of withstanding attack. Wireless information transmitted between nodes
-should be encrypted to ensure that traffic sniffing cannot be used against the
+The system will have a robust level of security to protect itself and its data. It 
+will be able to withstand most attempts to tamper with it by either alerting 
+the users when sensors are missing or malfunctioning or by having enclosures and 
+packaging capable of withstanding attack. Wireless information transmitted between 
+nodes should be encrypted to ensure that traffic sniffing cannot be used against the
 users.
 
-Data security also needs to be accounted for. Any and all data stored off site
+Data security also needs to be accounted for. Important user data will be stored
+and backed-up off site at the user's request Any and all data stored off site
 needs to be encrypted to ensure that if there is any data stolen from the
 database, that it will not be easily readable. This data should only be
-accessible by a select group of users.
+accessible by a select group of users that the homeowners will decide upon.
 
 %\section{Interface}
 
 \section{Quality}
 % Downtime is completely arbitrary.
-The system must be reliable and be able to still operate even with missing
-sensors. Faults should be trapped and the user alerted of these occurances.
+The system will be reliable and be able to still operate even with missing
+sensors. Faults will be trapped and the user alerted of these occurances.
 This will allow the user to make repairs or replace faulty sensors or
 connections. Restarting the system after a failure such as a power outage
 should not take more then a minute for the main controller and the sensors
-should be able to start reporting their status as soon as they can connect to
-the main controller. Connections between base controller and sensors should be
+will be able to start reporting their status as soon as they can connect to
+the main controller. Connections between base controller and sensors will be
 quick to connect. Downtime for sensors is dependent on sensor type and
 location. Controllers and critical sensors should have a downtime of less then
 1\% per 24-hour period. Less critical sensors should have a downtime of less
 then 5\% per 24-hour period. 
 
 \section{Packaging}
-Packaging requirements varies for each component. Each sensor should
+%TODO :: ruggidized? lol
+Packaging requirements varies for each component. Each sensor will be
 be individually packaged with wireless connectivity. High power sensors need to
 be plugged into a wall socket, but lower power sensors can be battery powered.
 If a sensor is battery powered, then the controller needs to be aware of its
-battery level. As mentioned previously, sensors located outdoor need to be
+battery level. As mentioned previously, sensors located outdoor will be
 ruggidized against weather and wildlife. The controller needs to be wall
 mounted near a common entrance to house.
 
