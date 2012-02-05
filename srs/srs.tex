@@ -10,8 +10,8 @@
 
 \floatstyle{boxed}
 \restylefloat{figure}
-\title{Green, Automated, R Home T}
-\author{Ben Ridder, Casey Banner, Zack Mac}
+\title{Green, Aware, and Responsive Total Home}
+\author{Ben Ridder, Casey Banner, Zack MacLennan}
 
 \begin{document}
 \maketitle
@@ -46,11 +46,13 @@ of health problems or to control the HVAC so that energy is not wasted when
 nobody is home or they are all asleep. Cameras, motion detectors, hall effect
 sensors, and other miscellaneous sensors comprise the majority of this network.
 
-Cameras play multiple roles in the sensor network. Facial recognition can be
-used to detect family members entering and leaving the house to track their
-activities. They can be used to alert when strangers are approaching the door
-or are on the premises in either a friendly manner or in a more cautious one
-depending on the family members currently at home.
+Cameras play multiple roles in the sensor network. Cameras positioned outside
+the home will monitor activity throughout the day, with particular attention paid
+to the entrances to the home. If an intruder approaches the home and tries to
+break in, cameras will have filmed the incident in hopes to be able to identify
+the trespeasser regardless of whether or not the break-in attempt was successful.
+Footage will be stored in a database and then deleted after a certain period of
+time.
 
 Motion detectors provide the security system with the means to trigger alerts 
 when motion is detected in certain areas of the home while the system is armed.
@@ -77,13 +79,41 @@ home security system. Sensors will be implemented on cabinets as well as
 certain areas of the home that may contain hazardous materials that could be
 harmful to children. Contact sensors will be present on medicine cabinets,
 closets with cleaning materials, and knife drawers to alert the user that these
-areas of the home have been accessed.
+areas of the home have been accessed. Unlike the home security system
+included in GARTH, these sensors are always active and do not need to be
+armed to function properly. 
 
-\subsection{Security System}
+Child bedroom safety is also important, and can be part of a system catered 
+towards families with infants who still sleep in cribs. Sensors in the child's room 
+will be able to detect movement throughout the night to alert the parents of any 
+disturbances. This system can be armed by the parents after putting their child
+to sleep for the night via a console in the bedroom.
+
+\subsection{Home Security System}
+
+The home security system is one of main aspects of the GARTH system as a
+whole. Like many modern home security systems it has two main states; armed
+and disarmed. Users can arm the system via the consoles near the exits to the
+home, using either a keypad code or an NFC device. Once armed, the security
+system is in a ready state that will react to sensor inputs such as the window
+sensors, hallway motion detectors, and other unauthorized home entry sensors.
+If these sensors detect unexpected activity while armed, a critical alarm is sounded.
+Other home security subsystems include basement flood detection, carbon 
+monoxide detection, and warnings if the oven and/or stove have been left on
+for extended periods of time.
 
 \subsection{Green Energy Management}
 
-
+Another aspect of the GARTH system is its green energy monitoring system. The
+system includes a few ways to provide the user with green energy savings by
+monitoring wasteful activity in the home. For example, sensors on the fridge and 
+the freezer will be ready to detect if their doors have been left open for a long period
+of time and will alert the user. One of the main ways that GARTH accomplishes
+green energy management of the home is by monitoring and controlling thermostat 
+usage. If the homeowners leave the thermostat on when nobody is home, the
+system will alert the user to turn the thermostat off remotely. Also, GARTH includes
+a smart control of the thermostat overnight such that the system runs in a high-efficiency
+mode during the night when heat in the home is not as important.
 
 \section{Scenarios}
 
@@ -185,7 +215,7 @@ of the event.
 \subsection*{Carbon Monoxide Detection}
 
 The furnace malfunctions and carbon monoxide gas begins leaking into the
-basement.  The basement's carbon monoxide detector senses that CO levels are
+basement. The basement's carbon monoxide detector senses that CO levels are
 rising and alerts resident via SMS. Carbon monoxide continues to leak and the
 allowable CO level has been reached. The carbon monoxide detector goes into its
 alarm state, notifying the resident via SMS and sounding an audible alarm
