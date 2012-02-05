@@ -4,25 +4,28 @@ input metauml;
 beginfig(1);
   Class.Controller("Controller")
     ()
-    ("+handleEvent(event: Event): void",
-     "+subscribeToEvent(eventType: EventType): void");
+    ("-pollSensor(sensorId: int)",
+      "+handleEvent(event: Event): void",
+      "+subscribeToEvent(eventType: EventType): void");
 
   classStereotypes.Controller("<<interface>>");
 
   Class.SensorController("SensorController")
     ()
-    ("-handleSensorInput(event: SensorEvent)");
+    ("-handleSensorInput(event: SensorEvent)",
+      "-pollSensor(sensorId: int)");
 
   Class.SystemController("SystemController")
     ()
-    ("-handleNFCInput(event: NFCEvent)",
+    ("-logEventToServer(event: Event)",
+      "-handleNFCInput(event: NFCEvent)",
       "-handleKeypadInput(event: KeypadEvent)");
   
   Class.AlarmController("AlarmController")
     ()
-    ("-handleMajorAlarm(event: AlarmEvent)",
-      "-handleMinarAlarm(event: AlarmEvent)",
-      "-handleNotification(event: AlarmEvent)");
+    ("-handleCriticalAlarm(event: AlarmEvent)",
+      "-handleMajorAlarm(event: AlarmEvent)",
+      "-handleMinor(event: AlarmEvent)");
   
   leftToRight.top(20)(
       SensorController,
@@ -69,9 +72,9 @@ beginfig(2);
   classStereotypes.EventType("<<enumeration>>");
 
   Class.AlarmSeverity("AlarmSeverity")
-    ("+ExternalAlarm",
-      "+InternalAlarm",
-      "+Notification")
+    ("+CriticalAlarm",
+      "+MajorAlarm",
+      "+MinorAlarm")
     ();
   AlarmSeverity.info.iMethodStack.top := 0;
   AlarmSeverity.info.iMethodStack.bottom := 0;
@@ -196,6 +199,78 @@ beginfig(2);
         InputEvent.s,
         NFCEvent.n,
         stepY));
+  
+endfig;
+
+beginfig(3);
+  Class.Sensor("Sensor")
+    ("+sensorId: int")
+    ("+generateSensorEvent(): SensorEvent");
+
+  classStereotypes.Sensor("<<interface>>");
+
+  Class.DoorSensor("DoorSensor")
+    ("-doorId: int")
+    ("+getDoorId(): int");
+
+  Class.WindowSensor("WindowSensor")
+    ("-windowId: int")
+    ("+getWindowId(): int");
+
+  Class.FloodSensor("FloodSensor")
+    ("-lastWaterHeight: int",)
+    ("+getWaterHeight(): int");
+  
+  Class.TempSensor("TempSensor")
+    ("-lastTemperature: int",)
+    ("+getTemperature(): int");
+
+  Class.MotionSensor("MotionSensor")
+    ("-motionThreshold: int")
+    ("+setMotionThreshold(threshold: int): void");
+
+  leftToRight.top(20)(
+      DoorSensor,
+      WindowSensor,
+      FloodSensor,
+      TempSensor,
+      MotionSensor);
+  topToBottom(50)(
+      Sensor,
+      FloodSensor);
+  
+  drawObjects(
+      Sensor,
+      DoorSensor,
+      WindowSensor,
+      FloodSensor,
+      TempSensor,
+      MotionSensor);
+  
+  stepY := -20;
+  stepX := 60;
+
+  link(inheritance)(pathStepY(
+        Sensor.s,
+        DoorSensor.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Sensor.s,
+        WindowSensor.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Sensor.s,
+        FloodSensor.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Sensor.s,
+        TempSensor.n,
+        stepY));
+  link(inheritance)(pathStepY(
+        Sensor.s,
+        MotionSensor.n,
+        stepY));
+
   
 endfig;
 
