@@ -2,12 +2,23 @@ filenametemplate "%j%c.mps";
 input metauml;
 
 beginfig(1);
-  Class.A("A")
-    ("attr1: int", "attr2: int")
-    ("method1(): void", "method2(): int");
+  Class.Controller("Controller")
+    ()
+    ("+handleEvent(event): void");
 
-  A.nw = (0, 0);
-  drawObjects(A);
+  Controller.nw = (0, 0);
+  classStereotypes.Controller("<<interface>>");
 
+  Class.SensorController("SensorController")
+    ()
+    ("+subscribeToEvent(event_type): void");
+
+  SensorController.n = Controller.s - (0, 50);
+  
+  drawObjects(Controller);
+  drawObjects(SensorController);
+
+  link(association)(Controller.s -- SensorController.n);
+  
 endfig;
 end
