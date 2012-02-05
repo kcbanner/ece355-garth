@@ -182,28 +182,31 @@ of the event.
 
 \subsection*{Carbon Monoxide Detection}
 
-The furnace malfunctions and carbon monoxide gas begins leaking into the basement.
-The basement's carbon monoxide detector senses that CO levels are rising and alerts
-resident via SMS. Carbon monoxide continues to leak and the allowable CO level has
-been reached. The carbon monoxide detector goes into its alarm state, notifying the
-resident via SMS and sounding an audible alarm throughout the house.
+The furnace malfunctions and carbon monoxide gas begins leaking into the
+basement.  The basement's carbon monoxide detector senses that CO levels are
+rising and alerts resident via SMS. Carbon monoxide continues to leak and the
+allowable CO level has been reached. The carbon monoxide detector goes into its
+alarm state, notifying the resident via SMS and sounding an audible alarm
+throughout the house.
 
 \subsection*{Flood Detection}
 %TODO define alarm states (minor, intermediate, major?)
 
-The basement's sump pump fails and groundwater begins to seep into the basement.
-Flood detectors installed in the system detect that water has risen above the 
-acceptable level. The resident is notified via SMS that the basement is flooded, and
-a minor alarm is sounded throughout the home to alert the residents of the flood.
+The basement's sump pump fails and groundwater begins to seep into the
+basement.  Flood detectors installed in the system detect that water has risen
+above the acceptable level. The resident is notified via SMS that the basement
+is flooded, and a minor alarm is sounded throughout the home to alert the
+residents of the flood.
 
 \subsection*{Thermostat Left On}
 %TODO define home inactivity
 
-The residents of the home have the thermostat set to hold at 73 degrees Fahrenheit.
-The residents leave for vacation, but forget to turn the thermostat off. After 24 hours
-of home inactivity, the system sends an SMS to the resident to let them know that
-the thermostat has been set while nobody has been home for 24 hours. The resident
-replies to the SMS which then turns the thermostat off.
+The residents of the home have the thermostat set to hold at 73 degrees
+Fahrenheit.  The residents leave for vacation, but forget to turn the
+thermostat off. After 24 hours of home inactivity, the system sends an SMS to
+the resident to let them know that the thermostat has been set while nobody has
+been home for 24 hours. The resident replies to the SMS which then turns the
+thermostat off.
 
 \section{Use case model}
 
@@ -572,13 +575,26 @@ interrupts to correctly collect all data.
 \subsection{Server}
 The server acts as the man in the middle interface between the controller and
 the graphical user interfaces. The controller sends data, as appropriate, to
-the server on a regular basis. The server stores the data in a database. The
-user accesses the data and can send state updates through an API exposed by the
-web server. 
+the server on a regular basis. This includes valuable information such as
+a timestamped log file that records system events as well as periodic system
+behaviour such as house temperature and arm states. The server stores the data in a 
+database. The user accesses the data and can send state updates through an API 
+exposed by the web server. This interface would allow an admin user to view the
+logs, as well as see information about the system such as the system's firmware 
+version. Network information such as the MAC addresses, and IP addresses of 
+networked devices would also be available to the admin user from this interface.
 
 \subsection{System to User}
 % TODO :: put in a flow chart of the escallation system that can be used here.
 
+
+\begin{figure}[hp]
+    \centering
+        \caption{}
+        \setlength{\unitlength}{2.0em}
+        \include{system_to_user}
+    \label{fig:system_to_user_chart}
+\end{figure}
 \chapter{Non-Functional Requirements}
 There are specific requirements of the GARTH system that do not particularly
 pertain to how the system behaves. Usability requirements are crucial since the
@@ -604,7 +620,11 @@ house, need to be fully trained on the entire system. The system should be
 intuitive and seemless in day to day life. Input and output devices should be 
 simple to use.
 
-% More about why the system needs to be intuitive
+The system should be very intuitive, and will be designed as such. The
+importance of an intuitive interface is paramount when it comes to home
+security, as the user needs to be able to accomplish what they want in a
+potentially unsafe and hazardous situation. A school-aged child should be able to
+know what to do if they are home alone and an alarm goes off.
 
 \section{Reliability}
 Reliability is essiential. The system needs to be able to handle two worse case
