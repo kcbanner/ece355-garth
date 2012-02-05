@@ -564,16 +564,14 @@ Chapter~\ref{ch:user-interfaces}
 
 \subsection{Physical Hardware and Controller}
 %TODO :: rename section?
-%TODO :: there is an incomplete sentence here, not sure what it is supposed to say
-% WHAT SENTENCE?!
 The hardware, such as sensors and actuators, communicate wirelessly through
 bluetooth to the controller. Two way communication is required as the hardware
 needs to be able to register with the controller. The controller will also be
 able to poll each sensor on a regular schedule to ensure that they are
 operational and functioning properly. Examples of these sensors include
-temperature, Some sensors need to report their status when an event occurs so
-the controller interface needs to be able to handle tight polling with
-interrupts to correctly collect all data.
+temperature, motion, and hall effect sensors. Some sensors need to report their
+status when an event occurs so the controller interface needs to be able to
+handle tight polling with interrupts to correctly collect all data.
 
 \subsection{Server}
 The server acts as the man in the middle interface between the controller and
