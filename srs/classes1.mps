@@ -2,7 +2,7 @@
 %%BoundingBox: -183 -187 399 1 
 %%HiResBoundingBox: -182.64357 -186.24649 398.49855 0.25 
 %%Creator: MetaPost 1.504
-%%CreationDate: 2012.02.06:1121
+%%CreationDate: 2012.02.06:1237
 %%Pages: 1
 %*Font: ptmr8r 6.97382 9.96265 3c:a00000000564228
 %*Font: ptmr8r 9.96265 9.96265 20:80c00020565618007defbe4
@@ -321,20 +321,20 @@ newpath 16.7255 -178.02156 moveto
  0.7 0.7 0.7 setrgbcolor
 newpath 217.42584 -112.48734 moveto
 398.49855 -112.48734 lineto
-398.49855 -165.24649 lineto
-217.42584 -165.24649 lineto
+398.49855 -175.74649 lineto
+217.42584 -175.74649 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
 newpath 216.42584 -111.48734 moveto
 397.49855 -111.48734 lineto
-397.49855 -164.24649 lineto
-216.42584 -164.24649 lineto
+397.49855 -174.74649 lineto
+216.42584 -174.74649 lineto
  closepath fill
  0 0 0 setrgbcolor 0 0.5 dtransform truncate idtransform setlinewidth pop
 newpath 216.42584 -111.48734 moveto
 397.49855 -111.48734 lineto
-397.49855 -164.24649 lineto
-216.42584 -164.24649 lineto
+397.49855 -174.74649 lineto
+216.42584 -174.74649 lineto
  closepath stroke
 newpath 216.42584 -124.24191 moveto
 397.49855 -124.24191 lineto stroke
@@ -343,10 +343,12 @@ newpath 216.42584 -128.74191 moveto
 273.75713 -121.24191 moveto
 (AlarmController) ptmr8r 9.96265 fshow
 229.42584 -139.24649 moveto
-(handleCriticalAlarm\(event:\040AlarmEvent\)) ptmr8r 9.96265 fshow
+(stopAlarms\(\)) ptmr8r 9.96265 fshow
 229.42584 -149.74649 moveto
-(handleMajorAlarm\(event:\040AlarmEvent\)) ptmr8r 9.96265 fshow
+(handleCriticalAlarm\(event:\040AlarmEvent\)) ptmr8r 9.96265 fshow
 229.42584 -160.24649 moveto
+(handleMajorAlarm\(event:\040AlarmEvent\)) ptmr8r 9.96265 fshow
+229.42584 -170.74649 moveto
 (handleMinor\(event:\040AlarmEvent\)) ptmr8r 9.96265 fshow
  0.4 0.4 0.4 setrgbcolor
 newpath 218.42584 -136.54654 moveto
@@ -366,10 +368,6 @@ newpath 224.37589 -136.54654 moveto
 219.4758 -135.49658 lineto
 218.42584 -136.54654 lineto
  closepath fill
- 0.3 0.3 0.3 setrgbcolor 0 0.79701 dtransform truncate idtransform setlinewidth pop
-newpath 220.00082 -136.02156 moveto
-219.9394 -134.29906 220.44867 -132.49649 221.92584 -132.49649 curveto
-223.40302 -132.49649 223.91228 -134.29906 223.85086 -136.02156 curveto stroke
  0.4 0.4 0.4 setrgbcolor
 newpath 218.42584 -147.04654 moveto
 224.37589 -147.04654 lineto
@@ -388,7 +386,7 @@ newpath 224.37589 -147.04654 moveto
 219.4758 -145.99658 lineto
 218.42584 -147.04654 lineto
  closepath fill
- 0.3 0.3 0.3 setrgbcolor
+ 0.3 0.3 0.3 setrgbcolor 0 0.79701 dtransform truncate idtransform setlinewidth pop
 newpath 220.00082 -146.52156 moveto
 219.9394 -144.79906 220.44867 -142.99649 221.92584 -142.99649 curveto
 223.40302 -142.99649 223.91228 -144.79906 223.85086 -146.52156 curveto stroke
@@ -414,6 +412,28 @@ newpath 224.37589 -157.54654 moveto
 newpath 220.00082 -157.02156 moveto
 219.9394 -155.29906 220.44867 -153.49649 221.92584 -153.49649 curveto
 223.40302 -153.49649 223.91228 -155.29906 223.85086 -157.02156 curveto stroke
+ 0.4 0.4 0.4 setrgbcolor
+newpath 218.42584 -168.04654 moveto
+224.37589 -168.04654 lineto
+224.37589 -170.74649 lineto
+218.42584 -170.74649 lineto
+ closepath fill
+ 0.7 0.7 0.7 setrgbcolor
+newpath 224.37589 -170.74649 moveto
+225.42584 -169.69653 lineto
+225.42584 -166.99658 lineto
+224.37589 -168.04654 lineto
+ closepath fill
+ 0.6 0.6 0.6 setrgbcolor
+newpath 224.37589 -168.04654 moveto
+225.42584 -166.99658 lineto
+219.4758 -166.99658 lineto
+218.42584 -168.04654 lineto
+ closepath fill
+ 0.3 0.3 0.3 setrgbcolor
+newpath 220.00082 -167.52156 moveto
+219.9394 -165.79906 220.44867 -163.99649 221.92584 -163.99649 curveto
+223.40302 -163.99649 223.91228 -165.79906 223.85086 -167.52156 curveto stroke
  0 0 0 setrgbcolor 0 0.5 dtransform truncate idtransform setlinewidth pop
 newpath 104.78818 -61.48734 moveto
 104.78818 -81.48734 lineto

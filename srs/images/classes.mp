@@ -25,7 +25,8 @@ beginfig(1);
   
   Class.AlarmController("AlarmController")
     ()
-    ("-handleCriticalAlarm(event: AlarmEvent)",
+    ("+stopAlarms()",
+      "-handleCriticalAlarm(event: AlarmEvent)",
       "-handleMajorAlarm(event: AlarmEvent)",
       "-handleMinor(event: AlarmEvent)");
   
