@@ -4,22 +4,25 @@ input metauml;
 beginfig(1);
   Class.Controller("Controller")
     ()
-    ("+handleEvent(event): void",
-     "+subscribeToEvent(event_type): void");
+    ("+handleEvent(event: Event): void",
+     "+subscribeToEvent(eventType: EventType): void");
 
   classStereotypes.Controller("<<interface>>");
 
   Class.SensorController("SensorController")
     ()
-    ("+registerSensor(): int");
+    ("-handleSensorInput(event: SensorEvent)");
 
   Class.SystemController("SystemController")
     ()
-    ();
+    ("-handleNFCInput(event: NFCEvent)",
+      "-handleKeypadInput(event: KeypadEvent)");
   
   Class.AlarmController("AlarmController")
     ()
-    ();
+    ("-handleMajorAlarm(event: AlarmEvent)",
+      "-handleMinarAlarm(event: AlarmEvent)",
+      "-handleNotification(event: AlarmEvent)");
   
   leftToRight.top(20)(
       SensorController,
@@ -92,7 +95,7 @@ beginfig(2);
   classStereotypes.SensorEvent("<<interface>>");
 
   Class.InputEvent("InputEvent")
-    ()
+    ("+inputDeviceId: int")
     ();
   classStereotypes.InputEvent("<<interface>>");
 
@@ -136,7 +139,7 @@ beginfig(2);
   topToBottom(50)(
       Event,
       AlarmEvent,
-      TempSensorEvent);
+      FloodSensorEvent);
   
   drawObjects(
       Event,
