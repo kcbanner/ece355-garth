@@ -19,9 +19,13 @@ mpost:
 	$(MPOST) images/sequence.mp
 	$(MPOST) images/sequence_arm.mp
 	$(MPOST) images/sequence_alert.mp
+	$(MPOST) images/states.mp
 
 mpost_arm:
 	$(MPOST) images/sequence_arm.mp
 
 mpost_alert:
 	$(MPOST) images/sequence_alert.mp
+
+mpost_states:
+	$(MPOST) images/states.mp
