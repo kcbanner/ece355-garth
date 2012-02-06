@@ -2,10 +2,10 @@
 %%BoundingBox: -225 -247 360 49 
 %%HiResBoundingBox: -224.74205 -246.46762 359.18233 48.51901 
 %%Creator: MetaPost 1.504
-%%CreationDate: 2012.02.05:1444
+%%CreationDate: 2012.02.05:1551
 %%Pages: 1
-%*Font: ptmr8r 6.97382 9.96265 20:80c0002a565618007eefbe4
-%*Font: ptmr8r 9.96265 9.96265 20:800000205ed619007fcfbfc
+%*Font: ptmr8r 6.97382 9.96265 20:80c0002a565618007fefbe4
+%*Font: ptmr8r 9.96265 9.96265 20:800000205ed619007defbf4
 %%BeginProlog
 %%EndProlog
 %%Page: 1 1
@@ -245,36 +245,36 @@ newpath 108.59091 -43.74936 moveto
  closepath fill
  0.7 0.7 0.7 setrgbcolor
 newpath 223.31276 5.53802 moveto
-299.52005 5.53802 lineto
-299.52005 -51.44931 lineto
+295.65428 5.53802 lineto
+295.65428 -51.44931 lineto
 223.31276 -51.44931 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
 newpath 222.31276 6.53802 moveto
-298.52005 6.53802 lineto
-298.52005 -50.44931 lineto
+294.65428 6.53802 lineto
+294.65428 -50.44931 lineto
 222.31276 -50.44931 lineto
  closepath fill
  0 0 0 setrgbcolor
 newpath 222.31276 6.53802 moveto
-298.52005 6.53802 lineto
-298.52005 -50.44931 lineto
+294.65428 6.53802 lineto
+294.65428 -50.44931 lineto
 222.31276 -50.44931 lineto
  closepath stroke
 newpath 222.31276 -14.94473 moveto
-298.52005 -14.94473 lineto stroke
+294.65428 -14.94473 lineto stroke
 newpath 222.31276 -50.44931 moveto
-298.52005 -50.44931 lineto stroke
-238.6192 -1.19016 moveto
+294.65428 -50.44931 lineto stroke
+236.68631 -1.19016 moveto
 (<<enumeration>>) ptmr8r 6.97382 fshow
-231.08676 -11.94473 moveto
+229.15387 -11.94473 moveto
 (AlarmSeverity) ptmr8r 9.96265 fshow
 235.31276 -25.44931 moveto
-(ExternalAlarm) ptmr8r 9.96265 fshow
+(CriticalAlarm) ptmr8r 9.96265 fshow
 235.31276 -35.94931 moveto
-(InternalAlarm) ptmr8r 9.96265 fshow
+(MajorAlarm) ptmr8r 9.96265 fshow
 235.31276 -46.44931 moveto
-(Notification) ptmr8r 9.96265 fshow
+(MinorAlarm) ptmr8r 9.96265 fshow
  0.4 0.4 0.4 setrgbcolor
 newpath 224.31276 -22.74936 moveto
 230.2628 -22.74936 lineto
