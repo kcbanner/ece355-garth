@@ -18,3 +18,6 @@ mpost:
 	$(MPOST) images/classes.mp
 	$(MPOST) images/sequence.mp
 	$(MPOST) images/sequence_arm.mp
+
+mpost_arm:
+	$(MPOST) images/sequence_arm.mp
