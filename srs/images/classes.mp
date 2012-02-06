@@ -52,6 +52,28 @@ beginfig(1);
 endfig;
 
 beginfig(2);
+  Class.EventType("EventType")
+    ("+DoorSensorEvent",
+      "+WindowSensorEvent",
+      "+FloodSensorEvent",
+      "+TempSensorEvent",
+      "+AlarmEvent",
+      "+KeypadEvent",
+      "+NFCEvent")
+    ();
+  EventType.info.iMethodStack.top := 0;
+  EventType.info.iMethodStack.bottom := 0;
+  classStereotypes.EventType("<<enumeration>>");
+
+  Class.AlarmSeverity("AlarmSeverity")
+    ("+ExternalAlarm",
+      "+InternalAlarm",
+      "+Notification")
+    ();
+  AlarmSeverity.info.iMethodStack.top := 0;
+  AlarmSeverity.info.iMethodStack.bottom := 0;
+  classStereotypes.AlarmSeverity("<<enumeration>>");
+  
   Class.Event("Event")
     ("+type:EventType",
       "+timestamp:int")
@@ -59,10 +81,10 @@ beginfig(2);
   classStereotypes.Event("<<interface>>");
 
   Class.AlarmEvent("AlarmEvent")
-    ("+severity:int",
-      "+description:String")
+    ("+severity:AlarmSeverity",
+      "+description:String",
+      "+speechMessage:String")
     ();
-  classStereotypes.AlarmEvent("<<interface>>");
   
   Class.SensorEvent("SensorEvent")
     ("+sensorId:int")
@@ -70,7 +92,7 @@ beginfig(2);
   classStereotypes.SensorEvent("<<interface>>");
 
   Class.InputEvent("InputEvent")
-    ("+inputType:InputType")
+    ()
     ();
   classStereotypes.InputEvent("<<interface>>");
 
@@ -110,6 +132,7 @@ beginfig(2);
       TempSensorEvent,
       KeypadEvent,
       NFCEvent);
+  leftToRight.bottom(20)(Event, EventType, AlarmSeverity);
   topToBottom(50)(
       Event,
       AlarmEvent,
@@ -117,6 +140,8 @@ beginfig(2);
   
   drawObjects(
       Event,
+      EventType,
+      AlarmSeverity,
       SensorEvent,
       AlarmEvent,
       InputEvent,
@@ -129,6 +154,8 @@ beginfig(2);
   
   stepY := -20;
   stepX := 60;
+
+  % link(association)(Event.e -- EventType.w);
   
   link(inheritance)(pathStepY(
         Event.s,
