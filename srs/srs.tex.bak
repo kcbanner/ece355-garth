@@ -35,7 +35,7 @@ The second chapter makes up the majority of the document, as it details the
 functionality of the GARTH system as a whole. It begins with a discussion of
 the high-level functionality of the system. This serves as a high level
 introduction to the sensor network to be implemented in the home, and how they
-are utilized in the three main sections of the GARTH system including family
+are utilised in the three main sections of the GARTH system including family
 safety, home security, and green energy management. Family safety functionality
 focuses on child safety, home security focuses on unwanted trespassers and
 intruders, and green energy management deals with how GARTH can help the user
@@ -63,10 +63,10 @@ presented and include performance requirements, supportability, implementation,
 quality, and legal issues.
 
 The last chapter of the document outlines the user interfaces that are to be
-implemented in the system. Included is a detailed description of the smart phone
+implemented in the system. Included is a detailed description of the smartphone
 interface that will be available. There are also user interfaces outlined for
 the communication keypad console and web interface. The mobile application
-interface has wire frame diagrams as a basis of the intended interface.
+interface has wireframe diagrams as a basis of the intended interface.
 
 \section{Purpose}
 % State the purpose of this document and its intended audience
@@ -84,7 +84,7 @@ the low-level hardware designers of the system. The non-functional requirements
 of the document are to help guide the project managers in order to keep focus
 on things that are required but not within the scope of software design. The
 last section of the document is meant to help the UI designers understand the
-requirements of the UI by providing them with wire frame diagrams and use-case
+requirements of the UI by providing them with wireframe diagrams and use-case
 scenarios.
 
 \section{Objectives}
@@ -149,7 +149,7 @@ Cameras play multiple roles in the sensor network. Cameras positioned outside
 the home will monitor activity throughout the day, with particular attention paid
 to the entrances to the home. If an intruder approaches the home and tries to
 break in, cameras will have filmed the incident in hopes to be able to identify
-the trespasser regardless of whether or not the break-in attempt was successful.
+the trespeasser regardless of whether or not the break-in attempt was successful.
 Footage will be stored in a database and then deleted after a certain period of
 time.
 
@@ -691,13 +691,13 @@ class for more specific subclasses.
 
 The controller class diagram in Figure~\ref{fig:controller_class_diagram}
 outlines the object model for the controllers. The controllers handle events
-and the polling of certain sensors. Three separate controllers are required to
+and the polling of certain sensors. Three seperate controllers are required to
 handle the sensors, system inputs, and the alarms. More detail on the required
 methods of specific controllers can be found in the diagram.
 
 Event models are detailed in the event class diagram in
 Figure~\ref{fig:event_class_diagram}. There are several event types defined in
-an enumeration. Each event has a time stamp and an event type associated with
+an enumeration. Each event has a timestamp and an event type associated with
 it. All inputs and outputs of the system are considered events. Sensors have an
 unique ID assigned to them and contain specific data dependent on the sensor
 type. Input events contain the ID of the input device as well as the input
@@ -715,7 +715,7 @@ classes of the inputs.
 The last object model, for the alarm devices, is shown in
 Figure~\ref{fig:alarm_class_diagram}. There are four different types of alarms
 that represent several methods to alert the homeowner to any issues. The siren
-and speech alarms represent alarms local to the house. The SMS alarm and
+and speech alarms represent alarms local to the house. The SMS alerm and
 external alarms are for remotely alerting the homeowner. 
 
 \makeatletter
@@ -787,20 +787,9 @@ external alarms are for remotely alerting the homeowner.
 \end{figure}
 \end{landscape}
 
-\begin{landscape}
-\begin{figure}[hp]
-    \centering
-        \caption{Event Flow Sequence Diagram}
-        \scriptsize
-        \setlength{\unitlength}{2.0em}
-        \includegraphics{sequence1.mps}
-        \normalsize
-    \label{fig:event_flow_sequence_diagram}
-\end{figure}
-\end{landscape}
-
 \floatstyle{boxed}
 \restylefloat{figure}
+
 
 \section{Dynamic model}
 
@@ -835,7 +824,7 @@ handle tight polling with interrupts to correctly collect all data.
 The server acts as the man in the middle interface between the controller and
 the graphical user interfaces. The controller sends data, as appropriate, to
 the server on a regular basis. This includes valuable information such as
-a time stamped log file that records system events as well as periodic system
+a timestamped log file that records system events as well as periodic system
 behaviour such as house temperature and arm states. The server stores the data in a 
 database. The user accesses the data and can send state updates through an API 
 exposed by the web server. This interface would allow an admin user to view the
@@ -857,7 +846,7 @@ state. Otherwise, inform the security company of the issue. The security
 company then calls the homeowner. If the homeowner picks up the call, then end
 the alarm state. Otherwise, the company needs to make an informed decision
 based on the severity of the alarm to either send one of their own employees
-or to call the local emergency services. End the alarm state at this point.
+or to call the local emergancy services. End the alarm state at this point.
 
 \begin{figure}[hp]
     \centering
@@ -884,7 +873,7 @@ important to make sure the user is protected in all cases.
 
 \section{Usability}
 There are several usability requirements since the system will be used by a
-variety of different users. It should be usable by school-aged children,
+variety of different users. It should be usuable by school-aged children,
 adults, caretakers and babysitters, and house cleaners. Unique user IDs need to
 be assigned for each user of the system. These IDs will allow for greater
 control over what each user can access or use. Users should only require
@@ -902,7 +891,7 @@ potentially unsafe and hazardous situation. A school-aged child should be able t
 know what to do if they are home alone and an alarm goes off.
 
 \section{Reliability}
-Reliability is essential. The system needs to be able to handle two worse case
+Reliability is essiential. The system needs to be able to handle two worse case
 scenarios. The first is a complete power outage of the house and premises. It
 needs to have a backup power supply in order to report the current status and
 still receive data from the sensors. The critical sensors such as smoke
@@ -979,7 +968,7 @@ accessible by a select group of users that the homeowners will decide upon.
 \section{Quality}
 % Downtime is completely arbitrary.
 The system will be reliable and be able to still operate even with missing
-sensors. Faults will be trapped and the user alerted of these occurrences.
+sensors. Faults will be trapped and the user alerted of these occurances.
 This will allow the user to make repairs or replace faulty sensors or
 connections. Restarting the system after a failure such as a power outage
 should not take more then a minute for the main controller and the sensors
@@ -1007,7 +996,7 @@ owner to have a system that will suit the house's needs.
 \section{Legal Issues}
 There are several requirements with regard to legal issues. The first is that
 audio and video recording may not be legal depending on the location of the
-system. Some municipalities or provincial governments do not allow for any
+system. Some municupalities or provincial governments do not allow for any
 audio or visual recording, or there must be signs posted to inform anybody on
 the premises of the recordings. Users need to read and sign an end user
 license agreement to ensure that the understand the liabilities they are
@@ -1018,16 +1007,16 @@ family protection, and green management.
 \chapter{User Interfaces}
 \label{ch:user-interfaces}
 The main user interface for this system is the user's smart phone device. Most
-individuals have a smart phone, be it an iPhone or an Android device, and
+individuals have a smartphone, be it an iPhone or an Android device, and
 integration into these platforms would make it easy for users to adopt to the
 system. Alternative interfaces are provided as well. An NFC keypad will allow
 for simple arming and disarming of the system with a keypad as a fallback for
 numerical input. The other alternative is a web server that allows for access
 to information any where that there is an active Internet connection.
 
-\section{Smart phone Application}
+\section{Smartphone Application}
 \label{sec:mobile-app}
-A smart phone application will allow the user to monitor their residence as well
+A smartphone application will allow the user to monitor their residence as well
 as turn on or off various components of the system. If the device has
 near-field communication built into it, then it will be able to be used to
 arm and disarm the system upon entry or when leaving the premises. 
@@ -1040,12 +1029,12 @@ track the status of each family member through GPS integrated into the mobile
 device. 
 
 It is relatively simple application. Figure~\ref{fig:wireframe-home} shows a
-wire frame of the first screen seen when the application is started. This is the
-main navigation between the different features. A simple settings wire frame is
+wireframe of the first screen seen when the application is started. This is the
+main navigation between the different features. A simple settings wireframe is
 shown in Figure~\ref{fig:wireframe-settings}. Not all capabilities are shown in
-the wire frames to reduce complexity. Navigation flow is also omitted to avoid
+the wireframes to reduce complexity. Navigation flow is also omitted to avoid
 any platform specific paradigms. Access control is required to prevent younger
-family members from accidentally unlocking doors or disarming the security
+family members from accidently unlocking doors or disarming the security
 system.
 
 % API is an acronym
@@ -1057,20 +1046,20 @@ Section~\ref{sec:web-server}.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{mock_home}
-    \caption[Wire frame of the home screen]
-            {Wire frame of the home screen}
+    \caption[Wireframe of the home screen]
+            {Wireframe of the home screen}
     \label{fig:wireframe-home}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{mock_settings}
-    \caption[Wire frame of the settings screen]
-            {Wire frame of the settings screen}
+    \caption[Wireframe of the settings screen]
+            {Wireframe of the settings screen}
     \label{fig:wireframe-settings}
 \end{figure}
 
-Various portions of the security system can be controlled through the wire frame
+Various portions of the security system can be controlled through the wireframe
 in Figure~\ref{fig:wireframe-security}. The entire system can be armed and
 disarmed, locks on doors activated and deactivated, and the status of the
 windows can be reported. Pressing on the button for window status will bring up
@@ -1082,8 +1071,8 @@ unlocked from this screen if the lock supports it.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{mock_security}
-    \caption[Wire frame of the security screen]
-            {Wire frame of the security screen}
+    \caption[Wireframe of the security screen]
+            {Wireframe of the security screen}
     \label{fig:wireframe-security}
 \end{figure}
 
@@ -1092,7 +1081,7 @@ temperature of the house can be monitored and set. Pressing on the button
 labeled ``HISTORY'' will bring up a graph of the household temperature over a
 period of time. This screen can also display images from cameras at the doors
 to allow for the user to check who is at the door before unlocking it.
-Details from more specific portions of the environment can be displayed here as
+Details from more specific portions of the enviroment can be displayed here as
 well. For example, the status of the stove and oven in the kitchen. It is also
 possible to report the internal temperature of the oven to ensure that it is
 not overheating.
@@ -1100,12 +1089,12 @@ not overheating.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{mock_environment}
-    \caption[Wire frame of the environment screen]
-            {Wire frame of the environment screen}
+    \caption[Wireframe of the environment screen]
+            {Wireframe of the environment screen}
     \label{fig:wireframe-environment}
 \end{figure}
 
-Family member locations -- at least those with smart phones and this
+Family member locations -- at least those with smartphones and this
 application -- are displayed in Figure~\ref{fig:wireframe-locations}. Each family
 member will have a pin on the map to show their location using their device's
 GPS capabilities. Clicking on a name will move the map to the present location
@@ -1115,8 +1104,8 @@ is located.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{mock_locations}
-    \caption[Wire frame of the locations screen]
-            {Wire frame of the locations screen}
+    \caption[Wireframe of the locations screen]
+            {Wireframe of the locations screen}
     \label{fig:wireframe-locations}
 \end{figure}
 
@@ -1124,9 +1113,9 @@ is located.
 A keypad located near the main entrances to the house provides a physical
 interface to setting the security system and other states. Two methods are
 provided for arming and disarming. The first is near-field communication if the
-user's smart phone supports it. Authentication is done with a simple tap of the
+user's smartphone supports it. Authentication is done with a simple tap of the
 device to the keypad and then the user can set the state of the system. The
-other authentication method is for the user to input their unique key code. The
+other authentication method is for the user to input their unique keycode. The
 intention of this keypad is a fallback method in case the user does not have a
 smart phone or if they have mis-placed it.
 
@@ -1139,7 +1128,7 @@ controller. Data can be accessed remotely through API requests and the state of
 the system can be modified by sending requests to it. The other purpose is to
 maintain a log of all the events for trend analysis and household history. The
 server should be located at a remote location for data security.  A graphical
-front end implemented on the server will also allow for remote monitoring when
+frontend implemented on the server will also allow for remote monitoring when
 the user does not have their phone on their person. 
 
 
