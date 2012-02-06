@@ -27,7 +27,7 @@ beginfig(1);
   ClassName.E("");
   ClassName.F("");
   
-  leftToRight(50)(
+  leftToRight(40)(
       Resident,
       Keypad,
       Sensor,
@@ -69,15 +69,15 @@ beginfig(1);
   link(associationUni)((Resident.human.midx, -70) -- (Sensor.midx, -70));
   
   % generateSensorEvent()
-  item(iAssoc)("handleEvent(SensorEvent)")(obj.sw = (240, -100));
+  item(iAssoc)("handleEvent(SensorEvent)")(obj.sw = (210, -100));
   link(associationUni)((Sensor.midx, -100) -- (SensorController.midx, -100));
 
   % handleEvent()
-  item(iAssoc)("handleEvent(SensorEvent)")(obj.sw = (360, -130));
+  item(iAssoc)("handleEvent(SensorEvent)")(obj.sw = (330, -130));
   link(associationUni)((SensorController.midx, -130) -- (SystemController.midx, -130));
 
   % handleEvent()
-  item(iAssoc)("handleEvent(Minor AlarmEvent)")(obj.sw = (480, -160));
+  item(iAssoc)("handleEvent(Minor AlarmEvent)")(obj.sw = (440, -160));
   link(associationUni)((SystemController.midx, -160) -- (AlarmController.midx, -160));
 
   % Resident types code using Keypad
@@ -85,11 +85,11 @@ beginfig(1);
   link(associationUni)((Resident.human.midx, -190) -- (Keypad.midx, -190));
 
   % handleEvent()
-  item(iAssoc)("handleEvent()")(obj.sw = (140, -220));
+  item(iAssoc)("handleEvent()")(obj.sw = (130, -220));
   link(associationUni)((Keypad.midx, -220) -- (SystemController.midx, -220));
 
   % stopAlarms()
-  item(iAssoc)("stopAlarms()")(obj.sw = (510, -250));
+  item(iAssoc)("stopAlarms()")(obj.sw = (470, -250));
   link(associationUni)((SystemController.midx, -250) -- (AlarmController.midx, -250));
   
   clink(dashedLink)(Resident.human, A);
