@@ -379,5 +379,88 @@ beginfig(5);
         stepY));
   
 endfig;
+
+beginfig(6);
+  Actor.Resident("Resident");
+  Actor.Child("Child");
+  Actor.NonResident("Non-Resident");
+
+  Usecase.NFCDisarmSystem("NFCDisarmSystem");
+  Usecase.KeyPadDisarmSystem("KeyPadDisarmSystem");
+  Usecase.NFCArmSystem("NFCArmSystem");
+  Usecase.KeyPadArmSystem("KeyPadArmSystem");
+  Usecase.WindowIntrusionAlarm("WindowIntrusionAlarm");
+  Usecase.DoorIntrusionAlarm("DoorIntrusionAlarm");
+  Usecase.FridgeOpenNotification("FridgeOpenNotification");
+  Usecase.CabinetAlarm("CabinetAlarm");
+  Usecase.CabinetAccess("CabinetAccess");
+  Usecase.ChildMotionDetected("ChildMotionDetected");
+  Usecase.CarbonMonoxideDetected("CarbonMonoxideDetected");
+  Usecase.FloodDetected("FloodDetected");
+  Usecase.ThermostatReminder("ThermostatReminder");  
+
+  leftToRight(80)(ChildMotionDetected, Child);
+  leftToRight(120)(Resident, FridgeOpenNotification, NonResident);
+  topToBottom(10)(
+      NFCDisarmSystem,
+      KeyPadDisarmSystem,
+      NFCArmSystem,
+      KeyPadArmSystem,
+      WindowIntrusionAlarm,
+      DoorIntrusionAlarm,
+      FridgeOpenNotification,
+      CabinetAlarm,
+      CabinetAccess,
+      ChildMotionDetected,
+      FloodDetected,
+      ThermostatReminder,
+      CarbonMonoxideDetected);
+
+  drawObjects(
+      Resident,
+      NonResident,
+      Child,
+      NFCDisarmSystem,
+      KeyPadDisarmSystem,
+      NFCArmSystem,
+      KeyPadArmSystem,
+      WindowIntrusionAlarm,
+      DoorIntrusionAlarm,
+      FridgeOpenNotification,
+      CabinetAlarm,
+      CabinetAccess,
+      ChildMotionDetected,
+      CarbonMonoxideDetected,
+      FloodDetected,
+      ThermostatReminder);
+
+  % Resident
+  link(association)(Resident.human.e -- NFCDisarmSystem.w);
+  link(association)(Resident.human.e -- KeyPadDisarmSystem.w);
+  link(association)(Resident.human.e -- NFCArmSystem.w);
+  link(association)(Resident.human.e -- KeyPadArmSystem.w);
+  link(association)(Resident.human.e -- CabinetAccess.w);
+  link(association)(Resident.human.e -- CarbonMonoxideDetected.w);
+  link(association)(Resident.human.e -- FloodDetected.w);
+  link(association)(Resident.human.e -- ThermostatReminder.w);
+
+  link(association)(Resident.human.e -- ChildMotionDetected.w);
+  link(association)(Child.human.w -- ChildMotionDetected.e);
   
+  % Any actor
+  link(association)(Resident.human.e -- DoorIntrusionAlarm.w);
+  link(association)(NonResident.human.w -- DoorIntrusionAlarm.e);
+  link(association)(Child.human.w -- DoorIntrusionAlarm.e);
+
+  link(association)(Resident.human.e -- FridgeOpenNotification.w);
+  link(association)(NonResident.human.w -- FridgeOpenNotification.e);
+  link(association)(Child.human.w -- FridgeOpenNotification.e);
+  
+  link(association)(Resident.human.e -- CabinetAlarm.w);
+  link(association)(NonResident.human.w -- CabinetAlarm.e);
+  link(association)(Child.human.w -- CabinetAlarm.e);
+
+  
+endfig;
+
 end
