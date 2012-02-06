@@ -129,7 +129,12 @@ the system will respond and behave in certain security events.
 \section{Terminology and Definitions}
 % Define non-obivious acronyms, abbreviations, and terminology used in this
 % document.
+\begin{description}
+\item[API] Application Programming Interface. An interface between different
+software applications to provide a standard with which to communicate with. For
+mobile applciations, this is usually done through HTTP requests.
 
+\end{description}
 %\section{Standards and References}
 % Identify any standards with which this component complies, if applicable.
 % Also, identify other documents or sources that this document references.
@@ -279,7 +284,7 @@ an SMS.
 The security system is in the armed state. An intruder attempts to open a
 window from outside the home. The system receives a signal from the window's
 sensor that notifies the system that a window has been opened. The system
-enters its alarm state.
+enters the alarmed state.
 
 \subsection*{Door Intrusion}
 %TODO what happens during the alarm state?
@@ -288,7 +293,7 @@ The security system is in the armed state. An intruder picks the lock on the
 front door and opens it.  The system begins the alarm countdown alongside
 audible beeping once the intruder opens the door.  The intruder leaves the
 premises while the countdown continues. The countdown reaches zero and the
-system enters the alarm state.
+system enters the alarmed state.
 
 \subsection*{Fridge Left Open}
 
@@ -1154,7 +1159,6 @@ smart phone or if they have mis-placed it.
 
 \section{Web Server}
 \label{sec:web-server}
-% TODO :: move this into the Functional Reqs?
 A web server serves two purposes. It provides an interface between the mobile
 application described in Section~\ref{sec:mobile-app} and the system
 controller. Data can be accessed remotely through API requests and the state of
