@@ -26,20 +26,21 @@
 % State the purpose of this document and its intended audience
 The purpose of this document is to describe the intended behaviour and
 technical requirements of the security, energy management, and family safety
-system. The high-level descriptions of the systems should provide a basic understanding
-of what each portion of the total system should be capable of and what is being
-monitored in the home. The object model and dynamic model are provided to
-aide the software designers by explaining how to structure objects and classes
-within the project. The design-flow is also explained to help provide a basic idea
-of what order things need to be handled in.
+system. The high-level descriptions of the systems should provide a basic
+understanding of what each portion of the total system should be capable of and
+what is being monitored in the home. The object model and dynamic model are
+provided to aide the software designers by explaining how to structure objects
+and classes within the project. The design-flow is also explained to help
+provide a basic idea of what order things need to be handled in.
 % TODO: Is this right?
-Therefore, the intended audience is the project managers and developers of the 
-system, particularly on the software side. This document is not intended for the
-low-level hardware designers of the system. The non-functional requirements of the 
-document are to help guide the project managers in order to keep focus on things that 
-are required but not within the scope of software design. The last section of the
-document is meant to help the UI designers understand the requirements of the UI
-by providing them with wireframe diagrams and use-case scenarios.
+Therefore, the intended audience is the project managers and developers of the
+system, particularly on the software side. This document is not intended for
+the low-level hardware designers of the system. The non-functional requirements
+of the document are to help guide the project managers in order to keep focus
+on things that are required but not within the scope of software design. The
+last section of the document is meant to help the UI designers understand the
+requirements of the UI by providing them with wireframe diagrams and use-case
+scenarios.
 
 \section{Objectives}
 % Provide a brief overview of the problem to be solved and what customer
@@ -646,6 +647,21 @@ type. Input events contain the ID of the input device as well as the input
 characters from the user or NFC device. Alarm events contain the alarm
 severity, a description of the alarm, and a text-to-speech message to relay
 over the loudspeakers.
+
+Sensor data is stored in the models listed in
+Figure~\ref{fig:sensor_class_diagram}. It provides an interface for the
+controllers to generate sensor events as well as set certain parameters for
+more complicated sensors and get data. Along similar lines in
+Figure~\ref{fig:input_class_diagram}, the input class diagram depicts the
+classes of the inputs.
+
+The last object model, for the alarm devices, is shown in
+Figure~\ref{fig:alarm_class_diagram}. There are four different types of alarms
+that represent several methods to alert the homeowner to any issues. The siren
+and speech alarms represent alarms local to the house. The SMS alerm and
+external alarms are for remotely alerting the homeowner. 
+
+
 
 \floatstyle{plain}
 \restylefloat{figure}
