@@ -17,7 +17,9 @@ beginfig(1);
 
   Class.SystemController("SystemController")
     ()
-    ("-logEventToServer(event: Event)",
+    ("-armSystem()",
+      "-disarmSystem()",
+      "-logEventToServer(event: Event)",
       "-handleNFCInput(event: NFCEvent)",
       "-handleKeypadInput(event: KeypadEvent)");
   
