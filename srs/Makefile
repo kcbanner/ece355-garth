@@ -2,7 +2,6 @@ LATEX = pdflatex
 ECHO = echo
 FILES = srs.tex
 MPOST = mpost
-MPOST_GRAPHICS = images/classes.mp
 FLOW = flow
 
 all : 
@@ -16,4 +15,5 @@ all :
 
 mpost:
 	$(ECHO) Building mpost graphics
-	$(MPOST) $(MPOST_GRAPHICS)
+	$(MPOST) images/classes.mp
+	$(MPOST) images/sequence.mp
