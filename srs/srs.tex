@@ -138,8 +138,6 @@ green energy management can be easily integrated with the other systems to
 ensure prudent usage of resources. 
 
 \subsection{Sensors}
-% TODO :: proof read this. It may not all make sense
-
 % TODO :: elaborate HVAC or put it in the glossary
 The most crucial part of the system that ties all of the other parts together
 is the sensor network. They are the interface between the real world and the
@@ -156,7 +154,9 @@ to the entrances to the home. If an intruder approaches the home and tries to
 break in, cameras will have filmed the incident in hopes to be able to identify
 the trespasser regardless of whether or not the break-in attempt was successful.
 Footage will be stored in a database and then deleted after a certain period of
-time.
+time. Cameras will play a passive role in the system to reduce complexity yet
+increase protection. A representative of GARTH will need to analyse the footage
+to make informed decisions.
 
 Motion detectors provide the security system with the means to trigger alerts 
 when motion is detected in certain areas of the home while the system is armed.
@@ -203,7 +203,7 @@ system is in a ready state that will react to sensor inputs such as the window
 sensors, hallway motion detectors, and other unauthorized home entry sensors.
 If these sensors detect unexpected activity while armed, a critical alarm is sounded.
 Other home security subsystems include basement flood detection, carbon 
-monoxide detection, and warnings if the oven and/or stove have been left on
+monoxide detection, and warnings if the oven or stove have been left on
 for extended periods of time.
 
 \subsection{Green Energy Management}
@@ -302,7 +302,7 @@ an SMS is sent to the resident of the home to notify them of the event.
 Separately, an adult resident of the home accesses the same cabinet. The
 contact sensor on the cabinet door triggers the countdown. The resident pushes
 a hidden actuator located on the inside of the cabinet to halt the countdown.
-The resident closes the cabinet door when he / she is finished and the sensor
+The resident closes the cabinet door when he is finished and the sensor
 notifies the process to go back to its normal wait state.
 
 \subsection*{Child Bedroom Safety}
@@ -375,7 +375,7 @@ Entry Condition & The system is in the armed state and the Resident enters the
 home in possession an NFC device. \\ \hline
 
 Exit Condition & The system is disarmed. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Security system disarms promptly \\ \hline
 
 \hline
 \end{tabular}
@@ -401,7 +401,7 @@ Entry Condition & The system is in the armed state and the Resident
 enters the home. \\ \hline
 
 Exit Condition & The system is disarmed. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & The security system disarms promptly \\ \hline
 
 \hline
 \end{tabular}
@@ -427,7 +427,8 @@ Entry Condition & The system is in the disarmed state and the \texttt{Resident}
 wishes to arm it using an NFC device. \\ \hline
 
 Exit Condition & The system is armed. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & The security system is armed promptly after countdown is
+finished\\ \hline
 
 \hline
 \end{tabular}
@@ -451,7 +452,8 @@ Flow of Events &
 Entry Condition & The system is in the disarmed state and the \texttt{Resident}
     wishes to arm it using the keypad. \\ \hline
 Exit Condition & The system is armed. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & The security system is armed promptly after countdown is
+finished\\ \hline
 
 \hline
 \end{tabular}
@@ -473,7 +475,8 @@ Flow of Events &
 Entry Condition & The system is in the armed state and a window is opened. \\ 
 \hline
 Exit Condition & The system alarm is triggered. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Alarm notification is sent out within a second of the
+event\\ \hline
 
 \hline
 \end{tabular}
@@ -496,7 +499,8 @@ Flow of Events &
 
 Entry Condition & The system is in the armed state and a door is opened. \\ \hline
 Exit Condition & The system alarm is triggered. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Alarm notification is sent out within a second of the
+event\\ \hline
 
 \hline
 \end{tabular}
@@ -518,7 +522,8 @@ Flow of Events &
 
 Entry Condition & Fridge door is opened. \\ \hline
 Exit Condition & A ``fridge has been left open'' notification is broadcast. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Notification is broadcasted immediately after countdown
+expires \\ \hline
 
 \hline
 \end{tabular}
@@ -542,7 +547,8 @@ Flow of Events &
 Entry Condition & A secure cabinet is opened. \\ \hline
 Exit Condition & An audible alarm is produced and an SMS alert is sent to
                  the \texttt{Resident} \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Notification is broadcasted immediately after countdown
+expires\\ \hline
 
 \hline
 \end{tabular}
@@ -565,7 +571,7 @@ Flow of Events &
 
 Entry Condition & A secure cabinet is opened. \\ \hline
 Exit Condition & The secure cabinet is closed. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & No notification is sent \\ \hline
 
 \hline
 \end{tabular}
@@ -589,7 +595,8 @@ Flow of Events &
 Entry Condition & The child motion detector is in the armed state and the child moves
                   out of the acceptable range. \\ \hline
 Exit Condition & Alarm is sounded in the \texttt{Resident}'s bedroom. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Sensor works within acceptable ranges. Notification is
+immediately sent after entering alarm state \\ \hline
 
 \hline
 \end{tabular}
@@ -614,7 +621,7 @@ Flow of Events &
 Entry Condition & Carbon monoxide levels in the home rise above an acceptable level. \\ \hline
 Exit Condition & SMS messages are sent to \texttt{Resident} and an audible
                  alarm is sounded. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Alerts are sent immediately to \texttt{Resident} \\ \hline
 
 \hline
 \end{tabular}
@@ -636,7 +643,7 @@ Flow of Events &
 Entry Condition & Rising water levels are detected by flood sensors. \\ \hline
 Exit Condition & \texttt{Resident} is sent an SMS message and a minor alarm
                  is sounded throughout the home. \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Alerts are sent immediately to \texttt{Resident} \\ \hline
 
 \hline
 \end{tabular}
@@ -663,7 +670,8 @@ Flow of Events &
 Entry Condition & The \texttt{Resident} sets the house thermostat to hold a particular
                   temperature. \\ \hline
 Exit Condition &   \\ \hline
-Quality requirements & TODO \\ \hline
+Quality requirements & Temperature returns to normal scheduled temperature
+within an hour after leaving hold state.\\ \hline
 
 \hline
 \end{tabular}
@@ -792,6 +800,12 @@ external alarms are for remotely alerting the homeowner.
 \end{figure}
 \end{landscape}
 
+
+\floatstyle{boxed}
+\restylefloat{figure}
+
+\section{Dynamic model}
+
 \begin{landscape}
 \begin{figure}[hp]
     \centering
@@ -803,11 +817,6 @@ external alarms are for remotely alerting the homeowner.
     \label{fig:event_flow_sequence_diagram}
 \end{figure}
 \end{landscape}
-
-\floatstyle{boxed}
-\restylefloat{figure}
-
-\section{Dynamic model}
 
 
 \section{Interfaces}
