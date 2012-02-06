@@ -601,8 +601,26 @@ Quality requirements & TODO \\ \hline
 \setlength{\parskip}{\originalParskip}
 
 \section{Object model}
-
 %TODO :: Motion events
+The object model can be broken down into five major object types: controllers,
+events, sensors, inputs, and alarms. Each of these types are used as the base
+class for more specific subclasses.
+
+The controller class diagram in Figure~\ref{fig:controller_class_diagram}
+outlines the object model for the controllers. The controllers handle events
+and the polling of certain sensors. Three seperate controllers are required to
+handle the sensors, system inputs, and the alarms. More detail on the required
+methods of specific controllers can be found in the diagram.
+
+Event models are detailed in the event class diagram in
+Figure~\ref{fig:event_class_diagram}. There are several event types defined in
+an enumeration. Each event has a timestamp and an event type associated with
+it. All inputs and outputs of the system are considered events. Sensors have an
+unique ID assigned to them and contain specific data dependent on the sensor
+type. Input events contain the ID of the input device as well as the input
+characters from the user or NFC device. Alarm events contain the alarm
+severity, a description of the alarm, and a text-to-speech message to relay
+over the loudspeakers.
 
 \floatstyle{plain}
 \restylefloat{figure}
