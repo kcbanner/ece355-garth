@@ -17,3 +17,4 @@ mpost:
 	$(ECHO) Building mpost graphics
 	$(MPOST) images/classes.mp
 	$(MPOST) images/sequence.mp
+	$(MPOST) images/sequence_arm.mp

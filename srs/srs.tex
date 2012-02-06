@@ -825,24 +825,34 @@ external alarms are for remotely alerting the homeowner.
 \end{figure}
 \end{landscape}
 
-
-\floatstyle{boxed}
-\restylefloat{figure}
-
 \section{Dynamic model}
 
 \begin{landscape}
 \begin{figure}[hp]
     \centering
-        \caption{Event Flow Sequence Diagram}
+        \caption{Keypad Disarm Event Flow Sequence Diagram}
         \scriptsize
         \setlength{\unitlength}{2.0em}
         \includegraphics{sequence1.mps}
         \normalsize
-    \label{fig:event_flow_sequence_diagram}
+    \label{fig:keypad_disarm_sequence_diagram}
 \end{figure}
 \end{landscape}
 
+\begin{landscape}
+\begin{figure}[hp]
+    \centering
+        \caption{Keypad Arm Flow Sequence Diagram}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{sequence_arm1.mps}
+        \normalsize
+    \label{fig:keypad_arm_sequence_diagram}
+\end{figure}
+\end{landscape}
+
+\floatstyle{boxed}
+\restylefloat{figure}
 
 \section{Interfaces}
 There are two interfaces between the components. The sensors need a way to

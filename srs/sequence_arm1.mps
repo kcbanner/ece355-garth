@@ -5,7 +5,7 @@
 %%CreationDate: 2012.02.06:1307
 %%Pages: 1
 %*Font: ptmr8r 9.96265 9.96265 41:a0206000989f708
-%*Font: ptmr8r 6.97382 9.96265 20:80c0000a441410007dcfbe4
+%*Font: ptmr8r 6.97382 9.96265 28:c0000a040010007d0b3e4
 %%BeginProlog
 %%EndProlog
 %%Page: 1 1
@@ -315,66 +315,6 @@ newpath 198.9703 -70 moveto
 186.4712 -65 lineto stroke
 newpath 198.9703 -70 moveto
 186.4712 -75 lineto stroke
-212 -98 moveto
-(handleEvent\(SensorEvent\)) ptmr8r 6.97382 fshow
-newpath 198.9703 -100 moveto
-293.0432 -100 lineto stroke
-newpath 293.0432 -100 moveto
-305.54362 -100 lineto stroke
-newpath 305.54362 -100 moveto
-293.0432 -95 lineto stroke
-newpath 305.54362 -100 moveto
-293.0432 -105 lineto stroke
-332 -128 moveto
-(handleEvent\(SensorEvent\)) ptmr8r 6.97382 fshow
-newpath 305.54362 -130 moveto
-415.22762 -130 lineto stroke
-newpath 415.22762 -130 moveto
-427.72836 -130 lineto stroke
-newpath 427.72836 -130 moveto
-415.22762 -125 lineto stroke
-newpath 427.72836 -130 moveto
-415.22762 -135 lineto stroke
-442 -158 moveto
-(handleEvent\(Minor\040AlarmEvent\)) ptmr8r 6.97382 fshow
-newpath 427.72836 -160 moveto
-536.58038 -160 lineto stroke
-newpath 536.58038 -160 moveto
-549.08118 -160 lineto stroke
-newpath 549.08118 -160 moveto
-536.58038 -155 lineto stroke
-newpath 549.08118 -160 moveto
-536.58038 -165 lineto stroke
-32 -188 moveto
-(generateKeypadEvent\(\)) ptmr8r 6.97382 fshow
-newpath 20.43065 -190 moveto
-94.3978 -190 lineto stroke
-newpath 94.3978 -190 moveto
-106.89763 -190 lineto stroke
-newpath 106.89763 -190 moveto
-94.3978 -185 lineto stroke
-newpath 106.89763 -190 moveto
-94.3978 -195 lineto stroke
-132 -218 moveto
-(handleEvent\(\)) ptmr8r 6.97382 fshow
-newpath 106.89763 -220 moveto
-415.23018 -220 lineto stroke
-newpath 415.23018 -220 moveto
-427.72836 -220 lineto stroke
-newpath 427.72836 -220 moveto
-415.23018 -215 lineto stroke
-newpath 427.72836 -220 moveto
-415.23018 -225 lineto stroke
-472 -248 moveto
-(stopAlarms\(\)) ptmr8r 6.97382 fshow
-newpath 427.72836 -250 moveto
-536.58038 -250 lineto stroke
-newpath 536.58038 -250 moveto
-549.08118 -250 lineto stroke
-newpath 549.08118 -250 moveto
-536.58038 -245 lineto stroke
-newpath 549.08118 -250 moveto
-536.58038 -255 lineto stroke
  0.5 0 dtransform exch truncate exch idtransform pop setlinewidth
  [3 3 ] 0 setdash
 newpath 20.43065 -34.99779 moveto
