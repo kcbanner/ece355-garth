@@ -28,7 +28,7 @@ beginfig(1);
     ("+stopAlarms()",
       "-handleCriticalAlarm(event: AlarmEvent)",
       "-handleMajorAlarm(event: AlarmEvent)",
-      "-handleMinor(event: AlarmEvent)");
+      "-handleMinorAlarm(event: AlarmEvent)");
   
   leftToRight.top(20)(
       SensorController,
