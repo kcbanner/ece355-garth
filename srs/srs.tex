@@ -108,8 +108,14 @@ events quickly and appropriately with adequate coverage.  Criteria for
 evaluation of these goals would include the speed at which the system responds
 to events, the ability to communicate with the resident of the home that
 something has occurred, and the ability to adequately detect security events
-when they happen. If these requirements are not met to an adequate degree, then
-the GARTH system will have failed.
+when they happen. Events must propagate through the system rapidly enough
+to allow the system to react and act accordingly, before the residents of the home
+can be placed in serious danger. Messages, alerts, and alarms must sound as soon
+as an event is processed, in order for the residents of the home to know what has
+occurred. Finally the system must be able to detect almost all if not all events that
+may signify a security breach, instance of family safety, or a wasteful activity as
+defined by the system. If these requirements are not met to an adequate degree, 
+then the GARTH system will have failed.
 
 \section{Scope}
 % Define the scope of the requirements of the system. Identify what problems are
@@ -139,6 +145,10 @@ software applications to provide a standard with which to communicate with. For
 mobile applciations, this is usually done through HTTP requests.
 \item[GARTH] Green, aware, and responsive total home. The name of the system which
 is being detailed in this document.
+\item[GPS] Global positioning system. A satellelite navigation system that can accurately track
+the location of a GPS enabled device such as a smart phone.
+\item[Hall effect sensor] A transducer that changes its output in response to an applied magnetic
+field. Useful for sensing proximity from one object to another.
 \item[HVAC] Heating, ventilation, and air conditioning. Refers to the technology of heating 
 and cooling to control the indoor environment. 
 \item[NFC] Near field communication. NFC is a standard for smartphones that allows radio 
