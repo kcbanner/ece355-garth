@@ -1,11 +1,11 @@
 %!PS
-%%BoundingBox: 2 -412 590 0 
-%%HiResBoundingBox: 2.99626 -412 589.78624 -0.75 
+%%BoundingBox: 2 -412 518 0 
+%%HiResBoundingBox: 2.99626 -412 517.01234 -0.75 
 %%Creator: MetaPost 1.504
-%%CreationDate: 2012.02.06:1307
+%%CreationDate: 2012.02.06:1851
 %%Pages: 1
-%*Font: ptmr8r 9.96265 9.96265 41:a0206000989f708
-%*Font: ptmr8r 6.97382 9.96265 28:c0000a040010007d0b3e4
+%*Font: ptmr8r 9.96265 9.96265 41:a0206000b99f708
+%*Font: ptmr8r 6.97382 9.96265 20:81c8000a441490007dcfbe4
 %%BeginProlog
 %%EndProlog
 %%Page: 1 1
@@ -44,134 +44,160 @@ newpath 9.93065 -35 moveto
 20.43065 -23.10031 lineto
 30.93065 -35 lineto stroke
  0.7 0.7 0.7 setrgbcolor
-newpath 81.86128 -6.13217 moveto
-133.93396 -6.13217 lineto
-133.93396 -43.61493 lineto
-81.86128 -43.61493 lineto
+newpath 51.86128 -6.13217 moveto
+103.93396 -6.13217 lineto
+103.93396 -43.61493 lineto
+51.86128 -43.61493 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 80.86128 -5.13217 moveto
-132.93396 -5.13217 lineto
-132.93396 -42.61493 lineto
-80.86128 -42.61493 lineto
+newpath 50.86128 -5.13217 moveto
+102.93396 -5.13217 lineto
+102.93396 -42.61493 lineto
+50.86128 -42.61493 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 80.86128 -5.13217 moveto
-132.93396 -5.13217 lineto
-132.93396 -42.61493 lineto
-80.86128 -42.61493 lineto
+newpath 50.86128 -5.13217 moveto
+102.93396 -5.13217 lineto
+102.93396 -42.61493 lineto
+50.86128 -42.61493 lineto
  closepath stroke
-newpath 80.86128 -42.61493 moveto
-132.93396 -42.61493 lineto stroke
-newpath 80.86128 -42.61493 moveto
-132.93396 -42.61493 lineto stroke
-89.36128 -12.86035 moveto
+newpath 50.86128 -42.61493 moveto
+102.93396 -42.61493 lineto stroke
+newpath 50.86128 -42.61493 moveto
+102.93396 -42.61493 lineto stroke
+59.36128 -12.86035 moveto
 (<<boundary>>) ptmr8r 6.97382 fshow
-91.40579 -32.61493 moveto
+61.40579 -32.61493 moveto
 (Keypad) ptmr8r 9.96265 fshow
  0.7 0.7 0.7 setrgbcolor
-newpath 173.93396 -6.13217 moveto
-226.00664 -6.13217 lineto
-226.00664 -43.61493 lineto
-173.93396 -43.61493 lineto
+newpath 113.93396 -6.13217 moveto
+181.16006 -6.13217 lineto
+181.16006 -43.61493 lineto
+113.93396 -43.61493 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 172.93396 -5.13217 moveto
-225.00664 -5.13217 lineto
-225.00664 -42.61493 lineto
-172.93396 -42.61493 lineto
+newpath 112.93396 -5.13217 moveto
+180.16006 -5.13217 lineto
+180.16006 -42.61493 lineto
+112.93396 -42.61493 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 172.93396 -5.13217 moveto
-225.00664 -5.13217 lineto
-225.00664 -42.61493 lineto
-172.93396 -42.61493 lineto
+newpath 112.93396 -5.13217 moveto
+180.16006 -5.13217 lineto
+180.16006 -42.61493 lineto
+112.93396 -42.61493 lineto
  closepath stroke
-newpath 172.93396 -42.61493 moveto
-225.00664 -42.61493 lineto stroke
-newpath 172.93396 -42.61493 moveto
-225.00664 -42.61493 lineto stroke
-181.43396 -12.86035 moveto
+newpath 112.93396 -42.61493 moveto
+180.16006 -42.61493 lineto stroke
+newpath 112.93396 -42.61493 moveto
+180.16006 -42.61493 lineto stroke
+129.01067 -12.86035 moveto
 (<<boundary>>) ptmr8r 6.97382 fshow
-185.41127 -32.61493 moveto
+119.43396 -32.61493 moveto
+(SpeechAlarm) ptmr8r 9.96265 fshow
+ 0.7 0.7 0.7 setrgbcolor
+newpath 191.16006 -6.13217 moveto
+243.23274 -6.13217 lineto
+243.23274 -43.61493 lineto
+191.16006 -43.61493 lineto
+ closepath fill
+ 0.9 0.9 0.9 setrgbcolor
+newpath 190.16006 -5.13217 moveto
+242.23274 -5.13217 lineto
+242.23274 -42.61493 lineto
+190.16006 -42.61493 lineto
+ closepath fill
+ 0 0 0 setrgbcolor
+newpath 190.16006 -5.13217 moveto
+242.23274 -5.13217 lineto
+242.23274 -42.61493 lineto
+190.16006 -42.61493 lineto
+ closepath stroke
+newpath 190.16006 -42.61493 moveto
+242.23274 -42.61493 lineto stroke
+newpath 190.16006 -42.61493 moveto
+242.23274 -42.61493 lineto stroke
+198.66006 -12.86035 moveto
+(<<boundary>>) ptmr8r 6.97382 fshow
+202.63737 -32.61493 moveto
 (Sensor) ptmr8r 9.96265 fshow
  0.7 0.7 0.7 setrgbcolor
-newpath 266.00664 -6.13217 moveto
-347.08061 -6.13217 lineto
-347.08061 -43.61493 lineto
-266.00664 -43.61493 lineto
+newpath 253.23274 -6.13217 moveto
+334.30672 -6.13217 lineto
+334.30672 -43.61493 lineto
+253.23274 -43.61493 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 265.00664 -5.13217 moveto
-346.08061 -5.13217 lineto
-346.08061 -42.61493 lineto
-265.00664 -42.61493 lineto
+newpath 252.23274 -5.13217 moveto
+333.30672 -5.13217 lineto
+333.30672 -42.61493 lineto
+252.23274 -42.61493 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 265.00664 -5.13217 moveto
-346.08061 -5.13217 lineto
-346.08061 -42.61493 lineto
-265.00664 -42.61493 lineto
+newpath 252.23274 -5.13217 moveto
+333.30672 -5.13217 lineto
+333.30672 -42.61493 lineto
+252.23274 -42.61493 lineto
  closepath stroke
-newpath 265.00664 -42.61493 moveto
-346.08061 -42.61493 lineto stroke
-newpath 265.00664 -42.61493 moveto
-346.08061 -42.61493 lineto stroke
-291.299 -12.86035 moveto
+newpath 252.23274 -42.61493 moveto
+333.30672 -42.61493 lineto stroke
+newpath 252.23274 -42.61493 moveto
+333.30672 -42.61493 lineto stroke
+278.5251 -12.86035 moveto
 (<<control>>) ptmr8r 6.97382 fshow
-271.50664 -32.61493 moveto
+258.73274 -32.61493 moveto
 (SensorController) ptmr8r 9.96265 fshow
  0.7 0.7 0.7 setrgbcolor
-newpath 387.08061 -6.13217 moveto
-470.3761 -6.13217 lineto
-470.3761 -43.61493 lineto
-387.08061 -43.61493 lineto
+newpath 344.30672 -6.13217 moveto
+427.6022 -6.13217 lineto
+427.6022 -43.61493 lineto
+344.30672 -43.61493 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 386.08061 -5.13217 moveto
-469.3761 -5.13217 lineto
-469.3761 -42.61493 lineto
-386.08061 -42.61493 lineto
+newpath 343.30672 -5.13217 moveto
+426.6022 -5.13217 lineto
+426.6022 -42.61493 lineto
+343.30672 -42.61493 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 386.08061 -5.13217 moveto
-469.3761 -5.13217 lineto
-469.3761 -42.61493 lineto
-386.08061 -42.61493 lineto
+newpath 343.30672 -5.13217 moveto
+426.6022 -5.13217 lineto
+426.6022 -42.61493 lineto
+343.30672 -42.61493 lineto
  closepath stroke
-newpath 386.08061 -42.61493 moveto
-469.3761 -42.61493 lineto stroke
-newpath 386.08061 -42.61493 moveto
-469.3761 -42.61493 lineto stroke
-413.48373 -12.86035 moveto
+newpath 343.30672 -42.61493 moveto
+426.6022 -42.61493 lineto stroke
+newpath 343.30672 -42.61493 moveto
+426.6022 -42.61493 lineto stroke
+370.70984 -12.86035 moveto
 (<<control>>) ptmr8r 6.97382 fshow
-392.58061 -32.61493 moveto
+349.80672 -32.61493 moveto
 (SystemController) ptmr8r 9.96265 fshow
  0.7 0.7 0.7 setrgbcolor
-newpath 510.3761 -6.13217 moveto
-589.78624 -6.13217 lineto
-589.78624 -43.61493 lineto
-510.3761 -43.61493 lineto
+newpath 437.6022 -6.13217 moveto
+517.01234 -6.13217 lineto
+517.01234 -43.61493 lineto
+437.6022 -43.61493 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 509.3761 -5.13217 moveto
-588.78624 -5.13217 lineto
-588.78624 -42.61493 lineto
-509.3761 -42.61493 lineto
+newpath 436.6022 -5.13217 moveto
+516.01234 -5.13217 lineto
+516.01234 -42.61493 lineto
+436.6022 -42.61493 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 509.3761 -5.13217 moveto
-588.78624 -5.13217 lineto
-588.78624 -42.61493 lineto
-509.3761 -42.61493 lineto
+newpath 436.6022 -5.13217 moveto
+516.01234 -5.13217 lineto
+516.01234 -42.61493 lineto
+436.6022 -42.61493 lineto
  closepath stroke
-newpath 509.3761 -42.61493 moveto
-588.78624 -42.61493 lineto stroke
-newpath 509.3761 -42.61493 moveto
-588.78624 -42.61493 lineto stroke
-534.83655 -12.86035 moveto
+newpath 436.6022 -42.61493 moveto
+516.01234 -42.61493 lineto stroke
+newpath 436.6022 -42.61493 moveto
+516.01234 -42.61493 lineto stroke
+462.06265 -12.86035 moveto
 (<<control>>) ptmr8r 6.97382 fshow
-515.8761 -32.61493 moveto
+443.1022 -32.61493 moveto
 (AlarmController) ptmr8r 9.96265 fshow
  0.7 0.7 0.7 setrgbcolor
 newpath 14.93065 -390 moveto
@@ -196,138 +222,232 @@ newpath 13.93065 -411 moveto
 newpath 13.93065 -411 moveto
 26.93065 -411 lineto stroke
  0.7 0.7 0.7 setrgbcolor
-newpath 101.39763 -390 moveto
-114.39763 -390 lineto
-114.39763 -412 lineto
-101.39763 -412 lineto
+newpath 71.39763 -390 moveto
+84.39763 -390 lineto
+84.39763 -412 lineto
+71.39763 -412 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 100.39763 -389 moveto
-113.39763 -389 lineto
-113.39763 -411 lineto
-100.39763 -411 lineto
+newpath 70.39763 -389 moveto
+83.39763 -389 lineto
+83.39763 -411 lineto
+70.39763 -411 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 100.39763 -389 moveto
-113.39763 -389 lineto
-113.39763 -411 lineto
-100.39763 -411 lineto
+newpath 70.39763 -389 moveto
+83.39763 -389 lineto
+83.39763 -411 lineto
+70.39763 -411 lineto
  closepath stroke
-newpath 100.39763 -411 moveto
-113.39763 -411 lineto stroke
-newpath 100.39763 -411 moveto
-113.39763 -411 lineto stroke
+newpath 70.39763 -411 moveto
+83.39763 -411 lineto stroke
+newpath 70.39763 -411 moveto
+83.39763 -411 lineto stroke
  0.7 0.7 0.7 setrgbcolor
-newpath 193.4703 -390 moveto
-206.4703 -390 lineto
-206.4703 -412 lineto
-193.4703 -412 lineto
+newpath 141.04701 -390 moveto
+154.04701 -390 lineto
+154.04701 -412 lineto
+141.04701 -412 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 192.4703 -389 moveto
-205.4703 -389 lineto
-205.4703 -411 lineto
-192.4703 -411 lineto
+newpath 140.04701 -389 moveto
+153.04701 -389 lineto
+153.04701 -411 lineto
+140.04701 -411 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 192.4703 -389 moveto
-205.4703 -389 lineto
-205.4703 -411 lineto
-192.4703 -411 lineto
+newpath 140.04701 -389 moveto
+153.04701 -389 lineto
+153.04701 -411 lineto
+140.04701 -411 lineto
  closepath stroke
-newpath 192.4703 -411 moveto
-205.4703 -411 lineto stroke
-newpath 192.4703 -411 moveto
-205.4703 -411 lineto stroke
+newpath 140.04701 -411 moveto
+153.04701 -411 lineto stroke
+newpath 140.04701 -411 moveto
+153.04701 -411 lineto stroke
  0.7 0.7 0.7 setrgbcolor
-newpath 300.04362 -390 moveto
-313.04362 -390 lineto
-313.04362 -412 lineto
-300.04362 -412 lineto
+newpath 210.69641 -390 moveto
+223.69641 -390 lineto
+223.69641 -412 lineto
+210.69641 -412 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 299.04362 -389 moveto
-312.04362 -389 lineto
-312.04362 -411 lineto
-299.04362 -411 lineto
+newpath 209.69641 -389 moveto
+222.69641 -389 lineto
+222.69641 -411 lineto
+209.69641 -411 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 299.04362 -389 moveto
-312.04362 -389 lineto
-312.04362 -411 lineto
-299.04362 -411 lineto
+newpath 209.69641 -389 moveto
+222.69641 -389 lineto
+222.69641 -411 lineto
+209.69641 -411 lineto
  closepath stroke
-newpath 299.04362 -411 moveto
-312.04362 -411 lineto stroke
-newpath 299.04362 -411 moveto
-312.04362 -411 lineto stroke
+newpath 209.69641 -411 moveto
+222.69641 -411 lineto stroke
+newpath 209.69641 -411 moveto
+222.69641 -411 lineto stroke
  0.7 0.7 0.7 setrgbcolor
-newpath 422.22836 -390 moveto
-435.22836 -390 lineto
-435.22836 -412 lineto
-422.22836 -412 lineto
+newpath 287.26973 -390 moveto
+300.26973 -390 lineto
+300.26973 -412 lineto
+287.26973 -412 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 421.22836 -389 moveto
-434.22836 -389 lineto
-434.22836 -411 lineto
-421.22836 -411 lineto
+newpath 286.26973 -389 moveto
+299.26973 -389 lineto
+299.26973 -411 lineto
+286.26973 -411 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 421.22836 -389 moveto
-434.22836 -389 lineto
-434.22836 -411 lineto
-421.22836 -411 lineto
+newpath 286.26973 -389 moveto
+299.26973 -389 lineto
+299.26973 -411 lineto
+286.26973 -411 lineto
  closepath stroke
-newpath 421.22836 -411 moveto
-434.22836 -411 lineto stroke
-newpath 421.22836 -411 moveto
-434.22836 -411 lineto stroke
+newpath 286.26973 -411 moveto
+299.26973 -411 lineto stroke
+newpath 286.26973 -411 moveto
+299.26973 -411 lineto stroke
  0.7 0.7 0.7 setrgbcolor
-newpath 543.58118 -390 moveto
-556.58118 -390 lineto
-556.58118 -412 lineto
-543.58118 -412 lineto
+newpath 379.45447 -390 moveto
+392.45447 -390 lineto
+392.45447 -412 lineto
+379.45447 -412 lineto
  closepath fill
  0.9 0.9 0.9 setrgbcolor
-newpath 542.58118 -389 moveto
-555.58118 -389 lineto
-555.58118 -411 lineto
-542.58118 -411 lineto
+newpath 378.45447 -389 moveto
+391.45447 -389 lineto
+391.45447 -411 lineto
+378.45447 -411 lineto
  closepath fill
  0 0 0 setrgbcolor
-newpath 542.58118 -389 moveto
-555.58118 -389 lineto
-555.58118 -411 lineto
-542.58118 -411 lineto
+newpath 378.45447 -389 moveto
+391.45447 -389 lineto
+391.45447 -411 lineto
+378.45447 -411 lineto
  closepath stroke
-newpath 542.58118 -411 moveto
-555.58118 -411 lineto stroke
-newpath 542.58118 -411 moveto
-555.58118 -411 lineto stroke
+newpath 378.45447 -411 moveto
+391.45447 -411 lineto stroke
+newpath 378.45447 -411 moveto
+391.45447 -411 lineto stroke
+ 0.7 0.7 0.7 setrgbcolor
+newpath 470.80728 -390 moveto
+483.80728 -390 lineto
+483.80728 -412 lineto
+470.80728 -412 lineto
+ closepath fill
+ 0.9 0.9 0.9 setrgbcolor
+newpath 469.80728 -389 moveto
+482.80728 -389 lineto
+482.80728 -411 lineto
+469.80728 -411 lineto
+ closepath fill
+ 0 0 0 setrgbcolor
+newpath 469.80728 -389 moveto
+482.80728 -389 lineto
+482.80728 -411 lineto
+469.80728 -411 lineto
+ closepath stroke
+newpath 469.80728 -411 moveto
+482.80728 -411 lineto stroke
+newpath 469.80728 -411 moveto
+482.80728 -411 lineto stroke
 32 -68 moveto
-(generateSensorEvent\(\)) ptmr8r 6.97382 fshow
+(generateKeyPadEvent\(\)) ptmr8r 6.97382 fshow
 newpath 20.43065 -70 moveto
-186.4712 -70 lineto stroke
-newpath 186.4712 -70 moveto
-198.9703 -70 lineto stroke
-newpath 198.9703 -70 moveto
-186.4712 -65 lineto stroke
-newpath 198.9703 -70 moveto
-186.4712 -75 lineto stroke
+64.3973 -70 lineto stroke
+newpath 64.3973 -70 moveto
+76.89763 -70 lineto stroke
+newpath 76.89763 -70 moveto
+64.3973 -65 lineto stroke
+newpath 76.89763 -70 moveto
+64.3973 -75 lineto stroke
+212 -98 moveto
+(handleEvent\(KeypadEvent\)) ptmr8r 6.97382 fshow
+newpath 76.89763 -100 moveto
+372.45564 -100 lineto stroke
+newpath 372.45564 -100 moveto
+384.95447 -100 lineto stroke
+newpath 384.95447 -100 moveto
+372.45564 -95 lineto stroke
+newpath 384.95447 -100 moveto
+372.45564 -105 lineto stroke
+402 -128 moveto
+(handleEvent\(AlarmEvent\)) ptmr8r 6.97382 fshow
+newpath 384.95447 -130 moveto
+463.80788 -130 lineto stroke
+newpath 463.80788 -130 moveto
+476.30728 -130 lineto stroke
+newpath 476.30728 -130 moveto
+463.80788 -125 lineto stroke
+newpath 476.30728 -130 moveto
+463.80788 -135 lineto stroke
+332 -158 moveto
+(playMessage\('System\040Armed',\040true\)) ptmr8r 6.97382 fshow
+newpath 476.30728 -160 moveto
+159.04588 -160 lineto stroke
+newpath 159.04588 -160 moveto
+146.54701 -160 lineto stroke
+newpath 146.54701 -160 moveto
+159.04588 -165 lineto stroke
+newpath 146.54701 -160 moveto
+159.04588 -155 lineto stroke
+62 -188 moveto
+(generateSensorEvent\(\)) ptmr8r 6.97382 fshow
+newpath 20.43065 -190 moveto
+203.6952 -190 lineto stroke
+newpath 203.6952 -190 moveto
+216.19641 -190 lineto stroke
+newpath 216.19641 -190 moveto
+203.6952 -185 lineto stroke
+newpath 216.19641 -190 moveto
+203.6952 -195 lineto stroke
+272 -208 moveto
+(handleEvent\(SensorEvent\)) ptmr8r 6.97382 fshow
+newpath 216.19641 -210 moveto
+372.45518 -210 lineto stroke
+newpath 372.45518 -210 moveto
+384.95447 -210 lineto stroke
+newpath 384.95447 -210 moveto
+372.45518 -205 lineto stroke
+newpath 384.95447 -210 moveto
+372.45518 -215 lineto stroke
+402 -238 moveto
+(stopAlarms\(\)) ptmr8r 6.97382 fshow
+newpath 384.95447 -240 moveto
+463.80788 -240 lineto stroke
+newpath 463.80788 -240 moveto
+476.30728 -240 lineto stroke
+newpath 476.30728 -240 moveto
+463.80788 -235 lineto stroke
+newpath 476.30728 -240 moveto
+463.80788 -245 lineto stroke
+332 -268 moveto
+(stopPlaying\(\)) ptmr8r 6.97382 fshow
+newpath 476.30728 -270 moveto
+159.04588 -270 lineto stroke
+newpath 159.04588 -270 moveto
+146.54701 -270 lineto stroke
+newpath 146.54701 -270 moveto
+159.04588 -275 lineto stroke
+newpath 146.54701 -270 moveto
+159.04588 -265 lineto stroke
  0.5 0 dtransform exch truncate exch idtransform pop setlinewidth
  [3 3 ] 0 setdash
 newpath 20.43065 -34.99779 moveto
 20.43065 -389.00026 lineto stroke
-newpath 106.89763 -42.61215 moveto
-106.89763 -388.99522 lineto stroke
-newpath 198.9703 -42.61215 moveto
-198.9703 -388.99522 lineto stroke
-newpath 305.54362 -42.61215 moveto
-305.54362 -388.99522 lineto stroke
-newpath 427.72836 -42.61215 moveto
-427.72836 -388.99522 lineto stroke
-newpath 549.08118 -42.61215 moveto
-549.08118 -388.99522 lineto stroke
+newpath 76.89763 -42.61215 moveto
+76.89763 -388.99522 lineto stroke
+newpath 146.54701 -42.61215 moveto
+146.54701 -388.99522 lineto stroke
+newpath 216.19641 -42.61215 moveto
+216.19641 -388.99522 lineto stroke
+newpath 292.76973 -42.61215 moveto
+292.76973 -388.99522 lineto stroke
+newpath 384.95447 -42.61215 moveto
+384.95447 -388.99522 lineto stroke
+newpath 476.30728 -42.61215 moveto
+476.30728 -388.99522 lineto stroke
 showpage
 %%EOF
