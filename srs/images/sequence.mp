@@ -7,7 +7,7 @@ beginfig(1);
   ClassName.Keypad("Keypad");
   classStereotypes.Keypad("<<boundary>>");  
   
-  ClassName.Sensor("Sensor");
+  ClassName.Sensor("DoorSensor");
   classStereotypes.Sensor("<<boundary>>");
 
   ClassName.SensorController("SensorController");

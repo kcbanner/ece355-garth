@@ -450,13 +450,13 @@ beginfig(6);
   link(association)(Resident.human.e -- ChildMotionDetected.w);
   link(association)(Child.human.w -- ChildMotionDetected.e);
   
+  link(association)(NonResident.human.w -- WindowIntrusionAlarm.e);
   % Any actor
   link(association)(Resident.human.e -- DoorIntrusionAlarm.w);
   link(association)(NonResident.human.w -- DoorIntrusionAlarm.e);
   link(association)(Child.human.w -- DoorIntrusionAlarm.e);
 
   link(association)(Resident.human.e -- FridgeOpenNotification.w);
-  link(association)(NonResident.human.w -- FridgeOpenNotification.e);
   link(association)(Child.human.w -- FridgeOpenNotification.e);
   
   link(association)(Resident.human.e -- CabinetAlarm.w);

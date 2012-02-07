@@ -369,7 +369,7 @@ the resident to let them know that the thermostat has been set while nobody has
 been home for 24 hours. The resident replies to the SMS which then turns the
 thermostat off.
 
-\section{Use case model}
+\section{Use Case Model}
 
 \newlength{\originalParindent}
 \setlength{\originalParindent}{\parindent}
@@ -721,7 +721,7 @@ within an hour after leaving hold state.\\ \hline
 \restylefloat{figure}
 \pagebreak
 
-\section{Object model}
+\section{Object Model}
 %TODO :: Motion events
 The object model can be broken down into five major object types: controllers,
 events, sensors, inputs, and alarms. Each of these types are used as the base
@@ -755,10 +755,6 @@ Figure~\ref{fig:alarm_class_diagram}. There are four different types of alarms
 that represent several methods to alert the homeowner to any issues. The siren
 and speech alarms represent alarms local to the house. The SMS alarm and
 external alarms are for remotely alerting the homeowner. 
-
-\makeatletter
-\@fpsep\textheight
-\makeatother
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -825,7 +821,18 @@ external alarms are for remotely alerting the homeowner.
 \end{figure}
 \end{landscape}
 
-\section{Dynamic model}
+\section{Dynamic Model}
+
+Sequence diagrams for the disarming and arming of the security system are provided
+in Figures~\ref{fig:keypad_disarm_sequence_diagram} and
+\ref{fig:keypad_arm_sequence_diagram} respectively. Arming and disarming with NFC will
+follow a nearly identical sequence with only the flow from the
+\texttt{Resident} to the keypad differing.
+
+The sequence diagram in Figure~\ref{fig:window_sensor_alert_sequence_diagram} is the
+sequence for a scenario when a major alarm should go off. It can be generized
+by taking the WindowSensor boundary object and making it a DoorSensor or
+another sensor that will trigger if an intruder is detected.
 
 \begin{landscape}
 \begin{figure}[hp]
@@ -850,6 +857,20 @@ external alarms are for remotely alerting the homeowner.
     \label{fig:keypad_arm_sequence_diagram}
 \end{figure}
 \end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+    \centering
+        \caption{Window Sensor Alert Sequence Diagram}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{sequence_alert1.mps}
+        \normalsize
+    \label{fig:window_sensor_alert_sequence_diagram}
+\end{figure}
+\end{landscape}
+
+
 
 \floatstyle{boxed}
 \restylefloat{figure}
@@ -1023,8 +1044,6 @@ needs to be encrypted to ensure that if there is any data stolen from the
 database, that it will not be easily readable. This data should only be
 accessible by a select group of users that the homeowners will decide upon.
 
-%\section{Interface}
-
 \section{Quality}
 % Downtime is completely arbitrary.
 The system will be reliable and be able to still operate even with missing
@@ -1074,7 +1093,7 @@ for simple arming and disarming of the system with a keypad as a fallback for
 numerical input. The other alternative is a web server that allows for access
 to information any where that there is an active Internet connection.
 
-\section{Smart phone Application}
+\section{Smart Phone Application}
 \label{sec:mobile-app}
 A smart phone application will allow the user to monitor their residence as well
 as turn on or off various components of the system. If the device has
@@ -1169,7 +1188,7 @@ is located.
     \label{fig:wireframe-locations}
 \end{figure}
 
-\section{Near-field Communication Keypad}
+\section{Near-Field Communication Keypad}
 A keypad located near the main entrances to the house provides a physical
 interface to setting the security system and other states. Two methods are
 provided for arming and disarming. The first is near-field communication if the

@@ -31,7 +31,7 @@ beginfig(1);
   ClassName.F("");
   ClassName.G("");
   
-  leftToRight(10)(
+  leftToRight(30)(
       Resident,
       Keypad,
       SpeechAlarm,

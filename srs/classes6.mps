@@ -2,7 +2,7 @@
 %%BoundingBox: 2 -312 443 263 
 %%HiResBoundingBox: 2.99626 -311.38641 442.93944 262.2812 
 %%Creator: MetaPost 1.504
-%%CreationDate: 2012.02.06:1819
+%%CreationDate: 2012.02.06:1953
 %%Pages: 1
 %*Font: ptmr8r 9.96265 9.96265 20:80cc00205e5fbd007fcfbfc
 %%BeginProlog
@@ -386,6 +386,8 @@ newpath 32.93065 -17.5 moveto
 165.2847 -158.13728 lineto stroke
 newpath 341.74747 -151.76373 moveto
 260.17786 -158.13728 lineto stroke
+newpath 402.76848 -17.5 moveto
+264.60133 65.6356 lineto stroke
 newpath 32.93065 -17.5 moveto
 167.78021 20.88103 lineto stroke
 newpath 402.76848 -17.5 moveto
@@ -394,8 +396,6 @@ newpath 341.74747 -151.76373 moveto
 257.68234 20.88103 lineto stroke
 newpath 32.93065 -17.5 moveto
 160.86128 -23.87355 lineto stroke
-newpath 402.76848 -17.5 moveto
-264.60126 -23.87355 lineto stroke
 newpath 341.74747 -151.76373 moveto
 264.60126 -23.87355 lineto stroke
 newpath 32.93065 -17.5 moveto
