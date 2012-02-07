@@ -80,7 +80,7 @@ beginfig(1);
   % 4. fiddle with the text X coord
  
   % Resident uses keypad
-  item(iAssoc)("generateKeyPadEvent()")(obj.sw = (30, -70)); 
+  item(iAssoc)("generateKeyPadEvent()")(obj.sw = (20, -70)); 
   link(associationUni)((Resident.human.midx, -70) -- (Keypad.midx, -70));
 
   % handleEvent()
@@ -88,7 +88,7 @@ beginfig(1);
   link(associationUni)((Keypad.midx, -100) -- (SystemController.midx, -100));
 
   % handleEvent()
-  item(iAssoc)("handleEvent(AlarmEvent)")(obj.sw = (400, -130));
+  item(iAssoc)("handleEvent(AlarmEvent)")(obj.sw = (500, -130));
   link(associationUni)((SystemController.midx, -130) -- (AlarmController.midx, -130));
 
   % playMessage()
@@ -100,11 +100,11 @@ beginfig(1);
   link(associationUni)((Resident.human.midx, -190) -- (Sensor.midx, -190));
 
   % handleEvent()
-  item(iAssoc)("handleEvent(SensorEvent)")(obj.sw = (270, -210));
+  item(iAssoc)("handleEvent(SensorEvent)")(obj.sw = (330, -210));
   link(associationUni)((Sensor.midx, -210) -- (SystemController.midx, -210));
 
   % stopAlarms()
-  item(iAssoc)("stopAlarms()")(obj.sw = (400, -240));
+  item(iAssoc)("stopAlarms()")(obj.sw = (500, -240));
   link(associationUni)((SystemController.midx, -240) -- (AlarmController.midx, -240));
 
   % stopPlaying()

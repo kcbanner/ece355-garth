@@ -2,7 +2,7 @@
 %%BoundingBox: 2 -412 638 0 
 %%HiResBoundingBox: 2.99626 -412 637.01234 -0.75 
 %%Creator: MetaPost 1.504
-%%CreationDate: 2012.02.06:1642
+%%CreationDate: 2012.02.06:2301
 %%Pages: 1
 %*Font: ptmr8r 9.96265 9.96265 41:a0206000b99f708
 %*Font: ptmr8r 6.97382 9.96265 20:81c8000a441490007dcfbe4
@@ -353,7 +353,7 @@ newpath 589.80728 -411 moveto
 602.80728 -411 lineto stroke
 newpath 589.80728 -411 moveto
 602.80728 -411 lineto stroke
-32 -68 moveto
+22 -68 moveto
 (generateKeyPadEvent\(\)) ptmr8r 6.97382 fshow
 newpath 20.43065 -70 moveto
 84.39777 -70 lineto stroke
@@ -373,7 +373,7 @@ newpath 484.95447 -100 moveto
 472.45464 -95 lineto stroke
 newpath 484.95447 -100 moveto
 472.45464 -105 lineto stroke
-402 -128 moveto
+502 -128 moveto
 (handleEvent\(AlarmEvent\)) ptmr8r 6.97382 fshow
 newpath 484.95447 -130 moveto
 583.80695 -130 lineto stroke
@@ -403,7 +403,7 @@ newpath 276.19641 -190 moveto
 263.69612 -185 lineto stroke
 newpath 276.19641 -190 moveto
 263.69612 -195 lineto stroke
-272 -208 moveto
+332 -208 moveto
 (handleEvent\(SensorEvent\)) ptmr8r 6.97382 fshow
 newpath 276.19641 -210 moveto
 472.45496 -210 lineto stroke
@@ -413,7 +413,7 @@ newpath 484.95447 -210 moveto
 472.45496 -205 lineto stroke
 newpath 484.95447 -210 moveto
 472.45496 -215 lineto stroke
-402 -238 moveto
+502 -238 moveto
 (stopAlarms\(\)) ptmr8r 6.97382 fshow
 newpath 484.95447 -240 moveto
 583.80695 -240 lineto stroke

@@ -162,8 +162,8 @@ distance
 replaced by the issuing company.
 \item[SMS] Short message service. Refers to a text message that gets sent to the user when
 a security event occurs.
-\item[ZigBee] A wireless communication protocol using low-power digital radios. Uses the IEEE 802
-standard.
+\item[ZigBee] A wireless communication protocol using low-power digital radios.
+Uses the IEEE 802.15.4 standard.
 \end{description}
 
 %\section{Standards and References}
@@ -846,6 +846,19 @@ sequence for a scenario when a major alarm should go off. It can be generized
 by taking the WindowSensor boundary object and making it a DoorSensor or
 another sensor that will trigger if an intruder is detected.
 
+
+\begin{figure}[H]
+    \centering
+        \caption{GARTH State Diagram}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{states1.mps}
+        \normalsize
+    \label{fig:state_diagram}
+\end{figure}
+
+
+
 \begin{landscape}
 \begin{figure}[hp]
     \centering
@@ -879,18 +892,6 @@ another sensor that will trigger if an intruder is detected.
         \includegraphics{sequence_alert1.mps}
         \normalsize
     \label{fig:window_sensor_alert_sequence_diagram}
-\end{figure}
-\end{landscape}
-
-\begin{landscape}
-\begin{figure}[hp]
-    \centering
-        \caption{GARTH State Diagram}
-        \scriptsize
-        \setlength{\unitlength}{2.0em}
-        \includegraphics{states1.mps}
-        \normalsize
-    \label{fig:state_diagram}
 \end{figure}
 \end{landscape}
 

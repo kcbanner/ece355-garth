@@ -2,7 +2,7 @@
 %%BoundingBox: 2 -412 618 0 
 %%HiResBoundingBox: 2.99626 -412 617.85963 -0.75 
 %%Creator: MetaPost 1.504
-%%CreationDate: 2012.02.06:1642
+%%CreationDate: 2012.02.06:2301
 %%Pages: 1
 %*Font: ptmr8r 9.96265 9.96265 41:a80c6200989e738
 %*Font: ptmr8r 6.97382 9.96265 20:91c8000a440cb5007def3fc
@@ -383,7 +383,7 @@ newpath 475.80176 -130 moveto
 463.30151 -125 lineto stroke
 newpath 475.80176 -130 moveto
 463.30151 -135 lineto stroke
-482 -148 moveto
+482 -158 moveto
 (handleEvent\(Major\040AlarmEvent\)) ptmr8r 6.97382 fshow
 newpath 475.80176 -160 moveto
 564.65405 -160 lineto stroke

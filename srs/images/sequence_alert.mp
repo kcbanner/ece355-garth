@@ -86,7 +86,7 @@ beginfig(1);
   link(associationUni)((SensorController.midx, -130) -- (SystemController.midx, -130));
 
   % handleEvent()
-  item(iAssoc)("handleEvent(Major AlarmEvent)")(obj.sw = (480, -150));
+  item(iAssoc)("handleEvent(Major AlarmEvent)")(obj.sw = (480, -160));
   link(associationUni)((SystemController.midx, -160) -- (AlarmController.midx, -160));
   % 190
   
