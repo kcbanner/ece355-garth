@@ -24,9 +24,9 @@ The software requirements specification document for the Green, Aware, and
 Responsive Total Home is separated into four main sections.
 Chapter~\ref{ch:introduction} is an introduction to the system from a software
 requirements specification standpoint. The purpose of the document and the
-intended reader are detailed, as well as the objectives of the GARTH system. An
+intended reader are explained, as well as the objectives of the GARTH system. An
 overview of the problems that need to be solved by the system are outlined and
-explained here. The scope of the project is explained, so that there is no
+detailed here. The scope of the project is explained, so that there is no
 confusion as to what this document is meant to address. Following this, there
 is a glossary of terms to shed light on any acronyms and other obscure terms
 used.
@@ -34,7 +34,7 @@ used.
 The second chapter makes up the majority of the document, as it details the
 functionality of the GARTH system as a whole. It begins with a discussion of
 the high-level functionality of the system. This serves as a high level
-introduction to the sensor network to be implemented in the home, and how they
+introduction to the sensor network to be implemented in the home and how they
 are utilized in the three main sections of the GARTH system including family
 safety, home security, and green energy management. Family safety functionality
 focuses on child safety, home security focuses on unwanted trespassers and
@@ -94,7 +94,7 @@ scenarios.
 There are three main problems that need to be solved by the GARTH security system
 in order for it to adequately serve the intended customer. The first problem is that of
 family safety. If there are young children in the home, the customer needs to be able
-to monitor any activity that could potentially be dangerous to his young children. The
+to be made aware of any activity that could potentially be dangerous to his children. The
 second problem is that of overall home security. For example, when an intruder
 is attempting to enter the house while the owners are away or sleeping. This even
 extends into other home safety issues like having the oven left on for extended
@@ -143,6 +143,8 @@ document.
 \item[API] Application Programming Interface. An interface between different
 software applications to provide a standard with which to communicate with. For
 mobile applciations, this is usually done through HTTP requests.
+\item[Critical alarm] This term is GARTH specific. Refers to an alarm sounded during a major
+security event such as an intrusion while the system is armed.
 \item[GARTH] Green, aware, and responsive total home. The name of the system which
 is being detailed in this document.
 \item[GPS] Global positioning system. A satellelite navigation system that can accurately track
@@ -150,10 +152,18 @@ the location of a GPS enabled device such as a smart phone.
 \item[Hall effect sensor] A transducer that changes its output in response to an applied magnetic
 field. Useful for sensing proximity from one object to another.
 \item[HVAC] Heating, ventilation, and air conditioning. Refers to the technology of heating 
-and cooling to control the indoor environment. 
+and cooling to control the indoor environment.
+\item[Minor alarm] This term is GARTH specific. Refers to an alarm state that is not highly critical.
+Events such as thermostat irregularity or leaving the fridge open would trigger a minor alarm
 \item[NFC] Near field communication. NFC is a standard for smartphones that allows radio 
 communication between NFC enabled devices and the smartphone by proximity within a short 
 distance
+\item[RMA] Return merchandise authorization. The process of having a faulty item repaired or
+replaced by the issuing company.
+\item[SMS] Short message service. Refers to a text message that gets sent to the user when
+a security event occurs.
+\item[ZigBee] A wireless communication protocol using low-power digital radios. Uses the IEEE 802
+standard.
 \end{description}
 
 %\section{Standards and References}
@@ -172,8 +182,6 @@ green energy management can be easily integrated with the other systems to
 ensure prudent usage of resources. 
 
 \subsection{Sensors}
-% TODO :: proof read this. It may not all make sense
-% TODO :: elaborate HVAC or put it in the glossary
 The most crucial part of the system that ties all of the other parts together
 is the sensor network. They are the interface between the real world and the
 controllers. They detect if the house has been intruded upon by outsiders
@@ -301,7 +309,6 @@ lock the door, the beeping ceases after a timeout and informs the resident with
 an SMS.
 
 \subsection*{Window Intrusion}
-%TODO what happens during the alarm state?
 
 The security system is in the armed state. An intruder attempts to open a
 window from outside the home. The system receives a signal from the window's
@@ -309,7 +316,6 @@ sensor that notifies the system that a window has been opened. The system
 enters the alarmed state.
 
 \subsection*{Door Intrusion}
-%TODO what happens during the alarm state?
 
 The security system is in the armed state. An intruder picks the lock on the
 front door and opens it.  The system begins the alarm countdown alongside
@@ -341,8 +347,6 @@ The resident closes the cabinet door when he is finished and the sensor
 notifies the process to go back to its normal wait state.
 
 \subsection*{Child Bedroom Safety}
-% TODO how does the resident arm the child safety system? With their phone?
-% Console in the bedroom? 
 
 The resident of the home has placed his child in the crib for the night. When
 the resident leaves the bedroom, he arms the child bedroom safety system and
@@ -361,7 +365,6 @@ alarm state, notifying the resident via SMS and sounding an audible alarm
 throughout the house.
 
 \subsection*{Flood Detection}
-%TODO define alarm states (minor, intermediate, major?)
 
 The basement's sump pump fails and groundwater begins to seep into the
 basement.  Flood detectors installed in the system detect that water has risen
@@ -370,7 +373,6 @@ is flooded, and a minor alarm is sounded throughout the home to alert the
 residents of the flood.
 
 \subsection*{Thermostat Left On}
-%TODO define home inactivity
 
 The residents of the home have the thermostat set to hold at 73 degrees
 Fahrenheit.  The residents leave for vacation, but forget to turn the
@@ -992,7 +994,6 @@ response time. Components that are able to be hard-wired easily throughout the
 home will be done so as to reduce latency.
 
 \section{Supportability}
-%TODO :: define RMA
 Several levels of support are required. The system will be easily supported
 remotely for most minor issues. Occasional firmware updates will be installed
 remotely to fix software bugs as they arise. These updates do not require any cues
@@ -1098,7 +1099,7 @@ thermostat, and lights -- both interior and exterior. The final duty is to
 track the status of each family member through GPS integrated into the mobile
 device. 
 
-It is relatively simple application. Figure~\ref{fig:wireframe-home} shows a
+This application is relatively simple. Figure~\ref{fig:wireframe-home} shows a
 wire frame of the first screen seen when the application is started. This is the
 main navigation between the different features. A simple settings wire frame is
 shown in Figure~\ref{fig:wireframe-settings}. Not all capabilities are shown in
