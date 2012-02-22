@@ -175,12 +175,13 @@ arm or disarm the security system.
 
 \section{Boundary Conditions}
 
-\chapter{Interfaces} % 10% - cccbanne
+\chapter{Interfaces} % 10% - Casey
 \label{ch:interfaces}
 
 \section{External System Interfaces}
 
-
+A class diagram of the external interfaces that GARTH uses can be found in
+Figure~\ref{fig:external_interfaces}.
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -195,6 +196,12 @@ arm or disarm the security system.
 \end{figure}
 \floatstyle{boxed}
 \restylefloat{figure}
+
+All interaction with external interfaces is handled by the SystemController
+component. This behaviour was chosen to reduce implementation complexity; if
+only the SystemController requires access to external interfaces, then
+no other Controller will have to depend on the External Interface subsystem.
+This reduces both compile-time and run-time dependency.
 
 \section{Internal Subsystem Interfaces}
 

@@ -2,6 +2,7 @@ filenametemplate "%j%c.mps";
 input metauml;
 
 beginfig(1);
+  Component.SensorOS("Sensor OS")();
   Component.EventHandling("Event Handling")();
   Component.CommProtocol("Communications Protocol")();
   Component.HardwareInterface("Hardware Interface")();
@@ -13,12 +14,22 @@ beginfig(1);
       CommProtocol,
       HardwareInterface);
 
+  leftToRight(40)(
+      EventHandling,
+      SensorOS);
+
   drawObjects(
+      SensorOS,
       EventHandling,
       CommProtocol,
       HardwareInterface,
       ExternalInterface);
 
+  link(providedInterface)(SensorOS.w -- .5[SensorOS.w,
+      EventHandling.e]);  
+  link(requiredInterface)(EventHandling.e -- .5[EventHandling.e,
+      SensorOS.w]);
+  
   link(providedInterface)(HardwareInterface.n -- .5[HardwareInterface.n,
       CommProtocol.s]);
   link(requiredInterface)(CommProtocol.s -- .5[CommProtocol.s,
