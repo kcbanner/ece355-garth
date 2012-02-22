@@ -48,22 +48,17 @@
 \chapter{Architecture} % 20% - Casey
 \label{ch:architecture}
 
-% Subsystems
-% - Hardware interfacing (drivers for ZigBee)
-% - Communications protocol (RPC over TCP/IP)
-% - Event handling (event queue)
-% - External interface (JSON RPC over HTTP)
-% - Sensor OS
+\section{Overview}
 
 The architecture of GARTH is both a layered architecture as well as a
-client/server architecture. All communications related subsystems, such as
-hardware interfacing, communications protocols, and event handling are
+client/server architecture. All communications-related subsystems, such as
+hardware interfacing, communications protocols, and event handling, are
 layered. Subsystems such as external interfacing, inter-process communications,
 and sensor communication use a client/server model.
 
 Layering the communications subsystems will allow for more abstraction and
-easier seperation, leading to an increased ease of implementation for these
-systems. Seperating the subsystems in layers allows for parallel work to occur
+easier separation, leading to an increased ease of implementation for these
+systems. Separating the subsystems in layers allows for parallel work to occur
 on these layers, as they can individually be developed and tested before being
 integrated together. An approach similar to the OSI model was chosen, with the
 physical layer at the bottom. The communication subsystem layer hierarchy is
@@ -83,12 +78,37 @@ shown in Figure~\ref{fig:communication_layers}.
 \floatstyle{boxed}
 \restylefloat{figure}
 
-
-Using a client server model allows for work to be 
-
-\section{Overview}
+Using a client server model allows for work to be delegated across
+subsystems. GARTH relies heavily on an event-based communications model, which
+is well suited to a client/server architecture. The transport layer which
+facilitates this client/server model is discussed above.
 
 \section{Subsystem Decomposition}
+
+% Subsystems
+% - Hardware interfacing (drivers for ZigBee)
+% - Communications protocol (RPC over TCP/IP)
+% - Event handling (event queue)
+% - External interface (JSON RPC over HTTP)
+% - Sensor OS
+
+The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}.
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+    \centering
+        \caption{Subsystem Decomposition}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{subsystem_decomposition1.mps}
+        \normalsize
+    \label{fig:subsystem_decomposition}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+
 
 \chapter{System Design} % 10% Zack
 \label{ch:system-design}
@@ -98,22 +118,24 @@ Using a client server model allows for work to be
 \section{Data Resource Management}
 %TODO mentioned proprietary software that should be fleshed out in this SDD
 
-The two main components to GARTH's data resource management are the local storage
-hardware and the remote server. The local storage component is contained within the
-home and consists of a Linux server that will be stored in a secure location. The Linux server
-is a desktop computer with four 2TB hard drives arranged in a modified RAID array with a
-parity disk for redundancy. In this case, if a hard drive should fail the system will continue
-to run as expected until a replacement hard drive gets installed. The server will use proprietary 
-software  to create TXT files that log system events as well as store video that is captured by the 
-cameras situated within and outside the home.
+The two main components to GARTH's data resource management are the local
+storage hardware and the remote server. The local storage component is contained
+within the home and consists of a Linux server that will be stored in a secure
+location. The Linux server is a desktop computer with four 2TB hard drives
+arranged in a modified RAID array with a parity disk for redundancy. In this
+case, if a hard drive should fail the system will continue to run as expected
+until a replacement hard drive gets installed. The server will use proprietary
+software to create TXT files that log system events as well as store video that
+is captured by the cameras situated within and outside the home.
 
-The remote server is back-up storage that is located offsite at GARTH headquarters. It is
-merely a remote backup of system logs and important video data that should be saved for
-future reference. This includes any log-files or video that was recorded by the system during a 
-critical security violation. This synchronization will be accomplished by using \textbf{rsync} 
-network protocol installed on both the local and remote server. The data that is backed up
-remotely will be stored in a SQL database such that storing and querying important data
-can be accomplished easily.
+The remote server is back-up storage that is located offsite at GARTH
+headquarters. It is merely a remote backup of system logs and important video
+data that should be saved for future reference. This includes any log-files or
+video that was recorded by the system during a critical security violation. This
+synchronization will be accomplished by using \textbf{rsync} network protocol
+installed on both the local and remote server. The data that is backed up
+remotely will be stored in a SQL database such that storing and querying
+important data can be accomplished easily.
 
 \section{Access Control and Security}
 
@@ -124,9 +146,9 @@ can be accomplished easily.
 \chapter{Interfaces} % 10% - cccbanne
 \label{ch:interfaces}
 
-
-
 \section{External System Interfaces}
+
+
 
 \floatstyle{plain}
 \restylefloat{figure}
