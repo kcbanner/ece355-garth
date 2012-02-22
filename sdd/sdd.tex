@@ -39,8 +39,46 @@
 
 %\section{References}
 
-\chapter{Architecture} % 20%
+\chapter{Architecture} % 20% - Casey
 \label{ch:architecture}
+
+% Subsystems
+% - Hardware interfacing (drivers for ZigBee)
+% - Communications protocol (RPC over TCP/IP)
+% - Event handling (event queue)
+% - External interface (JSON RPC over HTTP)
+% - Sensor OS
+
+The architecture of GARTH is both a layered architecture as well as a
+client/server architecture. All communications related subsystems, such as
+hardware interfacing, communications protocols, and event handling are
+layered. Subsystems such as external interfacing, inter-process communications,
+and sensor communication use a client/server model.
+
+Layering the communications subsystems will allow for more abstraction and
+easier seperation, leading to an increased ease of implementation for these
+systems. Seperating the subsystems in layers allows for parallel work to occur
+on these layers, as they can individually be developed and tested before being
+integrated together. An approach similar to the OSI model was chosen, with the
+physical layer at the bottom. The communication subsystem layer hierarchy is
+shown in Figure~\ref{fig:communication_layers}.
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+    \centering
+        \caption{Communication Layer Heirarchy}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{communication_layers1.mps}
+        \normalsize
+    \label{fig:communication_layers}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+
+Using a client server model allows for work to be 
 
 \section{Overview}
 
@@ -62,9 +100,27 @@
 \chapter{Interfaces} % 10% - cccbanne
 \label{ch:interfaces}
 
+
+
 \section{External System Interfaces}
 
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+    \centering
+        \caption{External System Interfaces}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{external_interfaces1.mps}
+        \normalsize
+    \label{fig:external_interfaces}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
+
 \section{Internal Subsystem Interfaces}
+
+
 
 \chapter{Object Design} % 30%
 \label{ch:object-design}
