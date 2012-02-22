@@ -43,6 +43,7 @@
 \item[rsync]
 \item[SHA1]
 \item[SQL]
+\item[FIFO]
 \end{description}
 
 %\section{References}
@@ -173,6 +174,18 @@ arm or disarm the security system.
 
 \section{Global Software Control}
 
+Requests are initiated by different inputs throughout the home. Most notable
+would be the sensor network that generate event requests depending on the
+system's armed state. For example, a window that gets opened while the security
+system is armed would trigger an alarm event. Minor events are processed in a
+sequential order using a very basic FIFO protocol (no concurrency). However,
+events of a critical nature such as a home break-in while the system is armed
+will suspend running events and get processed immediately. If more than one
+critical event occurs at once, they are queued and handled sequentially while
+any current suspended minor events remain suspended. Critical events will be
+designed such that they are handled quickly and efficiently in order to avoid
+circumstances where critical events remained queued for long periods of time.
+
 \section{Boundary Conditions}
 
 \chapter{Interfaces} % 10% - Casey
@@ -242,12 +255,45 @@ This reduces both compile-time and run-time dependency.
 %used, such as remote procedure calls, a built-in event handling model, user
 %interface library, etc.
 
+% TODO :: talk about any special language, OS, or middleware features used
+
+Development will be done under a Linux environment as it closely matches the
+intended runtime platform for the server. It also has support for all of the
+required tools and libraries that are going to be used. 
+
+Implementation language depends on the particular subsystem of the application.
+The controllers will be implemented in Python for quick development and ease of 
+maintenance. The sensors will need to be programmed in C for efficiency and
+simplicity. Although this is not a purely Object Oriented language, using C++
+would be ineffective as it results in more overhead that is to be avoided in a
+real time system such as a sensor. The mobile applications will be written in
+Objective-C for the iOS application and in Java for the Android version as
+required by the platforms.
+
+Several network protocols will be used. The Zigbee protocol, IEEE 802.15.4,
+will be used for the hardware level communication between sensor nodes and the
+base station. The protocol used between Zigbee devices will be TCP/IP. External
+interfaces will use TCP/IP as well through HTTP requests for retrieving or
+modifying data. 
+
+On the iOS platform, the user interface will be constructed with the Quartz and
+UIKit. These libraries provide common user interface elements such as labels,
+buttons, and more. For HTTP requests, the AFNetworking library will be used as
+it simplifies the handling network requests and all of the boilerplate
+associated with it. On Android, the standard libraries will be used as they are
+sufficient and no third party libraries exist that are provide better
+functionality then the stock ones.
+
+
+% afnetworking.org/Documentation
+
 \section{Runtime Platform}
 %Describe the platform on which this system will be deployed and run, including
 %the operating system, any required middleware, and hardware. You may describe
 %the prototype in particular, if the final system is still unclear.
 
 % Controllers:
+
 %   OS = Linux
 %   Hardware = Server blade with redundencies
 %  
@@ -306,6 +352,7 @@ controllers and the sensors.
 %refer to the object or dynamic model), and how they will be manifested on the
 %target system.
 
+% TODO :: More
 The system as a whole is distributed system, with subsystems consisting of
 concurrent processes or single threaded microcontrollers. The sensor network is
 one distributed subsystem that consists of many single process
@@ -317,6 +364,8 @@ processes.
 \section{Synchronization}
 %Describe the method of coordination and synchronization between software
 %tasks, such as semaphores or message queues.
+
+% TODO :: More
 Coordination and synchronization between software is done through message
 queues. More specifically, the event objects are passed between interfaces and
 are handled as the messages in the event queues. These event queues will
