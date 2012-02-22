@@ -18,7 +18,7 @@
 \input{title.tex}
 \tableofcontents
 \listoffigures
-
+\listoftables
 \chapter{Introduction} % 10% Zack
 \label{ch:introduction}
 
@@ -83,7 +83,7 @@ can be accomplished easily.
 
 \section{Boundary Conditions}
 
-\chapter{Interfaces} % 10%
+\chapter{Interfaces} % 10% - cccbanne
 \label{ch:interfaces}
 
 \section{External System Interfaces}
@@ -114,17 +114,90 @@ can be accomplished easily.
 
 \section{Extensibility}
 
-\chapter{Operating Environment} % 10%
+\chapter{Operating Environment} % 10% 
+% BEN IS GOT THIS.
 \label{ch:operating-environment}
 
 \section{Development Platform}
+%In general terms, describe the anticipated platform on which this system will
+%be developed, including the implementation language, major libraries and
+%network protocols utilized, and special language or OS or middleware features
+%used, such as remote procedure calls, a built-in event handling model, user
+%interface library, etc.
 
 \section{Runtime Platform}
+%Describe the platform on which this system will be deployed and run, including
+%the operating system, any required middleware, and hardware. You may describe
+%the prototype in particular, if the final system is still unclear.
+
+% Controllers:
+%   OS = Linux
+%   Hardware = Server blade with redundencies
+%  
+% Sensors:  
+%   OS = tinyOS
+%   Hardware = Microcontroller with Zigbee
+%
+% Middleware:
+%   Communication between sensors and controllers (via the server) with a
+%   xigbee base station connected to the server.
+
+The platform is divided into two major types of components, controllers and
+sensors. Both types have different requirements for operating systems and
+hardware. Middleware is required to interface between the two subsystems as well. 
+
+The controllers will all operate on a single server as seperate processes. The
+server will be a Linux based server orientated distribution such as CentOS or
+Debian. The server will be housed locally within the house. The hardware needs
+to be powerful, yet energy efficient and compact. No dependance on exact
+hardware is required. Some recommended specifications are outlined in
+Table~\ref{server_hardware}.
+
+Each sensor will have its own independent hardware and operating system due to
+the independent nature of these devices. Each will have an Atmel AVR ATMega
+microcontroller for reading sensor data and communicating through the Zigbee.
+The tinyOS operating system can be used to quicken development time and the
+protocols for communication with the Zigbee. The tinyOS will also simplify
+setting up the mesh network as several modules are provided for this.
+
+Some middleware is required to interface the sensors and the controllers
+through a Zigbee and microcontroller connected via USB to the server. A simple
+hardware interface is required to allow for two-way communication between the
+controllers and the sensors.
+
+\begin{table}[h]
+    \caption{Recommended Server Hardware}
+    \label{server_hardware}
+    \centering
+    \begin{tabular}{| c | p{5cm} |}
+    \hline
+    Processor & AMD Athlon II X3 445 \\ \hline
+    Motherboard & ASUS M5A78L-M LX PLUS AMD 760G Motherboard - Micro ATX,
+    AMD 760G Chipset, 1866MHz DD3 (O.C.), SATA 3.0 Gb/s, RAID, Gigabit LAN \\
+    \hline
+    Case &  XION XON-810P-Red Micro ATX/ITX with 450W PSU \\ \hline
+    Memory & Cosair Value Select PC10600 RAM - 2GB, DDR3, 1333Mhz \\ \hline
+    Hard Drive & Western Digital Caviar Green - 1 TB \\
+    \hline
+    \end{tabular}
+\end{table}
+
+
+
 
 \section{Process Model}
+%Describe whether the system is multi-threaded, runs on concurrent processes, or
+%is distributed. Identify the major concurrent activities and objects (you may
+%refer to the object or dynamic model), and how they will be manifested on the
+%target system.
 
 \section{Synchronization}
+%Describe the method of coordination and synchronization between software
+%tasks, such as semaphores or message queues.
 
 \section{Fault Handling}
+%Explain how errors will be handled. For instance, describe the use of
+%exception handling in the system. Discuss how the system may recover from
+%software or hardware failure.
 
 \end{document}
