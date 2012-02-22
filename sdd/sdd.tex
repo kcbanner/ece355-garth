@@ -41,6 +41,8 @@
 \item[RAID]
 \item[Parity disk]
 \item[rsync]
+\item[SHA1]
+\item[SQL]
 \end{description}
 
 %\section{References}
@@ -119,14 +121,15 @@ The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}
 %TODO mentioned proprietary software that should be fleshed out in this SDD
 
 The two main components to GARTH's data resource management are the local
-storage hardware and the remote server. The local storage component is contained
-within the home and consists of a Linux server that will be stored in a secure
-location. The Linux server is a desktop computer with four 2TB hard drives
-arranged in a modified RAID array with a parity disk for redundancy. In this
-case, if a hard drive should fail the system will continue to run as expected
-until a replacement hard drive gets installed. The server will use proprietary
-software to create TXT files that log system events as well as store video that
-is captured by the cameras situated within and outside the home.
+storage hardware and the remote server. The local storage component is
+contained within the home and consists of a Linux server that will be stored in
+a secure location. The Linux server is a desktop computer with four 2TB hard
+drives arranged in a modified RAID array with a parity disk for redundancy. In
+this case, if a hard drive should fail the system will continue to run as
+expected until a replacement hard drive gets installed. The server will use
+proprietary software  to create TXT files that log system events as well as
+store video that is captured by the cameras situated within and outside the
+home.
 
 The remote server is back-up storage that is located offsite at GARTH
 headquarters. It is merely a remote backup of system logs and important video
@@ -138,6 +141,34 @@ remotely will be stored in a SQL database such that storing and querying
 important data can be accomplished easily.
 
 \section{Access Control and Security}
+
+All access control data will be stored in the local storage database and will be
+organized in an access array. The access control array will store user
+information, IDs, passwords and priviliges.  This data will be encrypted using
+the SHA1 hash algorithm to ensure that this data will be irrelevent to anyone
+who accesses it unrightfully. This array can be accessed at any time by the
+system to allow necessary access to a user. 
+
+\begin{table}[h]
+    \caption{Example of a GARTH access array}
+    \label{access_array}
+    \centering
+    \begin{tabular}{| l | l | l | l | l | l |}
+    \hline
+    \textbf{Entry ID \#}&\textbf{User ID String}&\textbf{Username}&\textbf{Password}&\textbf{NFC ID}&\textbf{Privileges} \\ \hline
+    1&Daryl Simpson&d\_simpson22&\$taRfi\$h&darylBB&Administrator \\ \hline
+    2&Megan Simpson&msimpson&Portia&meganBold&Administrator \\ \hline
+    3&Charlotte Simpson&charlotte11&Barbie11&charPod&Arm/Disarm \\
+    \hline
+    \end{tabular}
+\end{table}
+
+The array contains relevant information for each person who will be using the
+system. The array contains a username and password for each user, in case
+they need to log-in through the console's interface to change settings. Certain
+settings will only be able to get changed by users with administator access.
+The NFC ID field stores the device name of the NFC device the user chose to
+arm or disarm the security system.
 
 \section{Global Software Control}
 
@@ -302,7 +333,20 @@ multiple occurances of this type will imply an issue with the sensor or
 communication interface. When a minor error is detected, the error needs to be
 logged but no further action is required.
 
+Major errors will require system action and possibly user action to correct.
+Major faults include missing sensors, low battery levels, and other issues that
+will affect the short-term and long-term operation of the system. These faults
+need to be accounted for and handled appropriately. In some cases, the user
+will need to alerted with information on how to take the appropriate actions.
+For example, if a sensor has low battery levels then the user will need to
+replace or recharge the battery to ensure proper and continuous operation.
 
-
+The final error criticality level is critical faults. Complete hardware or
+software failures of the server can be considered critical faults. If the fault
+is easily recoverable, such as a brown out causing a power flicker at the
+house, then the components effected need to restart as quickly as possible to
+ensure proper and consistent operation. For other faults such as hardware
+failure in the base station or the server, then the user will need to take
+appropriate action to fix the malfunctioning hardware.
 
 \end{document}
