@@ -5,6 +5,7 @@
 \usepackage{array}
 %\usepackage{pdflscape}
 \usepackage{lscape}
+%\usepackage[parfill]{parskip}
 
 \setlength{\extrarowheight}{4pt}
 
@@ -36,6 +37,11 @@
 \section{Prioritization of Functionality}
 
 \section{Terminology and Definitions}
+\begin{description}
+\item[RAID]
+\item[Parity disk]
+\item[rsync]
+\end{description}
 
 %\section{References}
 
@@ -90,6 +96,24 @@ Using a client server model allows for work to be
 \section{Hardware/Software Mapping}
 
 \section{Data Resource Management}
+%TODO mentioned proprietary software that should be fleshed out in this SDD
+
+The two main components to GARTH's data resource management are the local storage
+hardware and the remote server. The local storage component is contained within the
+home and consists of a Linux server that will be stored in a secure location. The Linux server
+is a desktop computer with four 2TB hard drives arranged in a modified RAID array with a
+parity disk for redundancy. In this case, if a hard drive should fail the system will continue
+to run as expected until a replacement hard drive gets installed. The server will use proprietary 
+software  to create TXT files that log system events as well as store video that is captured by the 
+cameras situated within and outside the home.
+
+The remote server is back-up storage that is located offsite at GARTH headquarters. It is
+merely a remote backup of system logs and important video data that should be saved for
+future reference. This includes any log-files or video that was recorded by the system during a 
+critical security violation. This synchronization will be accomplished by using \textbf{rsync} 
+network protocol installed on both the local and remote server. The data that is backed up
+remotely will be stored in a SQL database such that storing and querying important data
+can be accomplished easily.
 
 \section{Access Control and Security}
 
@@ -208,13 +232,11 @@ controllers and the sensors.
     AMD 760G Chipset, 1866MHz DD3 (O.C.), SATA 3.0 Gb/s, RAID, Gigabit LAN \\
     \hline
     Case &  XION XON-810P-Red Micro ATX/ITX with 450W PSU \\ \hline
-    Memory & Cosair Value Select PC10600 RAM - 2GB, DDR3, 1333Mhz \\ \hline
+    Memory & Corsair Value Select PC10600 RAM - 2GB, DDR3, 1333Mhz \\ \hline
     Hard Drive & Western Digital Caviar Green - 1 TB \\
     \hline
     \end{tabular}
 \end{table}
-
-
 
 
 \section{Process Model}
@@ -223,13 +245,42 @@ controllers and the sensors.
 %refer to the object or dynamic model), and how they will be manifested on the
 %target system.
 
+The system as a whole is distributed system, with subsystems consisting of
+concurrent processes or single threaded microcontrollers. The sensor network is
+one distributed subsystem that consists of many single process
+microcontrollers. The controllers located on the server are concurrent
+processes.
+
+% TODO :: Refer to object/dynamic model and shit.
+
 \section{Synchronization}
 %Describe the method of coordination and synchronization between software
 %tasks, such as semaphores or message queues.
+Coordination and synchronization between software is done through message
+queues. More specifically, the event objects are passed between interfaces and
+are handled as the messages in the event queues. These event queues will
+have different priority levels as some events are more critical then others in
+terms of time sensitivity. 
 
 \section{Fault Handling}
 %Explain how errors will be handled. For instance, describe the use of
 %exception handling in the system. Discuss how the system may recover from
 %software or hardware failure.
+Errors will be handled on a case by case basis as some errors will not affect
+day to day operation of the system. Minor errors such as a temperature misread
+or missing data from one of the passively read sensors can be ignored as long
+as it is a transient event. Major errors such as a missing sensor or low
+battery levels on a sensor will need to be handled. Critical errors such as a
+hardware failure in the base station or server will require special care.
+
+Minor errors can be ignored for the most part. These represent one time sensor
+misreads, missing data, and other faults that do not affect any long term
+operation of the system. These minor faults still need to be accounted for as
+multiple occurances of this type will imply an issue with the sensor or
+communication interface. When a minor error is detected, the error needs to be
+logged but no further action is required.
+
+
+
 
 \end{document}
