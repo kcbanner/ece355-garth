@@ -41,6 +41,8 @@
 \item[RAID]
 \item[Parity disk]
 \item[rsync]
+\item[SHA1]
+\item[SQL]
 \end{description}
 
 %\section{References}
@@ -78,6 +80,34 @@ remotely will be stored in a SQL database such that storing and querying importa
 can be accomplished easily.
 
 \section{Access Control and Security}
+
+All access control data will be stored in the local storage database and will be
+organized in an access array. The access control array will store user
+information, IDs, passwords and priviliges.  This data will be encrypted using
+the SHA1 hash algorithm to ensure that this data will be irrelevent to anyone
+who accesses it unrightfully. This array can be accessed at any time by the
+system to allow necessary access to a user. 
+
+\begin{table}[h]
+    \caption{Example of a GARTH access array}
+    \label{access_array}
+    \centering
+    \begin{tabular}{| l | l | l | l | l | l |}
+    \hline
+    \textbf{Entry ID \#}&\textbf{User ID String}&\textbf{Username}&\textbf{Password}&\textbf{NFC ID}&\textbf{Privileges} \\ \hline
+    1&Daryl Simpson&d\_simpson22&\$taRfi\$h&darylBB&Administrator \\ \hline
+    2&Megan Simpson&msimpson&Portia&meganBold&Administrator \\ \hline
+    3&Charlotte Simpson&charlotte11&Barbie11&charPod&Arm/Disarm \\
+    \hline
+    \end{tabular}
+\end{table}
+
+The array contains relevant information for each person who will be using the
+system. The array contains a username and password for each user, in case
+they need to log-in through the console's interface to change settings. Certain
+settings will only be able to get changed by users with administator access.
+The NFC ID field stores the device name of the NFC device the user chose to
+arm or disarm the security system.
 
 \section{Global Software Control}
 
