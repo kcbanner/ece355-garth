@@ -11,3 +11,7 @@ all :
 	$(LATEX) $(FILES)
 	wc sdd.tex
 
+mpost :
+	$(ECHO) Building mpost graphics
+	$(MPOST) images/external_interfaces.mp
+	$(MPOST) images/communication_layers.mp
