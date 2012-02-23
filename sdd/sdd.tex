@@ -43,6 +43,7 @@
 \item[rsync]
 \item[SHA1]
 \item[SQL]
+\item[FIFO]
 \end{description}
 
 %\section{References}
@@ -152,6 +153,18 @@ The NFC ID field stores the device name of the NFC device the user chose to
 arm or disarm the security system.
 
 \section{Global Software Control}
+
+Requests are initiated by different inputs throughout the home. Most notable
+would be the sensor network that generate event requests depending on the
+system's armed state. For example, a window that gets opened while the security
+system is armed would trigger an alarm event. Minor events are processed in a
+sequential order using a very basic FIFO protocol (no concurrency). However,
+events of a critical nature such as a home break-in while the system is armed
+will suspend running events and get processed immediately. If more than one
+critical event occurs at once, they are queued and handled sequentially while
+any current suspended minor events remain suspended. Critical events will be
+designed such that they are handled quickly and efficiently in order to avoid
+circumstances where critical events remained queued for long periods of time.
 
 \section{Boundary Conditions}
 
