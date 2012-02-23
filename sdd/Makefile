@@ -9,4 +9,5 @@ all :
 	$(LATEX) $(FILES)
 	$(ECHO) Making sdd.pdf again for references
 	$(LATEX) $(FILES)
+	wc sdd.tex
 
