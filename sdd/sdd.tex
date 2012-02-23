@@ -51,22 +51,17 @@
 \chapter{Architecture} % 20% - Casey
 \label{ch:architecture}
 
-% Subsystems
-% - Hardware interfacing (drivers for ZigBee)
-% - Communications protocol (RPC over TCP/IP)
-% - Event handling (event queue)
-% - External interface (JSON RPC over HTTP)
-% - Sensor OS
+\section{Overview}
 
 The architecture of GARTH is both a layered architecture as well as a
-client/server architecture. All communications related subsystems, such as
-hardware interfacing, communications protocols, and event handling are
+client/server architecture. All communications-related subsystems, such as
+hardware interfacing, communications protocols, and event handling, are
 layered. Subsystems such as external interfacing, inter-process communications,
 and sensor communication use a client/server model.
 
 Layering the communications subsystems will allow for more abstraction and
-easier seperation, leading to an increased ease of implementation for these
-systems. Seperating the subsystems in layers allows for parallel work to occur
+easier separation, leading to an increased ease of implementation for these
+systems. Separating the subsystems in layers allows for parallel work to occur
 on these layers, as they can individually be developed and tested before being
 integrated together. An approach similar to the OSI model was chosen, with the
 physical layer at the bottom. The communication subsystem layer hierarchy is
@@ -86,12 +81,37 @@ shown in Figure~\ref{fig:communication_layers}.
 \floatstyle{boxed}
 \restylefloat{figure}
 
-
-Using a client server model allows for work to be 
-
-\section{Overview}
+Using a client server model allows for work to be delegated across
+subsystems. GARTH relies heavily on an event-based communications model, which
+is well suited to a client/server architecture. The transport layer which
+facilitates this client/server model is discussed above.
 
 \section{Subsystem Decomposition}
+
+% Subsystems
+% - Hardware interfacing (drivers for ZigBee)
+% - Communications protocol (RPC over TCP/IP)
+% - Event handling (event queue)
+% - External interface (JSON RPC over HTTP)
+% - Sensor OS
+
+The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}.
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+    \centering
+        \caption{Subsystem Decomposition}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{subsystem_decomposition1.mps}
+        \normalsize
+    \label{fig:subsystem_decomposition}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+
 
 \chapter{System Design} % 10% Zack
 \label{ch:system-design}
@@ -115,10 +135,10 @@ home.
 The remote server is back-up storage that is located offsite at GARTH
 headquarters. It is merely a remote backup of system logs and important video
 data that should be saved for future reference. This includes any log-files or
-video that was recorded by the system during a critical security violation.
-This synchronization will be accomplished by using \textbf{rsync} network
-protocol installed on both the local and remote server. The data that is backed
-up remotely will be stored in a SQL database such that storing and querying
+video that was recorded by the system during a critical security violation. This
+synchronization will be accomplished by using \textbf{rsync} network protocol
+installed on both the local and remote server. The data that is backed up
+remotely will be stored in a SQL database such that storing and querying
 important data can be accomplished easily.
 
 \section{Access Control and Security}
@@ -171,9 +191,9 @@ circumstances where critical events remained queued for long periods of time.
 \chapter{Interfaces} % 10% - cccbanne
 \label{ch:interfaces}
 
-
-
 \section{External System Interfaces}
+
+
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -228,12 +248,45 @@ circumstances where critical events remained queued for long periods of time.
 %used, such as remote procedure calls, a built-in event handling model, user
 %interface library, etc.
 
+% TODO :: talk about any special language, OS, or middleware features used
+
+Development will be done under a Linux environment as it closely matches the
+intended runtime platform for the server. It also has support for all of the
+required tools and libraries that are going to be used. 
+
+Implementation language depends on the particular subsystem of the application.
+The controllers will be implemented in Python for quick development and ease of 
+maintenance. The sensors will need to be programmed in C for efficiency and
+simplicity. Although this is not a purely Object Oriented language, using C++
+would be ineffective as it results in more overhead that is to be avoided in a
+real time system such as a sensor. The mobile applications will be written in
+Objective-C for the iOS application and in Java for the Android version as
+required by the platforms.
+
+Several network protocols will be used. The Zigbee protocol, IEEE 802.15.4,
+will be used for the hardware level communication between sensor nodes and the
+base station. The protocol used between Zigbee devices will be TCP/IP. External
+interfaces will use TCP/IP as well through HTTP requests for retrieving or
+modifying data. 
+
+On the iOS platform, the user interface will be constructed with the Quartz and
+UIKit. These libraries provide common user interface elements such as labels,
+buttons, and more. For HTTP requests, the AFNetworking library will be used as
+it simplifies the handling network requests and all of the boilerplate
+associated with it. On Android, the standard libraries will be used as they are
+sufficient and no third party libraries exist that are provide better
+functionality then the stock ones.
+
+
+% afnetworking.org/Documentation
+
 \section{Runtime Platform}
 %Describe the platform on which this system will be deployed and run, including
 %the operating system, any required middleware, and hardware. You may describe
 %the prototype in particular, if the final system is still unclear.
 
 % Controllers:
+
 %   OS = Linux
 %   Hardware = Server blade with redundencies
 %  
@@ -292,6 +345,7 @@ controllers and the sensors.
 %refer to the object or dynamic model), and how they will be manifested on the
 %target system.
 
+% TODO :: More
 The system as a whole is distributed system, with subsystems consisting of
 concurrent processes or single threaded microcontrollers. The sensor network is
 one distributed subsystem that consists of many single process
@@ -303,6 +357,8 @@ processes.
 \section{Synchronization}
 %Describe the method of coordination and synchronization between software
 %tasks, such as semaphores or message queues.
+
+% TODO :: More
 Coordination and synchronization between software is done through message
 queues. More specifically, the event objects are passed between interfaces and
 are handled as the messages in the event queues. These event queues will

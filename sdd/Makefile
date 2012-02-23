@@ -15,3 +15,4 @@ mpost :
 	$(ECHO) Building mpost graphics
 	$(MPOST) images/external_interfaces.mp
 	$(MPOST) images/communication_layers.mp
+	$(MPOST) images/subsystem_decomposition.mp
