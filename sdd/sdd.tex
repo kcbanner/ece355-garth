@@ -71,7 +71,7 @@ shown in Figure~\ref{fig:communication_layers}.
 \restylefloat{figure}
 \begin{figure}[hp]
     \centering
-        \caption{Communication Layer Heirarchy}
+        \caption{Communication Layer Hierarchy}
         \scriptsize
         \setlength{\unitlength}{2.0em}
         \includegraphics{communication_layers1.mps}
@@ -86,7 +86,16 @@ subsystems. GARTH relies heavily on an event-based communications model, which
 is well suited to a client/server architecture. The transport layer which
 facilitates this client/server model is discussed above.
 
+Finally, at a very high level, GARTH is based on an MVC architecture pattern.
+Within GARTH, the models are events which are handled by the controllers. Sensors
+and output devices are the views, which generate and display data contained within
+events.
+
+% TODO: Add high level description of MVC patterns used in GARTH.
+
 \section{Subsystem Decomposition}
+
+% TODO: Add sensors and controllers to subsystem decomposition diagram.
 
 % Subsystems
 % - Hardware interfacing (drivers for ZigBee)
