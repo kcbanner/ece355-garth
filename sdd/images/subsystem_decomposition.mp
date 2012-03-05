@@ -54,15 +54,25 @@ beginfig(1);
   link(association)(pathManhattanY(AlarmController.s, .75[EventHandling.n,
         SystemController.s]));
 
+  link(providedInterface)(AlarmController.w + (0, 10) -- .5[AlarmController.w + (0, 10), SystemController.e + (0, 10)]);
+  link(requiredInterface)(SystemController.e + (0, 10) -- .5[SystemController.e + (0, 10), AlarmController.w + (0, 10)]);
+
+  link(requiredInterface)(AlarmController.w - (0, 10) -- .5[AlarmController.w - (0, 10), SystemController.e - (0, 10)]);
+  link(providedInterface)(SystemController.e - (0, 10) -- .5[SystemController.e - (0, 10), AlarmController.w - (0, 10)]);
+  
+  link(providedInterface)(SensorController.e + (0, 10) -- .5[SensorController.e + (0, 10), SystemController.w + (0, 10)]);
+  link(requiredInterface)(SystemController.w + (0, 10) -- .5[SystemController.w + (0, 10), SensorController.e + (0, 10)]);
+
+  link(requiredInterface)(SensorController.e - (0, 10) -- .5[SensorController.e - (0, 10), SystemController.w - (0, 10)]);
+  link(providedInterface)(SystemController.w - (0, 10) -- .5[SystemController.w - (0, 10), SensorController.e - (0, 10)]);
+  
   link(providedInterface)(Outputs.n + (20, 0) -- .5[Outputs.n + (20, 0),
       AlarmController.s + (20, 0)]);
-  link(requiredInterface)(AlarmController.s + (20, 0) -- .5[AlarmController.s + (20, 0) ,
-      Outputs.n + (20, 0) ]);
+  link(requiredInterface)(AlarmController.s + (20, 0) -- .5[AlarmController.s + (20, 0) , Outputs.n + (20, 0) ]);
   
   link(providedInterface)(Sensors.n - (20, 0) -- .5[Sensors.n - (20, 0),
       SensorController.s - (20, 0)]);
-  link(requiredInterface)(SensorController.s - (20, 0) -- .5[SensorController.s - (20, 0),
-      Sensors.n - (20, 0)]);
+  link(requiredInterface)(SensorController.s - (20, 0) -- .5[SensorController.s - (20, 0), Sensors.n - (20, 0)]);
   
   link(providedInterface)(SensorOS.n -- .5[SensorOS.n,
       Sensors.s]);
