@@ -168,11 +168,31 @@ communications stack.
 
 \subsection{Sensors, Inputs, and Outputs}
 
-
+The Sensors, Inputs, and Outputs subsystems contain all the
+\texttt{Sensor}, \texttt{Input}, and \texttt{Output} objects within
+GARTH, respectively. These systems all communicate with the controller
+subsystems using the Communication Stack subsystem.
 
 \subsection{Controller Subsystems}
 
+GARTH contains three controller subsystems: SensorController,
+SystemController, and AlarmController. These controllers coordinate
+by passing Events using the Communications Stack subsystem.
 
+The SensorController component handles polling sensors, receiving
+sensor events, and passing relevant events on to the
+SystemController. The SensorController maintains an internal polling
+schedule which is used to poll sensors at intervals appropriate to the
+individual sensor.
+
+The SystemController maintains the overall system state. It acts on
+events received from the SensorController to transition the system
+into different states, including alarm states. The SystemController
+can generate alarm events which are sent to the AlarmController.
+
+The AlarmController acts on alarm events. This controller will
+generate output events which are sent to output devices to notify
+residents of alarms and changes in system state.
 
 \subsection{Subsystem Deployment}
 
