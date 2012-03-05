@@ -134,10 +134,10 @@ Also, any hardware related error handling and correction logic will be
 implemented within this component. The Hardware Interface component
 comprises the bottom layer of the communications stack.
 
-The Communications Protocol component handles serializing Event
+The Communications Protocol component handles serializing \texttt{Event}
 objects into a form that can be sent across the Hardware
 Interface. This component also handles protocol level flow
-control. Large Event objects will need to be split up into multiple
+control. Large \texttt{Event} objects will need to be split up into multiple
 segments in order to be sent over the Hardware Interface. In this
 case, flow control and checksums are required to ensure that multipart
 data streams are received and reconstructed correctly. The
@@ -146,12 +146,15 @@ TCP/IP which allows for message reception confirmation. This component
 forms the middle layer of the communications stack.
 
 The Event Protocol component contains all the classes and constructs
-required for the Event object and its descendants. These classes form
-the highest layer of the communications stack and are used by the
-other GARTH systems to communicate Events at a high level. This layer
-forms the highest level of the communications stack.
+required for the \texttt{Event} object and its descendants. These
+classes form the highest layer of the communications stack and are
+used by the other GARTH systems to communicate \texttt{Event} objects
+at a high level. This layer forms the highest level of the
+communications stack.
 
 \subsection{Sensors, Inputs, and Outputs}
+
+
 
 \subsection{Controller Subsystems}
 
