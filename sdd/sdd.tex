@@ -111,6 +111,8 @@ events.
 % - Sensor OS
 % - Outputs (loudspeakers, etc)
 
+The GARTH system is composed of several subsystems. 
+
 The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}.
 
 \floatstyle{plain}
@@ -126,6 +128,8 @@ The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}
 \end{figure}
 \floatstyle{boxed}
 \restylefloat{figure}
+
+The deployment diagram is shown in Figure~\ref{fig:subsystem_deployment}.
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -331,6 +335,8 @@ This reduces both compile-time and run-time dependency.
 \chapter{Object Design} % 30% Ben (and Casey?)
 \label{ch:object-design}
 
+% For communicationsProtocol: json-rpc.org/wiki/specification
+
 \section{Design Patterns}
 % Describe all design patterns used to reduce complexity and increase re-use in
 % the system. Explain how they were applied to specifci components and the
@@ -345,7 +351,7 @@ This reduces both compile-time and run-time dependency.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}
+\begin{figure}[p]
     \caption{SensorController Class Diagram}
     \label{fig:sensor_controller_class_diagram}
     \includegraphics[scale=0.5]{sensor_controller_class_diagram.png}
@@ -355,7 +361,7 @@ This reduces both compile-time and run-time dependency.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}
+\begin{figure}[p]
     \caption{SystemController Class Diagram}
     \label{fig:system_controller_class_diagram}
     \includegraphics[scale=0.5]{system_controller_class_diagram.png}
@@ -365,12 +371,22 @@ This reduces both compile-time and run-time dependency.
 \begin{landscape}
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}
+\begin{figure}[p]
     \caption{AlarmController Class Diagram}
     \label{fig:alarm_controller_class_diagram}
     \includegraphics[scale=0.5]{alarm_controller_class_diagram.png}
 \end{figure}
 \end{landscape}
+
+%\begin{landscape}
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[p]
+    \caption{Communications Stack Class Diagram}
+    \label{fig:communication_stack_class_diagram}
+    \includegraphics[scale=0.5]{communication_stack_class_diagram}
+\end{figure}
+%\end{landscape}
 
 \section{Dynamic Design Model}
 

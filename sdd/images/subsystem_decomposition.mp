@@ -5,6 +5,7 @@ beginfig(1);
   Component.SensorController("SensorController")();
   Component.SystemController("SystemController")();
   Component.AlarmController("AlarmController")();
+  Component.Inputs("Inputs")();
   Component.Outputs("Outputs")();
   Component.Sensors("Sensors")();
   
@@ -32,6 +33,8 @@ beginfig(1);
       Sensors,
       CommunicationsStack,
       Outputs);
+
+  Inputs.s = Outputs.n + (0, 30);
   
   leftToRight(40)(
       SensorController,
@@ -42,6 +45,7 @@ beginfig(1);
       SensorController,
       SystemController,
       AlarmController,
+      Inputs,
       Outputs,
       Sensors,
       CommunicationsStack,
@@ -52,6 +56,9 @@ beginfig(1);
   link(association)(pathManhattanY(AlarmController.s, .75[CommunicationsStack.n,
         SystemController.s]));
   
+  link(requiredInterface)(Inputs.w -- .5[Inputs.w, CommunicationsStack.e + (0, 61)]);
+  link(providedInterface)(CommunicationsStack.e + (0, 61) -- .5[Inputs.w, CommunicationsStack.e + (0, 61)]);
+
   link(requiredInterface)(Outputs.w -- .5[Outputs.w, CommunicationsStack.e]);
   link(providedInterface)(CommunicationsStack.e -- .5[Outputs.w, CommunicationsStack.e]);
 

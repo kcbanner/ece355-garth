@@ -2,7 +2,7 @@
 %%BoundingBox: -12 -351 441 92 
 %%HiResBoundingBox: -11.69052 -351 440.44191 91.25 
 %%Creator: MetaPost 1.504
-%%CreationDate: 2012.03.05:1218
+%%CreationDate: 2012.03.05:1312
 %%Pages: 1
 %*Font: ptmr8r 9.96265 9.96265 20:8000000054c190005e5fbfc
 %%BeginProlog
@@ -130,6 +130,46 @@ newpath 408.7796 -15 moveto
 408.7796 -15 lineto stroke
 335.86946 -17.75458 moveto
 (AlarmController) ptmr8r 9.96265 fshow
+ 0.7 0.7 0.7 setrgbcolor
+newpath 437.11942 -145 moveto
+365.21304 -145 lineto
+365.21304 -176 lineto
+437.11942 -176 lineto
+ closepath fill
+ 0.9 0.9 0.9 setrgbcolor
+newpath 436.11942 -144 moveto
+364.21304 -144 lineto
+364.21304 -175 lineto
+436.11942 -175 lineto
+ closepath fill
+ 0 0 0 setrgbcolor
+newpath 436.11942 -144 moveto
+364.21304 -144 lineto
+364.21304 -175 lineto
+436.11942 -175 lineto
+ closepath stroke
+newpath 422.11942 -149 moveto
+422.11942 -147 lineto
+430.11942 -147 lineto
+430.11942 -161 lineto
+422.11942 -161 lineto
+422.11942 -159 lineto stroke
+ 0.5 0 dtransform exch truncate exch idtransform pop setlinewidth
+newpath 422.11942 -156 moveto
+422.11942 -152 lineto stroke
+ 0 0.5 dtransform truncate idtransform setlinewidth pop
+newpath 419.11942 -152 moveto
+419.11942 -149 lineto
+425.11942 -149 lineto
+425.11942 -152 lineto
+419.11942 -152 lineto stroke
+newpath 419.11942 -159 moveto
+419.11942 -156 lineto
+425.11942 -156 lineto
+425.11942 -159 lineto
+419.11942 -159 lineto stroke
+387.71304 -161.48557 moveto
+(Inputs) ptmr8r 9.96265 fshow
  0.7 0.7 0.7 setrgbcolor
 newpath 440.44191 -206 moveto
 361.89055 -206 lineto
@@ -416,6 +456,22 @@ newpath 57.53699 -31 moveto
 newpath 369.07454 -31 moveto
 369.07454 -46 lineto
 213.72173 -46 lineto stroke
+newpath 364.21304 -159.5 moveto
+335.05191 -159.5 lineto stroke
+newpath 326.30173 -168 moveto
+331.09273 -168.13899 335.05191 -164.293 335.05191 -159.5 curveto
+335.05191 -154.707 331.09273 -150.86101 326.30173 -151 curveto stroke
+newpath 300.89055 -159.5 moveto
+320.05173 -159.5 lineto stroke
+ 1 1 1 setrgbcolor
+newpath 320.05173 -159.5 moveto
+320.05173 -167.83337 332.55179 -167.83337 332.55179 -159.5 curveto
+332.55179 -151.16663 320.05173 -151.16663 320.05173 -159.5 curveto
+ closepath fill
+ 0 0 0 setrgbcolor
+newpath 320.05173 -159.5 moveto
+320.05173 -167.83337 332.55179 -167.83337 332.55179 -159.5 curveto
+332.55179 -151.16663 320.05173 -151.16663 320.05173 -159.5 curveto stroke
 newpath 360.89055 -220.5 moveto
 333.3904 -220.5 lineto stroke
 newpath 324.64063 -229 moveto
