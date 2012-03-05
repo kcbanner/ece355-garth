@@ -143,6 +143,20 @@ The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}
 
 \section{Hardware/Software Mapping}
 
+The hardware / software mapping of the GARTH system can be viewed at a high
+level by examining the subsystem decomposition at the end of Chapter 2. The
+external interface and related controllers are software subsystems that are
+mapped onto the Linux server. These software components interact directly with
+the communications stack implemented by the server. The hardware that is mapped
+to the communications stack include the sensors and the inputs and outputs of 
+the system (such as control panels, alarms, speakers, etc). This hardware maps 
+specifcally to the hardware interface of the communications stack which includes
+all wireless and RF protocol used by the system. The communications stack also
+includes the event protocol and communications protocol, which handle events
+that are trigged by the hardware. Finally, the external interface to the system
+is the software interface of the Linux server which will allow a user with admin
+privileges to configure or manipulate the system.
+
 \section{Data Resource Management}
 %TODO mentioned proprietary software that should be fleshed out in this SDD
 
