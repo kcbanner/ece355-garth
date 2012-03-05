@@ -7,30 +7,31 @@ beginfig(1);
   Component.AlarmController("AlarmController")();
   Component.Outputs("Outputs")();
   Component.Sensors("Sensors")();
-  Component.SensorOS("Sensor OS")();
-  Component.EventHandling("Event Handling")();
+  
+  Component.CommunicationsStack("Communications Stack")(
+      EventProtocol,
+      CommProtocol,
+      HardwareInterface);
+  
+  Component.EventProtocol("Event Protocol")();
   Component.CommProtocol("Communications Protocol")();
   Component.HardwareInterface("Hardware Interface")();
   Component.ExternalInterface("External Interface")();
   
   topToBottom(60)(
-      SystemController,
-      EventHandling,
+      EventProtocol,
       CommProtocol,
       HardwareInterface);
 
   topToBottom(60)(
       ExternalInterface,
-      SystemController);
-
-  topToBottom(60)(
-      AlarmController,
-      Outputs);
+      SystemController,
+      CommunicationsStack);
   
-  topToBottom(60)(
-      SensorController,
+  leftToRight(60)(
       Sensors,
-      SensorOS);
+      CommunicationsStack,
+      Outputs);
   
   leftToRight(40)(
       SensorController,
@@ -43,46 +44,24 @@ beginfig(1);
       AlarmController,
       Outputs,
       Sensors,
-      SensorOS,
-      EventHandling,
-      CommProtocol,
-      HardwareInterface,
+      CommunicationsStack,
       ExternalInterface);
   
-  link(association)(pathManhattanY(SensorController.s, .75[EventHandling.n,
+  link(association)(pathManhattanY(SensorController.s, .75[CommunicationsStack.n,
         SystemController.s]));
-  link(association)(pathManhattanY(AlarmController.s, .75[EventHandling.n,
+  link(association)(pathManhattanY(AlarmController.s, .75[CommunicationsStack.n,
         SystemController.s]));
-
-  link(providedInterface)(AlarmController.w + (0, 10) -- .5[AlarmController.w + (0, 10), SystemController.e + (0, 10)]);
-  link(requiredInterface)(SystemController.e + (0, 10) -- .5[SystemController.e + (0, 10), AlarmController.w + (0, 10)]);
-
-  link(requiredInterface)(AlarmController.w - (0, 10) -- .5[AlarmController.w - (0, 10), SystemController.e - (0, 10)]);
-  link(providedInterface)(SystemController.e - (0, 10) -- .5[SystemController.e - (0, 10), AlarmController.w - (0, 10)]);
   
-  link(providedInterface)(SensorController.e + (0, 10) -- .5[SensorController.e + (0, 10), SystemController.w + (0, 10)]);
-  link(requiredInterface)(SystemController.w + (0, 10) -- .5[SystemController.w + (0, 10), SensorController.e + (0, 10)]);
+  link(requiredInterface)(Outputs.w -- .5[Outputs.w, CommunicationsStack.e]);
+  link(providedInterface)(CommunicationsStack.e -- .5[Outputs.w, CommunicationsStack.e]);
 
-  link(requiredInterface)(SensorController.e - (0, 10) -- .5[SensorController.e - (0, 10), SystemController.w - (0, 10)]);
-  link(providedInterface)(SystemController.w - (0, 10) -- .5[SystemController.w - (0, 10), SensorController.e - (0, 10)]);
-  
-  link(providedInterface)(Outputs.n + (20, 0) -- .5[Outputs.n + (20, 0),
-      AlarmController.s + (20, 0)]);
-  link(requiredInterface)(AlarmController.s + (20, 0) -- .5[AlarmController.s + (20, 0) , Outputs.n + (20, 0) ]);
-  
-  link(providedInterface)(Sensors.n - (20, 0) -- .5[Sensors.n - (20, 0),
-      SensorController.s - (20, 0)]);
-  link(requiredInterface)(SensorController.s - (20, 0) -- .5[SensorController.s - (20, 0), Sensors.n - (20, 0)]);
-  
-  link(providedInterface)(SensorOS.n -- .5[SensorOS.n,
-      Sensors.s]);
-  link(requiredInterface)(Sensors.s -- .5[Sensors.s,
-      SensorOS.n]);
+  link(requiredInterface)(Sensors.e -- .5[Sensors.e, CommunicationsStack.w]);
+  link(providedInterface)(CommunicationsStack.w -- .5[Sensors.e, CommunicationsStack.w]);  
 
-  link(providedInterface)(EventHandling.n -- .5[EventHandling.n,
+  link(providedInterface)(CommunicationsStack.n -- .5[CommunicationsStack.n,
       SystemController.s]);
   link(requiredInterface)(SystemController.s -- .5[SystemController.s,
-      EventHandling.n]);
+      CommunicationsStack.n]);
   
   link(providedInterface)(HardwareInterface.n -- .5[HardwareInterface.n,
       CommProtocol.s]);
@@ -90,14 +69,14 @@ beginfig(1);
       HardwareInterface.n]);
 
   link(providedInterface)(CommProtocol.n -- .5[CommProtocol.n,
-      EventHandling.s]);
-  link(requiredInterface)(EventHandling.s -- .5[EventHandling.s,
+      EventProtocol.s]);
+  link(requiredInterface)(EventProtocol.s -- .5[EventProtocol.s,
       CommProtocol.n]);  
   
   link(requiredInterface)(SystemController.n -- .5[SystemController.n,
       ExternalInterface.s]);
   link(providedInterface)(ExternalInterface.s -- .5[ExternalInterface.s,
-      SystemController.n]);  
+      SystemController.n]);
   
 endfig;
 
