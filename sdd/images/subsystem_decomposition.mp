@@ -49,6 +49,31 @@ beginfig(1);
       HardwareInterface,
       ExternalInterface);
   
+  link(association)(pathManhattanY(SensorController.s, .75[EventHandling.n,
+        SystemController.s]));
+  link(association)(pathManhattanY(AlarmController.s, .75[EventHandling.n,
+        SystemController.s]));
+
+  link(providedInterface)(Outputs.n + (20, 0) -- .5[Outputs.n + (20, 0),
+      AlarmController.s + (20, 0)]);
+  link(requiredInterface)(AlarmController.s + (20, 0) -- .5[AlarmController.s + (20, 0) ,
+      Outputs.n + (20, 0) ]);
+  
+  link(providedInterface)(Sensors.n - (20, 0) -- .5[Sensors.n - (20, 0),
+      SensorController.s - (20, 0)]);
+  link(requiredInterface)(SensorController.s - (20, 0) -- .5[SensorController.s - (20, 0),
+      Sensors.n - (20, 0)]);
+  
+  link(providedInterface)(SensorOS.n -- .5[SensorOS.n,
+      Sensors.s]);
+  link(requiredInterface)(Sensors.s -- .5[Sensors.s,
+      SensorOS.n]);
+
+  link(providedInterface)(EventHandling.n -- .5[EventHandling.n,
+      SystemController.s]);
+  link(requiredInterface)(SystemController.s -- .5[SystemController.s,
+      EventHandling.n]);
+  
   link(providedInterface)(HardwareInterface.n -- .5[HardwareInterface.n,
       CommProtocol.s]);
   link(requiredInterface)(CommProtocol.s -- .5[CommProtocol.s,
