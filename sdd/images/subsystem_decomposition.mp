@@ -2,33 +2,52 @@ filenametemplate "%j%c.mps";
 input metauml;
 
 beginfig(1);
+  Component.SensorController("SensorController")();
+  Component.SystemController("SystemController")();
+  Component.AlarmController("AlarmController")();
+  Component.Outputs("Outputs")();
+  Component.Sensors("Sensors")();
   Component.SensorOS("Sensor OS")();
   Component.EventHandling("Event Handling")();
   Component.CommProtocol("Communications Protocol")();
   Component.HardwareInterface("Hardware Interface")();
   Component.ExternalInterface("External Interface")();
   
-  topToBottom(40)(
-      ExternalInterface,
+  topToBottom(60)(
+      SystemController,
       EventHandling,
       CommProtocol,
       HardwareInterface);
 
-  leftToRight(40)(
-      EventHandling,
-      SensorOS);
+  topToBottom(60)(
+      ExternalInterface,
+      SystemController);
 
+  topToBottom(60)(
+      AlarmController,
+      Outputs);
+  
+  topToBottom(60)(
+      SensorController,
+      Sensors,
+      SensorOS);
+  
+  leftToRight(40)(
+      SensorController,
+      SystemController,
+      AlarmController);
+  
   drawObjects(
+      SensorController,
+      SystemController,
+      AlarmController,
+      Outputs,
+      Sensors,
       SensorOS,
       EventHandling,
       CommProtocol,
       HardwareInterface,
       ExternalInterface);
-
-  link(providedInterface)(SensorOS.w -- .5[SensorOS.w,
-      EventHandling.e]);  
-  link(requiredInterface)(EventHandling.e -- .5[EventHandling.e,
-      SensorOS.w]);
   
   link(providedInterface)(HardwareInterface.n -- .5[HardwareInterface.n,
       CommProtocol.s]);
@@ -39,11 +58,11 @@ beginfig(1);
       EventHandling.s]);
   link(requiredInterface)(EventHandling.s -- .5[EventHandling.s,
       CommProtocol.n]);  
-
-  link(providedInterface)(EventHandling.n -- .5[EventHandling.n,
+  
+  link(requiredInterface)(SystemController.n -- .5[SystemController.n,
       ExternalInterface.s]);
-  link(requiredInterface)(ExternalInterface.s -- .5[ExternalInterface.s,
-      EventHandling.n]);  
+  link(providedInterface)(ExternalInterface.s -- .5[ExternalInterface.s,
+      SystemController.n]);  
   
 endfig;
 
