@@ -4,6 +4,8 @@
 \usepackage{fullpage}
 \usepackage{array}
 \usepackage{pdflscape}
+\usepackage{multirow}
+%\usepackage[T1]{fontenc}
 %\usepackage{lscape}
 %\usepackage[parfill]{parskip}
 
@@ -167,10 +169,10 @@ system to allow necessary access to a user.
     \begin{tabular}{| l | l | l | l | l | l |}
     \hline
     \textbf{Entry ID \#}&\textbf{User ID String}&\textbf{Username}&
-    \textbf{Password}&\textbf{NFC ID}&\textbf{Privileges} \\ \hline
+    \textbf{Password}&\textbf{NFC ID}&\textbf{Privilege Level} \\ \hline
     1&Daryl Simpson&d\_simpson22&\$taRfi\$h&darylBB&Administrator \\ \hline
-    2&Megan Simpson&msimpson&Portia&meganBold&Administrator \\ \hline
-    3&Charlotte Simpson&charlotte11&Barbie11&charPod&Arm/Disarm \\
+    2&Megan Simpson&msimpson&Portia&meganBold&Regular User \\ \hline
+    3&Charlotte Simpson&charlotte11&Barbie11&charPod&Restricted \\
     \hline
     \end{tabular}
 \end{table}
@@ -182,6 +184,31 @@ settings will only be able to get changed by users with administator access.
 The NFC ID field stores the device name of the NFC device the user chose to arm
 or disarm the security system.
 
+The access array is useful for determining who can gain access to the system,
+however the privileges of each user will be tied separately to their respective
+entry in a access control matrix. A standard access control matrix will be
+employed by GARTH to solve this problem and can be seen in the table below.
+
+\begin{table}[h]
+    \caption{GARTH access control matrix}
+    \label{access_control}
+    \centering
+    \begin{tabular}{| l | l | l | l |}
+    \hline
+    &\textbf{User Control}&\textbf{Data Control}&\textbf{Security Actions} \\ \hline
+    \multirow{4}{*}{\textbf{Administrator}}&
+    \textless\textless create\textgreater\textgreater&dumpLogs()&stopAlarms() \\
+    &createUser()&searchLogs()&armSystem() \\ 
+    &editUser()&viewLogs()&disarmSystem() \\
+    &viewUsers()&& \\ \hline
+    \multirow{2}{*}{\textbf{Regular User}}&viewUsers()&viewLogs()&armSystem() \\
+    &&&disarmSystem() \\ \hline
+    \multirow{2}{*}{\textbf{Restricted}}&&&armSystem() \\
+    &&&disarmSystem() \\
+    \hline
+    \end{tabular}
+\end{table}
+
 \section{Global Software Control}
 
 Requests are initiated by different inputs throughout the home. Most notable
@@ -192,8 +219,10 @@ sequential order using a very basic FIFO protocol (no concurrency). However,
 events of a critical nature such as a home break-in while the system is armed
 will suspend running events and get processed immediately. If more than one
 critical event occurs at once, they are queued and handled sequentially while
-any current suspended minor events remain suspended. Critical events will be
-designed such that they are handled quickly and efficiently in order to avoid
+any current suspended minor events remain suspended. This level of scheduling
+will be achieved by using interrupt handling routines for the sensors that 
+correspond to these events and using global priority queues.Critical events will
+be designed such that they are handled quickly and efficiently in order to avoid
 circumstances where critical events remained queued for long periods of time.
 
 \section{Boundary Conditions}
