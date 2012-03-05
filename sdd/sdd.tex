@@ -607,13 +607,30 @@ speech alarm, external alarm, and siren alarm all inherit from this class.
 
 \section{Optimizations}
 
-previously everything talked to each other, now talks to each other through
-event framework.
+One of the optimizations that was made from the last iteration of the GARTH
+design to now is how events propagate through the system and communicate with
+the devices that deal with said events. Previously, every device was able to
+talk to each other to pass event information through the system to be handled by
+the server. This resulted in a much more complicated object model as well as
+more complicated hardware. Now, the communications stack has a specific event
+protocol and framework built in in order to handle all of the events. When an 
+event occurs, it gets passed through this framework and is dealt with by the
+server directly which is much more efficient.
 
-controllers were made into singletons (pros/cons)
+Another change that was made was to the controller class objects. The controllers
+have been made into singleton objects, which is useful as there is only one
+instantiation of each of the controller types. The only complication this produces
+is that these singleton classes introduce global state into the design, which
+is fortunately mitigated by the fact that we have boundary control to initialize
+and configure these controller classes individually. 
 
-added the user model to the object diagram and added relevent access arrays and
-control matrices
+Lastly, a user model class was added to the object diagram in order to help
+define the actors using the system. It became apparent that a user model would
+need to be added to the object model once the access control portion of the 
+system was fleshed out. Paramaters included in the access array such as user
+name strings, password hashes, and privilege levels needed to be stored in
+objects for simplicity, so this functionality was added in this iteration of the
+design.
 
 \section{Extensibility}
 
