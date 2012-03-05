@@ -244,6 +244,34 @@ circumstances where critical events remained queued for long periods of time.
 
 \section{Boundary Conditions}
 
+A system administrator is capable of issuing requests for a server reboot, 
+shutdown, or start-up if the server is powered down. The entire system relies 
+on the power status of the server, and as such the user can issue these commands
+from the server itself (by using its interface) or from any other control interface
+in the home.
+
+When the administrator starts the server, the controllers and sensors get
+initialized in parallel. Each controller has its own separate initialization
+method which starts each process in its reset state. Its own initialization
+procedure takes over from here assuming initial conditions of all of its
+parameters. These initalization patterns are included in the use case diagram
+below as the configuration procedures that extends the initialization procedures
+of each controller. The sensor initialization is a more basic procedure, as the
+sensors become activated and the system polls their status by attempting 
+communication between them and the sensor controller. If sensor communication
+fails then a sensor error occurs and the system enters a minor alarm state.
+
+When the administrator shuts down the server, a system snapshot is taken by
+the controllers to save the state of all of the subsystems and sensors. This 
+data is stored in the logs on the server, ready for when the system is started
+up again. Once the snapshot is complete and the data has been stored, the power
+down scheme begins which first shuts down the sensors, followed by the 
+controller interfaces, and then finally the server.
+
+A server reboot simply utilizes both of these patterns in order. First a system
+shutdown is initiated, followed by a start-up immediately after.
+
+
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[hp]
