@@ -34,6 +34,8 @@
 
 \section{Changes to Requirements}
 
+User model defined after implementing the access array and control matrix
+
 \section{Design Goals}
 
 \section{Prioritization of Functionality}
@@ -57,7 +59,7 @@
 
 The architecture of GARTH is both a layered architecture as well as a
 client/server architecture. All communications-related subsystems, such as
-hardware interfacing, communications protocols, and event handling, are
+hardware interfacing, communications protocols, and event protocols, are
 layered. Subsystems such as external interfacing, inter-process communications,
 and sensor communication use a client/server model.
 
@@ -121,6 +123,17 @@ The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}
         \includegraphics{subsystem_decomposition1.mps}
         \normalsize
     \label{fig:subsystem_decomposition}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+  \centering
+  \caption{Subsystem Deployment}
+  \includegraphics[scale=0.5]{deployment.png}
+  \label{fig:subsystem_deployment}
 \end{figure}
 \floatstyle{boxed}
 \restylefloat{figure}
@@ -226,6 +239,20 @@ be designed such that they are handled quickly and efficiently in order to avoid
 circumstances where critical events remained queued for long periods of time.
 
 \section{Boundary Conditions}
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+    \centering
+        \caption{Boundary Conditions Use Case Diagram}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{boundary_conditions.png}
+        \normalsize
+    \label{fig:boundary_conditions}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
 
 \chapter{Interfaces} % 10% - Casey
 \label{ch:interfaces}
