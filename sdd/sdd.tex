@@ -26,6 +26,59 @@
 
 \section{Executive Summary}
 
+Chapter~\ref{ch:introduction} serves as 
+an introduction to the document and explains much of the background and context 
+in which it was written. The purpose of the document and the intended reader are
+explained, followed by the scope of the software design document. The
+scope of the project is also explained. Any assumptions that were made when writing the 
+document are outlined and detailed afterward. Any changes to the requirements of
+GARTH's implementation are also outlined in this section. There is also an 
+introduction to the design goals that the GARTH team has for the project's 
+implementation. The priorities of the functionality of the system are also detailed so 
+that the reader understands which portions of the design are to be implemented first. 
+Following this, there is a glossary of terms to shed light on any acronyms and other 
+obscure terms used.
+
+Chapter ~\ref{ch:architecture} provides at first a high level overview of the 
+architecture of the system. The communication layer hierarchy is explained and
+presented in the overview. From here, the subsystem decomposition breaks down
+the many components of the system into subsections and explains their roles and
+how they interface with each other.
+
+Chapter ~\ref{ch:system-design} gives insight to the hardware and software
+mapping of the subsystems explained in the previous chapter. The interfaces
+and protocols of each of the subsystems are explained here. This chapter also
+discusses the data resource management of the system's server, explaining what
+databases were used and how the system retains data redundancy for protection.
+Access control and security schemes are discussed next, introducing the system's
+user access array and access control matrix which control the identity and 
+privileges of the system's various users. Finally global software control 
+discusses how concurrency is handled and the boundary conditions provide a use
+case model for system initialization, shut-down, and configuration.
+
+The next chapter describes the design of the systems various interfaces. The
+external system interfaces are first outlined, followed by the internal subsystem
+interfaces.
+
+Follwing this is the most important section of the design document which is the
+object design. This section begins by discussing the design patterns that will be
+used to implement the object model. Any algorithms and packages used in the
+design are then discussed. The object and interface design are then fully 
+detailed, followed by class diagrams for the many objects included in the system.
+At the end of this section is a dynamic design model of the system.
+
+Chapter ~\ref{ch:design-evaluation} evaluates the design decisions that were
+made and discusses the how they affected the implementation of the system.
+Design trade-offs such as performance vs. cost are described, followed by a
+discussion of how the system re-uses certain hardware and software. Design
+optimization decisions are highlighted in this section, followed by the
+extensibility of the design.
+
+The final chapter of the SDD describes the operating environment to be used
+by the GARTH system. The development and runtime platform are introduced in
+this section as well as the process model. Synchronization of software processes
+is discussed here, as well as fault and error handling of the system.
+
 \section{Purpose}
 
 \section{Scope}
@@ -116,7 +169,7 @@ subsystem, which many of the other GARTH subsystems use to
 communicate. Next, the Sensors, Inputs, and Outputs subsystems are
 discussed. The three GARTH controller subsystems as well as the
 External Interface subsystem will be discussed. Finally, subsystem
-deployment will be discussed.  The subsystem decomposition is shown in
+deployment will be discussed. The subsystem decomposition is shown in
 Figure~\ref{fig:subsystem_decomposition}.
 
 \floatstyle{plain}
@@ -571,9 +624,10 @@ without relying on tight polling from the \texttt{SensorController}.
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{Communications Stack Class Diagram}
-    \label{fig:communications_stack_class_diagram}
-    \includegraphics[scale=0.5]{communication_stack_class_diagram}
+  \centering
+  \caption{Communications Stack Class Diagram}
+  \label{fig:communications_stack_class_diagram}
+  \includegraphics[scale=0.5]{communication_stack_class_diagram}
 \end{figure}
 %\end{landscape}
 
