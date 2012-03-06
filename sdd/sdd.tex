@@ -114,9 +114,24 @@ Section~\ref{sec:architecture_overview}. This section will discuss the
 role of each subsystem. Firstly, there is the communications stack
 subsystem, which many of the other GARTH subsystems use to
 communicate. Next, the Sensors, Inputs, and Outputs subsystems are
-discussed. Finally, the three GARTH controller subsystems as well as
-the External Interface subsystem will be discussed.  The subsystem
-decomposition is shown in Figure~\ref{fig:subsystem_decomposition}.
+discussed. The three GARTH controller subsystems as well as the
+External Interface subsystem will be discussed. Finally, subsystem
+deployment will be discussed.  The subsystem decomposition is shown in
+Figure~\ref{fig:subsystem_decomposition}.
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+    \centering
+        \caption{Subsystem Decomposition}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{subsystem_decomposition1.mps}
+        \normalsize
+    \label{fig:subsystem_decomposition}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
 
 \subsection{Communications Stack}
 
@@ -134,10 +149,10 @@ Also, any hardware related error handling and correction logic will be
 implemented within this component. The Hardware Interface component
 comprises the bottom layer of the communications stack.
 
-The Communications Protocol component handles serializing Event
+The Communications Protocol component handles serializing \texttt{Event}
 objects into a form that can be sent across the Hardware
 Interface. This component also handles protocol level flow
-control. Large Event objects will need to be split up into multiple
+control. Large \texttt{Event} objects will need to be split up into multiple
 segments in order to be sent over the Hardware Interface. In this
 case, flow control and checksums are required to ensure that multipart
 data streams are received and reconstructed correctly. The
@@ -146,30 +161,51 @@ TCP/IP which allows for message reception confirmation. This component
 forms the middle layer of the communications stack.
 
 The Event Protocol component contains all the classes and constructs
-required for the Event object and its descendants. These classes form
-the highest layer of the communications stack and are used by the
-other GARTH systems to communicate Events at a high level. This layer
-forms the highest level of the communications stack.
+required for the \texttt{Event} object and its descendants. These
+classes form the highest layer of the communications stack and are
+used by the other GARTH systems to communicate \texttt{Event} objects
+at a high level. This layer forms the highest level of the
+communications stack.
 
 \subsection{Sensors, Inputs, and Outputs}
 
+The Sensors, Inputs, and Outputs subsystems contain all the
+\texttt{Sensor}, \texttt{Input}, and \texttt{Output} objects within
+GARTH, respectively. These systems all communicate with the controller
+subsystems using the Communication Stack subsystem.
+
 \subsection{Controller Subsystems}
 
-\floatstyle{plain}
-\restylefloat{figure}
-\begin{figure}[hp]
-    \centering
-        \caption{Subsystem Decomposition}
-        \scriptsize
-        \setlength{\unitlength}{2.0em}
-        \includegraphics{subsystem_decomposition1.mps}
-        \normalsize
-    \label{fig:subsystem_decomposition}
-\end{figure}
-\floatstyle{boxed}
-\restylefloat{figure}
+GARTH contains three controller subsystems: SensorController,
+SystemController, and AlarmController. These controllers coordinate
+by passing Events using the Communications Stack subsystem.
 
-The deployment diagram is shown in Figure~\ref{fig:subsystem_deployment}.
+The SensorController component handles polling sensors, receiving
+sensor events, and passing relevant events on to the
+SystemController. The SensorController maintains an internal polling
+schedule which is used to poll sensors at intervals appropriate to the
+individual sensor.
+
+The SystemController maintains the overall system state. It acts on
+events received from the SensorController to transition the system
+into different states, including alarm states. The SystemController
+can generate alarm events which are sent to the AlarmController.
+
+The AlarmController acts on alarm events. This controller will
+generate output events which are sent to output devices to notify
+residents of alarms and changes in system state.
+
+\subsection{Subsystem Deployment}
+
+All the GARTH subsystems are deployed across various hardware
+nodes. All of the controller subsystems are deployed to the Linux
+Server within the home. Each \texttt{Sensor}, \texttt{Input}, and
+\texttt{Output} are deployed to their own hardware nodes, and
+communicate with the Linux Server via the Communication Stack
+subsystem. The external webserver is deployed to its own hardware node
+that is external to the household. Communications with the external
+server is done through the External Interface subsystem. The
+deployment diagram is shown in Figure~\ref{fig:subsystem_deployment}.
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -617,13 +653,30 @@ from this class.
 
 \section{Optimizations}
 
-previously everything talked to each other, now talks to each other through
-event framework.
+One of the optimizations that was made from the last iteration of the GARTH
+design to now is how events propagate through the system and communicate with
+the devices that deal with said events. Previously, every device was able to
+talk to each other to pass event information through the system to be handled by
+the server. This resulted in a much more complicated object model as well as
+more complicated hardware. Now, the communications stack has a specific event
+protocol and framework built in in order to handle all of the events. When an 
+event occurs, it gets passed through this framework and is dealt with by the
+server directly which is much more efficient.
 
-controllers were made into singletons (pros/cons)
+Another change that was made was to the controller class objects. The controllers
+have been made into singleton objects, which is useful as there is only one
+instantiation of each of the controller types. The only complication this produces
+is that these singleton classes introduce global state into the design, which
+is fortunately mitigated by the fact that we have boundary control to initialize
+and configure these controller classes individually. 
 
-added the user model to the object diagram and added relevent access arrays and
-control matrices
+Lastly, a user model class was added to the object diagram in order to help
+define the actors using the system. It became apparent that a user model would
+need to be added to the object model once the access control portion of the 
+system was fleshed out. Paramaters included in the access array such as user
+name strings, password hashes, and privilege levels needed to be stored in
+objects for simplicity, so this functionality was added in this iteration of the
+design.
 
 \section{Extensibility}
 
