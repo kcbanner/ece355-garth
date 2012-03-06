@@ -41,13 +41,13 @@ reader understands which portions of the design are to be implemented first.
 Following this, there is a glossary of terms to shed light on any acronyms and
 other obscure terms used.
 
-Chapter ~\ref{ch:architecture} provides at first a high level overview of the
+Chapter~\ref{ch:architecture} provides at first a high level overview of the
 architecture of the system. The communication layer hierarchy is explained and
 presented in the overview. From here, the subsystem decomposition breaks down
 the many components of the system into subsections and explains their roles and
 how they interface with each other.
 
-Chapter ~\ref{ch:system-design} gives insight to the hardware and software
+Chapter~\ref{ch:system-design} gives insight to the hardware and software
 mapping of the subsystems explained in the previous chapter. The interfaces and
 protocols of each of the subsystems are explained here. This chapter also
 discusses the data resource management of the system's server, explaining what
@@ -59,17 +59,17 @@ discusses how concurrency is handled and the boundary conditions provide a use
 case model for system initialization, shut-down, and configuration.
 
 The next chapter describes the design of the systems various interfaces. The
-external system interfaces are first outlined, followed by the internal subsystem
-interfaces.
+external system interfaces are first outlined, followed by the internal
+subsystem interfaces.
 
-Follwing this is the most important section of the design document which is the
-object design. This section begins by discussing the design patterns that will be
-used to implement the object model. Any algorithms and packages used in the
-design are then discussed. The object and interface design are then fully 
-detailed, followed by class diagrams for the many objects included in the system.
-At the end of this section is a dynamic design model of the system.
+Following this is the most important section of the design document which is
+the object design. This section begins by discussing the design patterns that
+will be used to implement the object model. Any algorithms and packages used in
+the design are then discussed. The object and interface design are then fully
+detailed, followed by class diagrams for the many objects included in the
+system.  At the end of this section is a dynamic design model of the system.
 
-Chapter ~\ref{ch:design-evaluation} evaluates the design decisions that were
+Chapter~\ref{ch:design-evaluation} evaluates the design decisions that were
 made and discusses the how they affected the implementation of the system.
 Design trade-offs such as performance versus cost are described, followed by a
 discussion of how the system re-uses certain hardware and software. Design
@@ -78,8 +78,8 @@ extensibility of the design.
 
 The final chapter of the SDD describes the operating environment to be used
 by the GARTH system. The development and runtime platform are introduced in
-this section as well as the process model. Synchronization of software processes
-is discussed here, as well as fault and error handling of the system.
+this section as well as the process model. Synchronization of software
+processes is discussed here, as well as fault and error handling of the system.
 
 \section{Purpose}
 
@@ -87,71 +87,71 @@ The main purpose of this document is to outline the design of the system and
 provide stricter guidelines for the implementation of the main components. The
 level of detail is much finer, and the explanations are at a much lower level
 than those of the SRS. The object models and dynamic models have been greatly
-refined at a level that allows the software designers to interpret and implement
-based on their structure. The document is basically meant to be a guide for the
-software design team.
+refined at a level that allows the software designers to interpret and
+implement based on their structure. The document is basically meant to be a
+guide for the software design team.
 
 Unlike the software requirements specification document, the intended audience
 of the SDD is the engineering team that will be implementing the system. It is
 not intended to be read by the project managers as it will not be as useful for
-them with the details and explanations of the implentation being at a much lower
-level than it was in the requirements specification.
+them with the details and explanations of the implementation being at a much
+lower level than it was in the requirements specification.
 
 \section{Scope}
 
 This document is meant to be a lower level description of the software design
 and proposed implementation. As a result, this document has a much lower amount
-of abstraction compared to the software requirements specification. Although this
-document is much more specific about the system's design, it still doesn't outline
-exact details of the software's implementation as this would be very extraneous
-and verbose. The high-level object and dynamic models of the software requirements
-specification document
+of abstraction compared to the software requirements specification. Although
+this document is much more specific about the system's design, it still doesn't
+outline exact details of the software's implementation as this would be very
+extraneous and verbose. The high-level object and dynamic models of the
+software requirements specification document
 
 \section{Assumptions}
 
 We made assumptions about the web server and database that will be used as
 backup devices for the home system. These assumptions include how the local
-server will interface with the remote server as well as the fact that the database
-is assumed to be already implemented. The interfaces between the hardware such
-as the sensors and the server have been assumed to be previously established
-as we don't indulge into much detail regarding this area.
+server will interface with the remote server as well as the fact that the
+database is assumed to be already implemented. The interfaces between the
+hardware such as the sensors and the server have been assumed to be previously
+established as to not indulge into much detail regarding this area.
 
 \section{Changes to Requirements}
 
 The most significant change made to the system after the software requirements
 were completed was the inclusion of the user class model in the object model of
 the system. It was determined that a user class model should be defined after
-realizing the need for a user access array and access control matrix to describe
-the actors using the system and their privileges. The parameters of this class
-model provide fields for the user's ID, their password hash, and their privilege
-level. The system uses the privilege levels of the various users to sort them
-via the access control matrix and grant them various access and modify 
-permissions.
+realizing the need for a user access array and access control matrix to
+describe the actors using the system and their privileges. The parameters of
+this class model provide fields for the user's ID, their password hash, and
+their privilege level. The system uses the privilege levels of the various
+users to sort them via the access control matrix and grant them various access
+and modify permissions.
 
 \section{Design Goals}
 
 Some design goals include providing an intuitive usability while maintaining
 robust functionality. This meant designing engaging interfaces that offer a lot
-of options for the user. This was of a high priority. Another goal was to create
-a robust design that re-used a lot of design such that implementation was more
-simple. To achieve this, a lot of inheritance in the class models were used for
-events, sensors, and alarm models. This was also a high priority item. A lower
-priority requirement was enhancing performance of the system by implementing
-high-speed wireless communication throughout the system. Finally, a design goal
-for reducing complexity and cost was using off-the-shelf parts to implement the
-central Linux server used by GARTH. The recommended hardware is listed in 
-Chapter 7 of this document. This was of medium-high priority.
+of options for the user. This was of a high priority. Another goal was to
+create a robust design that re-used a lot of design such that implementation
+was more simple. To achieve this, a lot of inheritance in the class models were
+used for events, sensors, and alarm models. This was also a high priority item.
+A lower priority requirement was enhancing performance of the system by
+implementing high-speed wireless communication throughout the system. Finally,
+a design goal for reducing complexity and cost was using off-the-shelf parts to
+implement the central Linux server used by GARTH. The recommended hardware is
+listed in Chapter 7 of this document. This was of medium-high priority.
 
 \section{Prioritization of Functionality}
 
-The most critical portions of the system for the initial prototype will be the 
-system controller, alarm controller, and the sensor controller. The event 
+The most critical portions of the system for the initial prototype will be the
+system controller, alarm controller, and the sensor controller. The event
 protocol for these controllers will also need to be implemented. Since these
 events make up the majority of the system activity such as event handling,
 alarm triggers, and sensor outputs, it is imperative that these get implemented
 during the initial prototype. The lower level subsystems such as the
-communications stack and related interfaces are not as critical and may not
-get implemented in the prototype.
+communications stack and related interfaces are not as critical and may not get
+implemented in the prototype.
 
 \section{Terminology and Definitions}
 \begin{description}
@@ -285,7 +285,7 @@ objects into a form that can be sent across the Hardware
 Interface. This component also handles protocol level flow
 control. Large \texttt{Event} objects will need to be split up into multiple
 segments in order to be sent over the Hardware Interface. In this
-case, flow control and checksums are required to ensure that multipart
+case, flow control and check sums are required to ensure that multipart
 data streams are received and reconstructed correctly. The
 communications protocol implements a stateful protocol similar to
 TCP/IP which allows for message reception confirmation. This component
@@ -364,7 +364,7 @@ mapped onto the Linux server. These software components interact directly with
 the communications stack implemented by the server. The hardware that is mapped
 to the communications stack include the sensors and the inputs and outputs of
 the system (such as control panels, alarms, speakers, etc). This hardware maps
-specifcally to the hardware interface of the communications stack which
+specifically to the hardware interface of the communications stack which
 includes all wireless and RF protocol used by the system. The communications
 stack also includes the event protocol and communications protocol, which
 handle events that are trigged by the hardware. Finally, the external interface
@@ -398,8 +398,8 @@ important data can be accomplished easily.
 
 All access control data will be stored in the local storage database and will be
 organized in an access array. The access control array will store user
-information, IDs, passwords and priviliges.  This data will be encrypted using
-the SHA1 hash algorithm to ensure that this data will be irrelevent to anyone
+information, IDs, passwords and privileges.  This data will be encrypted using
+the SHA1 hash algorithm to ensure that this data will be irrelevant to anyone
 who accesses it unrightfully. This array can be accessed at any time by the
 system to allow necessary access to a user. 
 
@@ -421,7 +421,7 @@ system to allow necessary access to a user.
 The array contains relevant information for each person who will be using the
 system. The array contains a username and password for each user, in case
 they need to log-in through the console's interface to change settings. Certain
-settings will only be able to get changed by users with administator access.
+settings will only be able to get changed by users with administrator access.
 The NFC ID field stores the device name of the NFC device the user chose to arm
 or disarm the security system.
 
@@ -479,7 +479,7 @@ When the administrator starts the server, the controllers and sensors get
 initialized in parallel. Each controller has its own separate initialization
 method which starts each process in its reset state. Its own initialization
 procedure takes over from here assuming initial conditions of all of its
-parameters. These initalization patterns are included in the use case diagram
+parameters. These initialization patterns are included in the use case diagram
 below as the configuration procedures that extends the initialization
 procedures of each controller. The sensor initialization is a more basic
 procedure, as the sensors become activated and the system polls their status by
@@ -539,7 +539,7 @@ Figure~\ref{fig:external_interfaces}.
 \floatstyle{boxed}
 \restylefloat{figure}
 
-As shown in the diagram above, there are four main external activites
+As shown in the diagram above, there are four main external activities
 that can be performed: logging events, initiating a backup, initiating
 a remote administration session, and handling external alarms. These
 activities can all be performed through the external interface
@@ -557,7 +557,7 @@ The message passing system that GARTH uses is based on \texttt{Event}
 objects. Any data that needs to be passed throughout the system is
 encapsulated within the appropriate subclass of the \texttt{Event}
 object and broadcast throughout the system. When an \texttt{Event}
-object is receieved by the Communications Stack, it is sent to any
+object is received by the Communications Stack, it is sent to any
 \texttt{Controller} objects which have subscribed to the
 \texttt{EventType} of the received event. For example, when a door
 sensor detects that a door has been opened, that sensor generates a
@@ -658,10 +658,10 @@ A refined class level diagram has been provided for the majority of the
 subsystems. For each subsystem, a separate class diagram was generated to keep
 things simple and to avoid confusion due to hard to read diagrams. Some
 subsystems are provided with other systems due to overlap and to reduce the
-number of redundent diagrams.
+number of redundant diagrams.
 
 Each of the controllers are broken up into their own subsystem and are
-instantated as singletons. Each controller is derived from the same super class
+instantiated as singletons. Each controller is derived from the same super class
 that provides the abstract method for handling events and the
 implementation for subscribing to events with the event manager.
 
@@ -670,7 +670,7 @@ the sensors are shown in Figure~\ref{fig:sensor_controller_class_diagram}. This
 diagram also describes the \texttt{EventType} enumeration which is omitted from
 the other diagrams for brevity The \texttt{SensorController} aggregates a list
 of sensors, which is fetched from the \texttt{EventManager}. This controller can
-explictely poll sensors, handle the sensor input data, and check the sensor
+explicitly poll sensors, handle the sensor input data, and check the sensor
 statuses. It sends events to the other controllers through the event manager
 after deciding how an event should be handled. 
 
@@ -686,7 +686,7 @@ diagram in Figure~\ref{fig:system_controller_class_diagram}. It contains all
 the methods required with handling inputs from the \texttt{KeypadInputDevice}
 and \texttt{NFCReaderInputDevice}. The definition of the class for
 \texttt{InputEvent} is included. System state is set and stored within this
-controller based on the inputs. Events are recieved from the event manager and
+controller based on the inputs. Events are received from the event manager and
 the other controllers which are then sent to the external server and to the
 controllers if it is deemed appropriate. This controller also maintains a list
 of the user models which is uses to check for authorization rights to see what
@@ -710,7 +710,7 @@ queues, one for the input events from the sensors and one priority queue for
 the alarm events. It takes a hash map of strings that map to events and
 converts it into events to pass to the controllers based on the event
 subscription list. Events are handled in a FIFO queue until it is empty and
-once it is empty, occasionaly checked on a timer to ensure that new events are
+once it is empty, occasionally checked on a timer to ensure that new events are
 looked after promptly.
 
 The next layer, the \texttt{CommunicationsInterface} deals with the encoding
@@ -732,15 +732,15 @@ In Figure~\ref{fig:external_interface_class_diagram}, the external interface
 class diagram is provided to highlight how HTTP requests are made to external
 servers. A delegate is implemented by the class that calls into the external
 interface in order to get the call back that the even is finished. This will
-allow for the implementor to check to see if the call was completed
-successfuly. Only get and post HTTP requests are supported as the other request
+allow for the implementer to check to see if the call was completed
+successfully. Only get and post HTTP requests are supported as the other request
 methods are not applicable to the system.
 
-The sensor class in Figure~\ref{fig:sensor_class_diagram}, representitive of
+The sensor class in Figure~\ref{fig:sensor_class_diagram}, representative of
 the sensor hardware, is very similar to the one described in an earlier figure.
 The major difference is that the sensor has a communications stack as described
 in Figure~\ref{fig:communications_stack_class_diagram}. This facilitates the
-commminication between the sensor and the controllers.
+communication between the sensor and the controllers.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -853,9 +853,9 @@ cost optimization due to the target demographic of the system which is
 typically high income households.
 
 Much attention was paid to the usability of the system. The user interfaces
-will be implented in such a way that they are inherently intuitive to a new
+will be implemented in such a way that they are inherently intuitive to a new
 client that has purchased and installed the system for the first time. The idea
-behind this philiosophy is that in order to use the system the client should
+behind this philosophy is that in order to use the system the client should
 not have to read extensive documentation in order to learn how to configure,
 manage, arm or disarm any features of the system. This implementation is very
 suitable for the user, but requires that extra attention is paid to making sure
@@ -867,7 +867,7 @@ to the user.
 
 When choosing hardware for the GARTH home system, a lot of store-bought
 equipment was chosen over implementing proprietary solutions. Sensors, cameras,
-microcontrollers, and servers were selected from buyable solutions for
+micro controllers, and servers were selected from buy-able solutions for
 simplicity and availability. For example, the main server that controls the
 GARTH system and stores user data is a Linux server built from store-bought
 parts.  This makes the system very easily supportable as there is currently a
@@ -1000,10 +1000,10 @@ sensors. Both types have different requirements for operating systems and
 hardware. Middleware is required to interface between the two subsystems as
 well. 
 
-The controllers will all operate on a single server as seperate processes. The
+The controllers will all operate on a single server as separate processes. The
 server will be a Linux based server orientated distribution such as CentOS or
 Debian. The server will be housed locally within the house. The hardware needs
-to be powerful, yet energy efficient and compact. No dependance on exact
+to be powerful, yet energy efficient and compact. No dependence on exact
 hardware is required. Some recommended specifications are outlined in
 Table~\ref{server_hardware}.
 
@@ -1043,7 +1043,7 @@ concurrent processes or single threaded microcontrollers. The sensor network is
 one distributed subsystem that consists of many single process
 microcontrollers. 
 
-The controllers and the communciation stack located on the server are
+The controllers and the communication stack located on the server are
 concurrent threads which can communicate freely using inter-thread techniques.
 Communication is done through the \texttt{EventManager} thread as seen in
 Figure~\ref{fig:communications_stack_class_diagram}, the communications stack
@@ -1062,7 +1062,7 @@ have different priority levels as some events are more critical then others in
 terms of time sensitivity. 
 
 Synchronization between the hardware interface and the sensors will be done
-thorugh the ZigBee protocol to ensure that the complete message has been
+through the ZigBee protocol to ensure that the complete message has been
 received before trying to parse the information. This protocol defines error
 conditions, message packets with headers and footers, and more. [2]
 
@@ -1078,7 +1078,7 @@ hardware failure in the base station or server will require special care.
 Minor errors can be ignored for the most part. These represent one time sensor
 misreads, missing data, and other faults that do not affect any long term
 operation of the system. These minor faults still need to be accounted for as
-multiple occurances of this type will imply an issue with the sensor or
+multiple occurrences of this type will imply an issue with the sensor or
 communication interface. When a minor error is detected, the error needs to be
 logged but no further action is required.
 
@@ -1102,6 +1102,6 @@ All of these, if it is required, can be handled as \texttt{AlarmEvents} with
 the appropriate alarm severity. Some events, like the minor data misreads will
 not need to be report. This will ensure that all events of significant meaning
 will be forwarded to the appropriate controller and the users notified of the
-occurance of an error.
+occurrence of an error.
 
 \end{document}
