@@ -28,33 +28,33 @@
 
 \section{Executive Summary}
 
-Chapter~\ref{ch:introduction} serves as 
-an introduction to the document and explains much of the background and context 
-in which it was written. The purpose of the document and the intended reader are
-explained, followed by the scope of the software design document. The
-scope of the project is also explained. Any assumptions that were made when writing the 
-document are outlined and detailed afterward. Any changes to the requirements of
-GARTH's implementation are also outlined in this section. There is also an 
-introduction to the design goals that the GARTH team has for the project's 
-implementation. The priorities of the functionality of the system are also detailed so 
-that the reader understands which portions of the design are to be implemented first. 
-Following this, there is a glossary of terms to shed light on any acronyms and other 
-obscure terms used.
+Chapter~\ref{ch:introduction} serves as an introduction to the document and
+explains much of the background and context in which it was written. The
+purpose of the document and the intended reader are explained, followed by the
+scope of the software design document. The scope of the project is also
+explained. Any assumptions that were made when writing the document are
+outlined and detailed afterward. Any changes to the requirements of GARTH's
+implementation are also outlined in this section. There is also an introduction
+to the design goals that the GARTH team has for the project's implementation.
+The priorities of the functionality of the system are also detailed so that the
+reader understands which portions of the design are to be implemented first.
+Following this, there is a glossary of terms to shed light on any acronyms and
+other obscure terms used.
 
-Chapter ~\ref{ch:architecture} provides at first a high level overview of the 
+Chapter ~\ref{ch:architecture} provides at first a high level overview of the
 architecture of the system. The communication layer hierarchy is explained and
 presented in the overview. From here, the subsystem decomposition breaks down
 the many components of the system into subsections and explains their roles and
 how they interface with each other.
 
 Chapter ~\ref{ch:system-design} gives insight to the hardware and software
-mapping of the subsystems explained in the previous chapter. The interfaces
-and protocols of each of the subsystems are explained here. This chapter also
+mapping of the subsystems explained in the previous chapter. The interfaces and
+protocols of each of the subsystems are explained here. This chapter also
 discusses the data resource management of the system's server, explaining what
 databases were used and how the system retains data redundancy for protection.
-Access control and security schemes are discussed next, introducing the system's
-user access array and access control matrix which control the identity and 
-privileges of the system's various users. Finally global software control 
+Access control and security schemes are discussed next, introducing the
+system's user access array and access control matrix which control the identity
+and privileges of the system's various users. Finally global software control
 discusses how concurrency is handled and the boundary conditions provide a use
 case model for system initialization, shut-down, and configuration.
 
@@ -608,6 +608,20 @@ to either the sensors or alarm devices. Any device can send a response as an
 encoded RPC string even if it was not requested by a controller. This provides
 a means of event driven communication between the sensors and the controllers
 without relying on tight polling from the \texttt{SensorController}.
+
+In Figure~\ref{fig:external_interface_class_diagram}, the external interface
+class diagram is provided to highlight how HTTP requests are made to external
+servers. A delegate is implemented by the class that calls into the external
+interface in order to get the call back that the even is finished. This will
+allow for the implementor to check to see if the call was completed
+successfuly. Only get and post HTTP requests are supported as the other request
+methods are not applicable to the system.
+
+The sensor class in Figure~\ref{fig:sensor_class_diagram}, representitive of
+the sensor hardware, is very similar to the one described in an earlier figure.
+The major difference is that the sensor has a communications stack as described
+in Figure~\ref{fig:communications_stack_class_diagram}. This facilitates the
+commminication between the sensor and the controllers.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -648,6 +662,24 @@ without relying on tight polling from the \texttt{SensorController}.
   \includegraphics[scale=0.5]{communication_stack_class_diagram}
 \end{figure}
 %\end{landscape}
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[p]
+    \centering
+    \label{fig:external_interface_class_diagram}
+    \caption{External Interface Class Diagram}
+    \includegraphics[scale=0.5]{external_interface_class_diagram}
+\end{figure}
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[p]
+    \centering
+    \label{fig:sensor_class_diagram}
+    \caption{Sensor Class Diagram}
+    \includegraphics[scale=0.5]{sensor_class_diagram}
+\end{figure}
 
 \section{Dynamic Design Model}
 
