@@ -802,6 +802,30 @@ communication between the sensor and the controllers.
 
 \section{Dynamic Design Model}
 
+Included in the dynamic design model is a refined state diagram for GARTH's
+main functionality. Two discrete states have been added to handle boundary
+conditions; the power down state and the initialization / start up state. These
+states can be entered from the armed or disarmed state of the GARTH state
+machine and are entered as a result of an administrator issuing the required
+requests at the server interface. The refined state diagram is shown below in
+Figure~\ref{fig:state_machine}
+
+
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}[hp]
+    \centering
+        \caption{Refined GARTH State Diagram}
+        \scriptsize
+        \setlength{\unitlength}{2.0em}
+        \includegraphics{state_machine.png}
+        \normalsize
+    \label{fig:state_machine}
+\end{figure}
+\floatstyle{boxed}
+\restylefloat{figure}
+
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[hp]
@@ -815,7 +839,6 @@ communication between the sensor and the controllers.
 \end{figure}
 \floatstyle{boxed}
 \restylefloat{figure}
-
 
 \chapter{Design Evaluation} % 10% Zack
 \label{ch:design-evaluation}
