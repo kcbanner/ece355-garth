@@ -469,6 +469,36 @@ provided by the external web server.
 
 \section{Internal Subsystem Interfaces}
 
+All communication between internal subsystems is done through the
+Communications Stack subsystem by sending and receiving \texttt{Event}
+objects. The only exception to this is the interface between the
+SystemController and the External Interface subsystem, which is done
+through simple method calls.
+
+The message passing system that GARTH uses is based on \texttt{Event}
+objects. Any data that needs to be passed throughout the system is
+encapsulated within the appropriate subclass of the \texttt{Event}
+object and broadcast throughout the system. When an \texttt{Event}
+object is receieved by the Communications Stack, it is sent to any
+\texttt{Controller} objects which have subscribed to the
+\texttt{EventType} of the received event. For example, when a door
+sensor detects that a door has been opened, that sensor generates a
+\texttt{DoorSensorEvent} which is then broadcast by that sensor. Once
+this \texttt{Event} has been received, it is sent to to the
+\texttt{SensorController}.
+
+In order to actually send and receive \texttt{Event} objects to other
+subsystems, the Communications Stack subsystem provides an interface
+for broadcasting and subscribing to events. \texttt{Controller}
+instances can subscribe to receive \texttt{Event} objects of a
+particular \texttt{EventType} by calling the
+\texttt{subscribe(eventType: EventType, controller: Controller)}
+method on the \texttt{EventManager} class. If a \texttt{Controller}
+wishes to broadcast an event to all the \texttt{Sensor},
+\texttt{Output}, and \texttt{Input} devices in the system, it will
+call the \texttt{broadcastEvent(event: Event)} method with the
+\texttt{Event} it wishes to broadcast.
+
 
 
 \chapter{Object Design} % 30% Ben (and Casey?)
@@ -479,7 +509,7 @@ provided by the external web server.
 \section{Design Patterns}
 
 % Describe all design patterns used to reduce complexity and increase re-use in
-% the system. Explain how they were applied to specifci components and the
+% the system. Explain how they were applied to sepcific components and the
 % rationale for them.
 
 Several design patterns have been used in this system. The first is the
