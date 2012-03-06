@@ -83,17 +83,75 @@ is discussed here, as well as fault and error handling of the system.
 
 \section{Purpose}
 
+The main purpose of this document is to outline the design of the system and
+provide stricter guidelines for the implementation of the main components. The
+level of detail is much finer, and the explanations are at a much lower level
+than those of the SRS. The object models and dynamic models have been greatly
+refined at a level that allows the software designers to interpret and implement
+based on their structure. The document is basically meant to be a guide for the
+software design team.
+
+Unlike the software requirements specification document, the intended audience
+of the SDD is the engineering team that will be implementing the system. It is
+not intended to be read by the project managers as it will not be as useful for
+them with the details and explanations of the implentation being at a much lower
+level than it was in the requirements specification.
+
 \section{Scope}
+
+This document is meant to be a lower level description of the software design
+and proposed implementation. As a result, this document has a much lower amount
+of abstraction compared to the software requirements specification. Although this
+document is much more specific about the system's design, it still doesn't outline
+exact details of the software's implementation as this would be very extraneous
+and verbose. The high-level object and dynamic models of the software requirements
+specification document
 
 \section{Assumptions}
 
+We made assumptions about the web server and database that will be used as
+backup devices for the home system. These assumptions include how the local
+server will interface with the remote server as well as the fact that the database
+is assumed to be already implemented. The interfaces between the hardware such
+as the sensors and the server have been assumed to be previously established
+as we don't indulge into much detail regarding this area.
+
 \section{Changes to Requirements}
 
-User model defined after implementing the access array and control matrix
+The most significant change made to the system after the software requirements
+were completed was the inclusion of the user class model in the object model of
+the system. It was determined that a user class model should be defined after
+realizing the need for a user access array and access control matrix to describe
+the actors using the system and their privileges. The parameters of this class
+model provide fields for the user's ID, their password hash, and their privilege
+level. The system uses the privilege levels of the various users to sort them
+via the access control matrix and grant them various access and modify 
+permissions.
 
 \section{Design Goals}
 
+Some design goals include providing an intuitive usability while maintaining
+robust functionality. This meant designing engaging interfaces that offer a lot
+of options for the user. This was of a high priority. Another goal was to create
+a robust design that re-used a lot of design such that implementation was more
+simple. To achieve this, a lot of inheritance in the class models were used for
+events, sensors, and alarm models. This was also a high priority item. A lower
+priority requirement was enhancing performance of the system by implementing
+high-speed wireless communication throughout the system. Finally, a design goal
+for reducing complexity and cost was using off-the-shelf parts to implement the
+central Linux server used by GARTH. The recommended hardware is listed in 
+Chapter 7 of this document. This was of medium-high priority.
+
 \section{Prioritization of Functionality}
+
+The most critical portions of the system for the initial prototype will be the 
+system controller, alarm controller, and the sensor controller. The event 
+protocol for these controllers will also need to be implemented. Since these
+events make up the majority of the system activity such as event handling,
+alarm triggers, and sensor outputs, it is imperative that these get implemented
+during the initial prototype. The lower level subsystems such as the
+communications stack and related interfaces are not as critical and may not
+get implemented in the prototype.
 
 \section{Terminology and Definitions}
 \begin{description}
@@ -477,6 +535,54 @@ provided by the external web server.
 
 \section{Internal Subsystem Interfaces}
 
+All communication between internal subsystems is done through the
+Communications Stack subsystem by sending and receiving \texttt{Event}
+objects. The only exception to this is the interface between the
+SystemController and the External Interface subsystem, which is done
+through simple method calls.
+
+The message passing system that GARTH uses is based on \texttt{Event}
+objects. Any data that needs to be passed throughout the system is
+encapsulated within the appropriate subclass of the \texttt{Event}
+object and broadcast throughout the system. When an \texttt{Event}
+object is receieved by the Communications Stack, it is sent to any
+\texttt{Controller} objects which have subscribed to the
+\texttt{EventType} of the received event. For example, when a door
+sensor detects that a door has been opened, that sensor generates a
+\texttt{DoorSensorEvent} which is then broadcast by that sensor. Once
+this \texttt{Event} has been received, it is sent to to the
+\texttt{SensorController}.
+
+In order to actually send and receive \texttt{Event} objects to other
+subsystems, the Communications Stack subsystem provides an interface
+for broadcasting and subscribing to events. \texttt{Controller}
+instances can subscribe to receive \texttt{Event} objects of a
+particular \texttt{EventType} by calling the
+\texttt{subscribe(eventType: EventType, controller: Controller)}
+method on the \texttt{EventManager} class. If a \texttt{Controller}
+wishes to broadcast an event to all the \texttt{Sensor},
+\texttt{Output}, and \texttt{Input} devices in the system, it will
+call the \texttt{broadcastEvent(event: Event)} method with the
+\texttt{Event} it wishes to broadcast. Any responses to these
+broadcasts propagate back up the Communications Stack and are sent to
+any subscribed \texttt{Controller} objects.
+
+The Communications Stack interface provides many subclasses of the
+\texttt{Event} object to facilitate encapsulating specific kinds of
+data. Door sensors send \texttt{DoorSensorEvent} objects when they
+detect a change in door state. The \texttt{DoorSensorEvent}
+encapsulates whether or not the door is open or closed. Similarly,
+window sensors generate \texttt{WindowSensorEvent} objects which
+encapsulate the state of a window that was either open or
+closed. \texttt{MotionSensorEvent} objects are generated by motion
+sensors and encapsulate a motion threshold and
+duration. \texttt{TempSensorEvent} objects are generated by
+temperature sensors and include the current temperature as well as a
+temperature delta since the last \texttt{TempSensorEvent} was sent. 
+Finally, \texttt{FloodSensorEvent} objects are created in response to
+flood sensors detecting elevated water levels and encapsulate the
+current water height as well as a delta between the water height
+reported by the previous \texttt{FloodSensorEvent}. 
 
 
 \chapter{Object Design} % 30% Ben (and Casey?)
@@ -487,7 +593,7 @@ provided by the external web server.
 \section{Design Patterns}
 
 % Describe all design patterns used to reduce complexity and increase re-use in
-% the system. Explain how they were applied to specifci components and the
+% the system. Explain how they were applied to sepcific components and the
 % rationale for them.
 
 Several design patterns have been used in this system. The first is the
