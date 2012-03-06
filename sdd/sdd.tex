@@ -426,7 +426,23 @@ an interface for multithreading support as each instance can be placed on a
 separate thread. It also ensures that at most only one controller of each type
 is ever handling events during program execution.
 
+A fa\c{c}ade design pattern was used in conjunction with the communications
+stack. To reduce the complexity of the interface, a single simpler interface
+was provided to handle all of the communication of events to and from the
+sensors and other input and output devices.
 
+Creation of events by the \texttt{EventManager} is facilitated by a factory
+method pattern. It accepts the strings of arguments and parameters from the RPC
+response and translates it into the appropriate event object instance. This
+enables new event types and sensors to be added to the system without having to
+modify the \texttt{EventManager} class.
+
+The mediator pattern is used for communication between the controllers,
+sensors, and other interfaces. The \texttt{EventManager} is the mediator and
+mediation is done through the passing of events between subsystems. So as a
+result, a class simply has to send an event to the manager and the manager will
+send the event off to the appropriate receivers based on the subscription
+listing.
 
 \section{Algorithms}
 
