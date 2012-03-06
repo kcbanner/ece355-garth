@@ -167,9 +167,10 @@ Section~\ref{sec:architecture_overview}. This section will discuss the
 role of each subsystem. Firstly, there is the communications stack
 subsystem, which many of the other GARTH subsystems use to
 communicate. Next, the Sensors, Inputs, and Outputs subsystems are
-discussed. Finally, the three GARTH controller subsystems as well as
-the External Interface subsystem will be discussed.  The subsystem
-decomposition is shown in Figure~\ref{fig:subsystem_decomposition}.
+discussed. The three GARTH controller subsystems as well as the
+External Interface subsystem will be discussed. Finally, subsystem
+deployment will be discussed. The subsystem decomposition is shown in
+Figure~\ref{fig:subsystem_decomposition}.
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -221,11 +222,31 @@ communications stack.
 
 \subsection{Sensors, Inputs, and Outputs}
 
-
+The Sensors, Inputs, and Outputs subsystems contain all the
+\texttt{Sensor}, \texttt{Input}, and \texttt{Output} objects within
+GARTH, respectively. These systems all communicate with the controller
+subsystems using the Communication Stack subsystem.
 
 \subsection{Controller Subsystems}
 
+GARTH contains three controller subsystems: SensorController,
+SystemController, and AlarmController. These controllers coordinate
+by passing Events using the Communications Stack subsystem.
 
+The SensorController component handles polling sensors, receiving
+sensor events, and passing relevant events on to the
+SystemController. The SensorController maintains an internal polling
+schedule which is used to poll sensors at intervals appropriate to the
+individual sensor.
+
+The SystemController maintains the overall system state. It acts on
+events received from the SensorController to transition the system
+into different states, including alarm states. The SystemController
+can generate alarm events which are sent to the AlarmController.
+
+The AlarmController acts on alarm events. This controller will
+generate output events which are sent to output devices to notify
+residents of alarms and changes in system state.
 
 \subsection{Subsystem Deployment}
 
@@ -260,14 +281,14 @@ level by examining the subsystem decomposition at the end of Chapter 2. The
 external interface and related controllers are software subsystems that are
 mapped onto the Linux server. These software components interact directly with
 the communications stack implemented by the server. The hardware that is mapped
-to the communications stack include the sensors and the inputs and outputs of 
-the system (such as control panels, alarms, speakers, etc). This hardware maps 
-specifcally to the hardware interface of the communications stack which includes
-all wireless and RF protocol used by the system. The communications stack also
-includes the event protocol and communications protocol, which handle events
-that are trigged by the hardware. Finally, the external interface to the system
-is the software interface of the Linux server which will allow a user with admin
-privileges to configure or manipulate the system.
+to the communications stack include the sensors and the inputs and outputs of
+the system (such as control panels, alarms, speakers, etc). This hardware maps
+specifcally to the hardware interface of the communications stack which
+includes all wireless and RF protocol used by the system. The communications
+stack also includes the event protocol and communications protocol, which
+handle events that are trigged by the hardware. Finally, the external interface
+to the system is the software interface of the Linux server which will allow a
+user with admin privileges to configure or manipulate the system.
 
 \section{Data Resource Management}
 %TODO mentioned proprietary software that should be fleshed out in this SDD
@@ -282,7 +303,7 @@ to run as expected until a replacement hard drive gets installed. The server
 will use proprietary software  to create text files that log system events as
 well as store video that is captured by the cameras situated within and outside
 the home.
-
+ 
 The remote server is back-up storage that is located offsite at GARTH
 headquarters. It is merely a remote backup of system logs and important video
 data that should be saved for future reference. This includes any log-files or
@@ -359,40 +380,41 @@ events of a critical nature such as a home break-in while the system is armed
 will suspend running events and get processed immediately. If more than one
 critical event occurs at once, they are queued and handled sequentially while
 any current suspended minor events remain suspended. This level of scheduling
-will be achieved by using interrupt handling routines for the sensors that 
-correspond to these events and using global priority queues.Critical events will
-be designed such that they are handled quickly and efficiently in order to avoid
-circumstances where critical events remained queued for long periods of time.
+will be achieved by using interrupt handling routines for the sensors that
+correspond to these events and using global priority queues.Critical events
+will be designed such that they are handled quickly and efficiently in order to
+avoid circumstances where critical events remained queued for long periods of
+time.
 
 \section{Boundary Conditions}
 
-A system administrator is capable of issuing requests for a server reboot, 
-shutdown, or start-up if the server is powered down. The entire system relies 
-on the power status of the server, and as such the user can issue these commands
-from the server itself (by using its interface) or from any other control interface
-in the home.
+A system administrator is capable of issuing requests for a server reboot,
+shutdown, or start-up if the server is powered down. The entire system relies
+on the power status of the server, and as such the user can issue these
+commands from the server itself (by using its interface) or from any other
+control interface in the home.
 
 When the administrator starts the server, the controllers and sensors get
 initialized in parallel. Each controller has its own separate initialization
 method which starts each process in its reset state. Its own initialization
 procedure takes over from here assuming initial conditions of all of its
 parameters. These initalization patterns are included in the use case diagram
-below as the configuration procedures that extends the initialization procedures
-of each controller. The sensor initialization is a more basic procedure, as the
-sensors become activated and the system polls their status by attempting 
-communication between them and the sensor controller. If sensor communication
-fails then a sensor error occurs and the system enters a minor alarm state.
+below as the configuration procedures that extends the initialization
+procedures of each controller. The sensor initialization is a more basic
+procedure, as the sensors become activated and the system polls their status by
+attempting communication between them and the sensor controller. If sensor
+communication fails then a sensor error occurs and the system enters a minor
+alarm state.
 
-When the administrator shuts down the server, a system snapshot is taken by
-the controllers to save the state of all of the subsystems and sensors. This 
-data is stored in the logs on the server, ready for when the system is started
-up again. Once the snapshot is complete and the data has been stored, the power
-down scheme begins which first shuts down the sensors, followed by the 
+When the administrator shuts down the server, a system snapshot is taken by the
+controllers to save the state of all of the subsystems and sensors. This data
+is stored in the logs on the server, ready for when the system is started up
+again. Once the snapshot is complete and the data has been stored, the power
+down scheme begins which first shuts down the sensors, followed by the
 controller interfaces, and then finally the server.
 
 A server reboot simply utilizes both of these patterns in order. First a system
 shutdown is initiated, followed by a start-up immediately after.
-
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -432,9 +454,9 @@ Figure~\ref{fig:external_interfaces}.
 
 All interaction with external interfaces is handled by the SystemController
 component. This behaviour was chosen to reduce implementation complexity; if
-only the SystemController requires access to external interfaces, then
-no other Controller will have to depend on the External Interface subsystem.
-This reduces both compile-time and run-time dependency.
+only the SystemController requires access to external interfaces, then no other
+Controller will have to depend on the External Interface subsystem.  This
+reduces both compile-time and run-time dependency.
 
 \section{Internal Subsystem Interfaces}
 
@@ -443,18 +465,56 @@ This reduces both compile-time and run-time dependency.
 \chapter{Object Design} % 30% Ben (and Casey?)
 \label{ch:object-design}
 
-% For communicationsProtocol: json-rpc.org/wiki/specification
+% For communications Protocol: json-rpc.org/wiki/specification
 
 \section{Design Patterns}
 % Describe all design patterns used to reduce complexity and increase re-use in
 % the system. Explain how they were applied to specifci components and the
 % rationale for them.
 
-% SINGLETONS MOTHERFUCKER
+Several design patterns have been used in this system. The first is the
+singleton design pattern. It was applied to the controllers and the event
+manager to ensure that only a single instance of each is made. It also provides
+an interface for multithreading support as each instance can be placed on a
+separate thread. It also ensures that at most only one controller of each type
+is ever handling events during program execution.
+
+A fa\c{c}ade design pattern was used in conjunction with the communications
+stack. To reduce the complexity of the interface, a single simpler interface
+was provided to handle all of the communication of events to and from the
+sensors and other input and output devices.
+
+Creation of events by the \texttt{EventManager} is facilitated by a factory
+method pattern. It accepts the strings of arguments and parameters from the RPC
+response and translates it into the appropriate event object instance. This
+enables new event types and sensors to be added to the system without having to
+modify the \texttt{EventManager} class.
+
+The mediator pattern is used for communication between the controllers,
+sensors, and other interfaces. The \texttt{EventManager} is the mediator and
+mediation is done through the passing of events between subsystems. So as a
+result, a class simply has to send an event to the manager and the manager will
+send the event off to the appropriate receivers based on the subscription
+listing.
 
 \section{Algorithms}
 
 \section{Packages}
+The system can be divided into several packages. To increase the brevity of the
+diagrams, only one overall package diagram of the system is shown in
+Figure~\ref{fig:package_diagram} as a lot of the classes use many of the same
+packages. The packages will be broken down into classes with similar to what
+the package name is. For the packages that comprise of multiple inherited
+subclasses, the inherited classes will have names that better represent their
+intended purpose.
+
+\floatstyle{plain}
+\restylefloat{figure}
+\begin{figure}
+    \caption{Package Diagram}
+    \label{fig:package_diagram}
+    \includegraphics[scale=0.5]{package_diagram.png}
+\end{figure}
 
 \section{Object and Interface Design}
 A refined class level diagram has been provided for the majority of the
@@ -564,9 +624,10 @@ without relying on tight polling from the \texttt{SensorController}.
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{Communications Stack Class Diagram}
-    \label{fig:communications_stack_class_diagram}
-    \includegraphics[scale=0.5]{communication_stack_class_diagram}
+  \centering
+  \caption{Communications Stack Class Diagram}
+  \label{fig:communications_stack_class_diagram}
+  \includegraphics[scale=0.5]{communication_stack_class_diagram}
 \end{figure}
 %\end{landscape}
 
@@ -582,12 +643,12 @@ the overall performance, functionality, and cost of the system. These are key
 aspects that were considered in the design, but some decisions had to be
 weighed in order to maintain balance in the design. For example, performance
 optimization was a goal to make sure that the system was robust and adequately
-reactive to certain events, but resulted in more expensive hardware and software
-implementation. Also, the system was designed such that it was functionally
-robust but much attention needed to be paid to functionality to make sure that
-it was still intuitive and easy to use. Certain other decisions like whether to
-use store-bought implementation vs. proprietary hardware and software factored
-into this discussion as well.
+reactive to certain events, but resulted in more expensive hardware and
+software implementation. Also, the system was designed such that it was
+functionally robust but much attention needed to be paid to functionality to
+make sure that it was still intuitive and easy to use. Certain other decisions
+like whether to use store-bought implementation vs. proprietary hardware and
+software factored into this discussion as well.
 
 The GARTH home system is designed to be robust in many areas, one in particular
 is its performance. Not many shortcuts were taken in ensuring that the system
@@ -598,30 +659,31 @@ to ensure quick and reliable communication of the system throughout the home.
 This is more expensive than using a wired network or even RF wireless protocol
 but ultimately results in a more responsive system. Since GARTH is a total home
 security solution, performance was regarded with slightly higher priority than
-cost optimization due to the target demographic of the system which is typically
-high income households.
+cost optimization due to the target demographic of the system which is
+typically high income households.
 
-Much attention was paid to the usability of the system. The user interfaces will
-be implented in such a way that they are inherently intuitive to a new client
-that has purchased and installed the system for the first time. The idea behind
-this philiosophy is that in order to use the system the client should not have 
-to read extensive documentation in order to learn how to configure, manage,
-arm or disarm any features of the system. This implementation is very suitable
-for the user, but requires that extra attention is paid to making sure the system
-is still functionally adequate. Therefore, another trade-off that was made was
-enforcing strong usability and functionality in the same vein. As a result, the
-software design cost of the system was slightly increased as more support 
-architecture was required to make up for how simple the system appears to the
-user.
+Much attention was paid to the usability of the system. The user interfaces
+will be implented in such a way that they are inherently intuitive to a new
+client that has purchased and installed the system for the first time. The idea
+behind this philiosophy is that in order to use the system the client should
+not have to read extensive documentation in order to learn how to configure,
+manage, arm or disarm any features of the system. This implementation is very
+suitable for the user, but requires that extra attention is paid to making sure
+the system is still functionally adequate. Therefore, another trade-off that
+was made was enforcing strong usability and functionality in the same vein. As
+a result, the software design cost of the system was slightly increased as more
+support architecture was required to make up for how simple the system appears
+to the user.
 
 When choosing hardware for the GARTH home system, a lot of store-bought
 equipment was chosen over implementing proprietary solutions. Sensors, cameras,
 microcontrollers, and servers were selected from buyable solutions for
-simplicity and availability. For example, the main server that controls the GARTH
-system and stores user data is a Linux server built from store-bought parts.
-This makes the system very easily supportable as there is currently a lot of
-documentation and manufacture support for these parts. Open source software
-like the Linux operating system will be used where available to reduce cost.
+simplicity and availability. For example, the main server that controls the
+GARTH system and stores user data is a Linux server built from store-bought
+parts.  This makes the system very easily supportable as there is currently a
+lot of documentation and manufacture support for these parts. Open source
+software like the Linux operating system will be used where available to reduce
+cost.
 
 \section{Re-use}
 
@@ -629,15 +691,15 @@ Through inheritance and delegation, many classes were able to be re-used in the
 object model of the system. This proved to be very useful as much of the design
 was simplified due to the re-use of these objects. Within the GARTH system,
 events and how they are handled are crucial to the functionality of the system.
-Since the system can respond to many different situations within the home, 
+Since the system can respond to many different situations within the home,
 GARTH needed many different event classes to be added to the object diagram.
 Through inheritance however, using the event class, the design was very simple
 to extrapolate to the many different event classes needed within the object
-model. For example, within the sensor controller and sensor class model the door
-sensor event model, window sensor event model, and motion sensor event model
-all inherit from the sensor event class, which inherits from the overall event
-class. This will make it very easy for the software designers of GARTH to
-extrapolate if needed when more event classes are designed. There is also a 
+model. For example, within the sensor controller and sensor class model the
+door sensor event model, window sensor event model, and motion sensor event
+model all inherit from the sensor event class, which inherits from the overall
+event class. This will make it very easy for the software designers of GARTH to
+extrapolate if needed when more event classes are designed. There is also a
 general sensor class that defines overall sensor behaviour throughout the home.
 Many different sensors in the GARTH system inherit from this class to re-use
 common parameters while still providing unique behaviour over the different
@@ -645,18 +707,19 @@ kinds of sensors. The sensor controller model also inherits from the controller
 class.
 
 Within the system controller class diagram, an input device class was defined
-that allowed the different input devices that the users interact with to inherit
-from it. The keypad input device as well as the NFC reader devices inherit
-from this class. The system controller object model also includes new events
-that re-use the event model mentioned previously. Also, the system controller
-class itself inherits from the controller model.
+that allowed the different input devices that the users interact with to
+inherit from it. The keypad input device as well as the NFC reader devices
+inherit from this class. The system controller object model also includes new
+events that re-use the event model mentioned previously. Also, the system
+controller class itself inherits from the controller model.
 
-Much like the other controller class models, the alarm controller class inherits
-from the controller class. Also its alarm event class inherits from the overall
-event class much like the other controller classes. This object model varies
-from the others in that it introduces the alarm device class. This class defines
-the different alarms that are triggered by the system. The classes SMS alarm,
-speech alarm, external alarm, and siren alarm all inherit from this class.
+Much like the other controller class models, the alarm controller class
+inherits from the controller class. Also its alarm event class inherits from
+the overall event class much like the other controller classes. This object
+model varies from the others in that it introduces the alarm device class. This
+class defines the different alarms that are triggered by the system. The
+classes SMS alarm, speech alarm, external alarm, and siren alarm all inherit
+from this class.
 
 \section{Optimizations}
 
@@ -692,13 +755,13 @@ use of inheritance and design patterns that encourage extensibility. Since many
 of our controller class models make use of re-use in class objects such as
 events, alarms, and sensors, if anything of this type needs to be added to the
 system it is very simple to do since they can inherit from the general class
-models that already exist. For example, if a server alarm were added to the 
-system in the event that the server is in risk of being compromised, this 
+models that already exist. For example, if a server alarm were added to the
+system in the event that the server is in risk of being compromised, this
 situation could easily be added to the object model by creating a new sensor
 model, event model, and alarm model that correspond to it.
 
 Extensibility in design patterns are also used, as the communication stack
-implements the facade design pattern when interfacing with the rest of the
+implements the fa\c{c}ade design pattern when interfacing with the rest of the
 system with regards to communication. If a new sensor, event, or alarm needs to
 be added to the system, this design pattern makes it very easy to expand the
 interfaces to interact with the new components of the system.
