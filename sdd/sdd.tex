@@ -328,11 +328,23 @@ This reduces both compile-time and run-time dependency.
 % the system. Explain how they were applied to specifci components and the
 % rationale for them.
 
+% SINGLETONS MOTHERFUCKER
+
 \section{Algorithms}
 
 \section{Packages}
 
 \section{Object and Interface Design}
+A refined class level diagram has been provided for the majority of the
+subsystems. For each subsystem, a separate class diagram was generated to keep
+things simple and to avoid confusion due to hard to read diagrams. Some
+subsystems are provided with other systems due to overlap and to reduce the
+number of redundent diagrams.
+
+Each of the controllers are broken up into their own subsystem and are
+instantated as singletons. Each controller is derived from the same super class
+that provides the abstract method for handling events and creating the event
+subscription list.
 
 \begin{landscape} 
 \floatstyle{plain}
