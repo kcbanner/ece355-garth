@@ -407,6 +407,43 @@ subscription list.
 
 \section{Design Trade-offs}
 
+During design of the GARTH system, many key decisions were made that affected
+the overall performance, functionality, and cost of the system. These are key
+aspects that were considered in the design, but some decisions had to be
+weighed in order to maintain balance in the design. For example, performance
+optimization was a goal to make sure that the system was robust and adequately
+reactive to certain events, but resulted in more expensive hardware and software
+implementation. Also, the system was designed such that it was functionally
+robust but much attention needed to be paid to functionality to make sure that
+it was still intuitive and easy to use. Certain other decisions like whether to
+use store-bought implementation vs. proprietary hardware and software factored
+into this discussion as well.
+
+The GARTH home system is designed to be robust in many areas, one in particular
+is its performance. Not many shortcuts were taken in ensuring that the system
+will be able to react to security events quickly and seamlessly. This is ideal
+for a security system of this magnitude, but it introduced higher engineering
+costs. For example, high-speed wireless protocols were included in the design
+to ensure quick and reliable communication of the system throughout the home.
+This is more expensive than using a wired network or even RF wireless protocol
+but ultimately results in a more responsive system. Since GARTH is a total home
+security solution, performance was regarded with slightly higher priority than
+cost optimization due to the target demographic of the system which is typically
+high income households.
+
+Much attention was paid to the usability of the system. The user interfaces will
+be implented in such a way that they are inherently intuitive to a new client
+that has purchased and installed the system for the first time. The idea behind
+this philiosophy is that in order to use the system the client should not have 
+to read extensive documentation in order to learn how to configure, manage,
+arm or disarm any features of the system. This implementation is very suitable
+for the user, but requires that extra attention is paid to making sure the system
+is still functionally adequate. Therefore, another trade-off that was made was
+enforcing strong usability and functionality in the same vein. As a result, the
+software design cost of the system was slightly increased as more support 
+architecture was required to make up for how simple the system appears to the
+user.
+
 \section{Re-use}
 
 \section{Optimizations}
