@@ -398,7 +398,30 @@ external alarms through an HTTP based web interface.
 The communications stack class diagram is found in
 Figure~\ref{fig:communications_stack_class_diagram}. It represents the entire
 communications stack as a summation of three parts, the \texttt{EventManager},
-the \texttt{CommunicationsInterface}, and the \texttt{HardwareInterface}.
+the \texttt{CommunicationsInterface}, and the \texttt{HardwareInterface}. The
+\texttt{EventManager} is the layer accessible to the controllers. It provides
+methods to access the layers beneath it indirectly. It maintains two event
+queues, one for the input events from the sensors and one priority queue for
+the alarm events. It takes a hash map of strings that map to events and
+converts it into events to pass to the controllers based on the event
+subscription list. Events are handled in a FIFO queue until it is empty and
+once it is empty, occasionaly checked on a timer to ensure that new events are
+looked after promptly.
+
+The next layer, the \texttt{CommunicationsInterface} deals with the encoding
+and decoding of the remote process communication with the sensors. Sensors are
+polled or status checked based on sensor ID which is used to get sensor data
+from the next layer down so that the RPC can be encoded properly. This class
+takes the response string from the \texttt{HardwareInterface} and converts it
+into a HashMap with the arguments and parameters from the RPC response.
+
+Hardware is communicated to through the \texttt{HardwareInterface}. It also
+stores a list of all the sensors, alarm devices, and input devices. Encoded RPC
+strings can be sent from the \texttt{CommuncationsInterface} through this layer
+to either the sensors or alarm devices. Any device can send a response as an
+encoded RPC string even if it was not requested by a controller. This provides
+a means of event driven communication between the sensors and the controllers
+without relying on tight polling from the \texttt{SensorController}.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
