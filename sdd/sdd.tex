@@ -357,14 +357,30 @@ number of redundent diagrams.
 
 Each of the controllers are broken up into their own subsystem and are
 instantated as singletons. Each controller is derived from the same super class
-that provides the abstract method for handling events and creating the event
-subscription list.
+that provides the abstract method for handling events and the
+implementation for subscribing to events with the event manager.
+
+The class diagram for the first controller, the SensorController, and the
+sensors are shown in Figure~\ref{fig:sensor_controller_class_diagram}. This
+diagram also describes the EventType enumeration which is omitted from the
+other diagrams for brevity The SensorController aggregates a list of sensors,
+which is fetched from the EventManager. This controller can explictely poll
+sensors, handle the sensor input data, and check the sensor statuses. It sends 
+events to the other controllers through the event manager after deciding how an
+event should be handled. 
+
+The sensor subsystem along with the associated sensor events are also described
+in Figure~\ref{fig:sensor_controller_class_diagram}. The methods that can be
+called on each of the sensors are outlined as well as the associated events that
+will be eventually passed back to the controllers. Each sensor event has a
+sensor ID number associated with it as well as a specific door or window ID
+if it is from a door or a window sensor.
 
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{SensorController Class Diagram}
+    \caption{SensorController and Sensor Class Diagram}
     \label{fig:sensor_controller_class_diagram}
     \includegraphics[scale=0.5]{sensor_controller_class_diagram.png}
 \end{figure}
