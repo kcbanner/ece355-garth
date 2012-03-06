@@ -238,12 +238,15 @@ The SensorController component handles polling sensors, receiving
 sensor events, and passing relevant events on to the
 SystemController. The SensorController maintains an internal polling
 schedule which is used to poll sensors at intervals appropriate to the
-individual sensor.
+individual sensor. 
 
 The SystemController maintains the overall system state. It acts on
 events received from the SensorController to transition the system
 into different states, including alarm states. The SystemController
 can generate alarm events which are sent to the AlarmController.
+An additional subsystem which is used by the SystemController is the
+External Interface subsystem. The External Interface subsystem is used
+to communicate over HTTP with the external server.
 
 The AlarmController acts on alarm events. This controller will
 generate output events which are sent to output devices to notify
@@ -436,7 +439,13 @@ shutdown is initiated, followed by a start-up immediately after.
 
 \section{External System Interfaces}
 
-A class diagram of the external interfaces that GARTH uses can be found in
+All interaction with external interfaces is handled by the
+SystemController component. This behaviour was chosen to reduce
+implementation complexity; if only the SystemController requires
+access to external interfaces, then no other Controller will have to
+depend on the External Interface subsystem.  This reduces both
+compile-time and run-time dependency. A class diagram of the external
+interfaces that GARTH uses can be found in
 Figure~\ref{fig:external_interfaces}.
 
 \floatstyle{plain}
@@ -453,11 +462,11 @@ Figure~\ref{fig:external_interfaces}.
 \floatstyle{boxed}
 \restylefloat{figure}
 
-All interaction with external interfaces is handled by the SystemController
-component. This behaviour was chosen to reduce implementation complexity; if
-only the SystemController requires access to external interfaces, then no other
-Controller will have to depend on the External Interface subsystem.  This
-reduces both compile-time and run-time dependency.
+As shown in the diagram above, there are four main external activites
+that can be performed: logging events, initiating a backup, initiating
+a remote administration session, and handling external alarms. These
+activities can all be performed through the external interface
+provided by the external web server.
 
 \section{Internal Subsystem Interfaces}
 
@@ -469,6 +478,7 @@ reduces both compile-time and run-time dependency.
 % For communications Protocol: json-rpc.org/wiki/specification
 
 \section{Design Patterns}
+
 % Describe all design patterns used to reduce complexity and increase re-use in
 % the system. Explain how they were applied to specifci components and the
 % rationale for them.
