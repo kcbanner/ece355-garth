@@ -1,6 +1,8 @@
 LATEX = pdflatex
+BIBTEX = bibtex
 ECHO = echo
 FILES = sdd.tex
+BIBFILES = sdd.aux
 MPOST = mpost
 FLOW = flow
 

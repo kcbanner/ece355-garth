@@ -5,6 +5,8 @@
 \usepackage{array}
 \usepackage{pdflscape}
 \usepackage{multirow}
+\usepackage{bibentry}
+%\nobibliography*
 %\usepackage[T1]{fontenc}
 %\usepackage{lscape}
 %\usepackage[parfill]{parskip}
@@ -69,7 +71,7 @@ At the end of this section is a dynamic design model of the system.
 
 Chapter ~\ref{ch:design-evaluation} evaluates the design decisions that were
 made and discusses the how they affected the implementation of the system.
-Design trade-offs such as performance vs. cost are described, followed by a
+Design trade-offs such as performance versus cost are described, followed by a
 discussion of how the system re-uses certain hardware and software. Design
 optimization decisions are highlighted in this section, followed by the
 extensibility of the design.
@@ -161,7 +163,13 @@ get implemented in the prototype.
 \item[FIFO]
 \end{description}
 
-%\section{References}
+\section{References}
+\bibliographystyle{ieeetr}
+\begin{enumerate}
+    \item M. Thompson. "Getting Started With AFNetworking," 2011
+    \item ZigBee Alliance, "Understanding ZigBee RF4CE," July 2009
+\end{enumerate}
+%\bibliography{sdd}
 
 \chapter{Architecture} % 20% - Casey
 \label{ch:architecture}
@@ -295,12 +303,15 @@ The SensorController component handles polling sensors, receiving
 sensor events, and passing relevant events on to the
 SystemController. The SensorController maintains an internal polling
 schedule which is used to poll sensors at intervals appropriate to the
-individual sensor.
+individual sensor. 
 
 The SystemController maintains the overall system state. It acts on
 events received from the SensorController to transition the system
 into different states, including alarm states. The SystemController
 can generate alarm events which are sent to the AlarmController.
+An additional subsystem which is used by the SystemController is the
+External Interface subsystem. The External Interface subsystem is used
+to communicate over HTTP with the external server.
 
 The AlarmController acts on alarm events. This controller will
 generate output events which are sent to output devices to notify
@@ -493,7 +504,13 @@ shutdown is initiated, followed by a start-up immediately after.
 
 \section{External System Interfaces}
 
-A class diagram of the external interfaces that GARTH uses can be found in
+All interaction with external interfaces is handled by the
+SystemController component. This behaviour was chosen to reduce
+implementation complexity; if only the SystemController requires
+access to external interfaces, then no other Controller will have to
+depend on the External Interface subsystem.  This reduces both
+compile-time and run-time dependency. A class diagram of the external
+interfaces that GARTH uses can be found in
 Figure~\ref{fig:external_interfaces}.
 
 \floatstyle{plain}
@@ -510,13 +527,43 @@ Figure~\ref{fig:external_interfaces}.
 \floatstyle{boxed}
 \restylefloat{figure}
 
-All interaction with external interfaces is handled by the SystemController
-component. This behaviour was chosen to reduce implementation complexity; if
-only the SystemController requires access to external interfaces, then no other
-Controller will have to depend on the External Interface subsystem.  This
-reduces both compile-time and run-time dependency.
+As shown in the diagram above, there are four main external activites
+that can be performed: logging events, initiating a backup, initiating
+a remote administration session, and handling external alarms. These
+activities can all be performed through the external interface
+provided by the external web server.
 
 \section{Internal Subsystem Interfaces}
+
+All communication between internal subsystems is done through the
+Communications Stack subsystem by sending and receiving \texttt{Event}
+objects. The only exception to this is the interface between the
+SystemController and the External Interface subsystem, which is done
+through simple method calls.
+
+The message passing system that GARTH uses is based on \texttt{Event}
+objects. Any data that needs to be passed throughout the system is
+encapsulated within the appropriate subclass of the \texttt{Event}
+object and broadcast throughout the system. When an \texttt{Event}
+object is receieved by the Communications Stack, it is sent to any
+\texttt{Controller} objects which have subscribed to the
+\texttt{EventType} of the received event. For example, when a door
+sensor detects that a door has been opened, that sensor generates a
+\texttt{DoorSensorEvent} which is then broadcast by that sensor. Once
+this \texttt{Event} has been received, it is sent to to the
+\texttt{SensorController}.
+
+In order to actually send and receive \texttt{Event} objects to other
+subsystems, the Communications Stack subsystem provides an interface
+for broadcasting and subscribing to events. \texttt{Controller}
+instances can subscribe to receive \texttt{Event} objects of a
+particular \texttt{EventType} by calling the
+\texttt{subscribe(eventType: EventType, controller: Controller)}
+method on the \texttt{EventManager} class. If a \texttt{Controller}
+wishes to broadcast an event to all the \texttt{Sensor},
+\texttt{Output}, and \texttt{Input} devices in the system, it will
+call the \texttt{broadcastEvent(event: Event)} method with the
+\texttt{Event} it wishes to broadcast.
 
 
 
@@ -526,8 +573,9 @@ reduces both compile-time and run-time dependency.
 % For communications Protocol: json-rpc.org/wiki/specification
 
 \section{Design Patterns}
+
 % Describe all design patterns used to reduce complexity and increase re-use in
-% the system. Explain how they were applied to specifci components and the
+% the system. Explain how they were applied to sepcific components and the
 % rationale for them.
 
 Several design patterns have been used in this system. The first is the
@@ -856,19 +904,17 @@ through HTTP requests for retrieving or modifying data.
 
 On the iOS platform, the user interface will be constructed with the Quartz and
 UIKit. These libraries provide common user interface elements such as labels,
-buttons, and more. For HTTP requests, the AFNetworking library will be used as
-it simplifies the handling network requests and all of the boilerplate
-associated with it. On Android, the standard libraries will be used as they are
-sufficient and no third party libraries exist that are provide better
-functionality then the stock ones.
-
-
-% Reference this: afnetworking.org/Documentation
+buttons, and more. For HTTP requests, the AFNetworking [1]
+library will be used as it simplifies the handling network requests and all of
+the boilerplate associated with it. On Android, the standard libraries will be
+used as they are sufficient and no third party libraries exist that are provide
+better functionality then the stock ones.
 
 \section{Runtime Platform}
 The platform is divided into two major types of components, controllers and
 sensors. Both types have different requirements for operating systems and
-hardware. Middleware is required to interface between the two subsystems as well. 
+hardware. Middleware is required to interface between the two subsystems as
+well. 
 
 The controllers will all operate on a single server as seperate processes. The
 server will be a Linux based server orientated distribution such as CentOS or
@@ -908,19 +954,17 @@ controllers and the sensors.
 
 
 \section{Process Model}
-%Describe whether the system is multi-threaded, runs on concurrent processes, or
-%is distributed. Identify the major concurrent activities and objects (you may
-%refer to the object or dynamic model), and how they will be manifested on the
-%target system.
-
-% TODO :: More
 The system as a whole is distributed system, with subsystems consisting of
 concurrent processes or single threaded microcontrollers. The sensor network is
 one distributed subsystem that consists of many single process
-microcontrollers. The controllers located on the server are concurrent
-processes.
+microcontrollers. 
 
-% TODO :: Refer to object/dynamic model and shit.
+The controllers and the communciation stack located on the server are
+concurrent threads which can communicate freely using inter-thread techniques.
+Communication is done through the \texttt{EventManager} thread as seen in
+Figure~\ref{fig:communications_stack_class_diagram}, the communications stack
+class diagram. This enables easy synchronization through events queues where
+the events are the messages of a traditional message queue.
 
 \section{Synchronization}
 %Describe the method of coordination and synchronization between software
@@ -933,10 +977,13 @@ are handled as the messages in the event queues. These event queues will
 have different priority levels as some events are more critical then others in
 terms of time sensitivity. 
 
+Synchronization between the hardware interface and the sensors will be done
+thorugh the ZigBee protocol to ensure that the complete message has been
+received before trying to parse the information. This protocol defines error
+conditions, message packets with headers and footers, and more. [2]
+
+
 \section{Fault Handling}
-%Explain how errors will be handled. For instance, describe the use of
-%exception handling in the system. Discuss how the system may recover from
-%software or hardware failure.
 Errors will be handled on a case by case basis as some errors will not affect
 day to day operation of the system. Minor errors such as a temperature misread
 or missing data from one of the passively read sensors can be ignored as long
@@ -966,5 +1013,11 @@ house, then the components effected need to restart as quickly as possible to
 ensure proper and consistent operation. For other faults such as hardware
 failure in the base station or the server, then the user will need to take
 appropriate action to fix the malfunctioning hardware.
+
+All of these, if it is required, can be handled as \texttt{AlarmEvents} with
+the appropriate alarm severity. Some events, like the minor data misreads will
+not need to be report. This will ensure that all events of significant meaning
+will be forwarded to the appropriate controller and the users notified of the
+occurance of an error.
 
 \end{document}
