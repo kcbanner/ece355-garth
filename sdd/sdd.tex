@@ -357,14 +357,76 @@ number of redundent diagrams.
 
 Each of the controllers are broken up into their own subsystem and are
 instantated as singletons. Each controller is derived from the same super class
-that provides the abstract method for handling events and creating the event
-subscription list.
+that provides the abstract method for handling events and the
+implementation for subscribing to events with the event manager.
 
+The class diagram for the first controller, the \texttt{SensorController}, and
+the sensors are shown in Figure~\ref{fig:sensor_controller_class_diagram}. This
+diagram also describes the \texttt{EventType} enumeration which is omitted from
+the other diagrams for brevity The \texttt{SensorController} aggregates a list
+of sensors, which is fetched from the \texttt{EventManager}. This controller can
+explictely poll sensors, handle the sensor input data, and check the sensor
+statuses. It sends events to the other controllers through the event manager
+after deciding how an event should be handled. 
+
+The sensor subsystem along with the associated sensor events are also described
+in Figure~\ref{fig:sensor_controller_class_diagram}. The methods that can be
+called on each of the sensors are outlined as well as the associated events that
+will be eventually passed back to the controllers. Each sensor event has a
+sensor ID number associated with it as well as a specific door or window ID
+if it is from a door or a window sensor.
+
+The second controller, the \texttt{SystemController}, is described in the class
+diagram in Figure~\ref{fig:system_controller_class_diagram}. It contains all
+the methods required with handling inputs from the \texttt{KeypadInputDevice}
+and \texttt{NFCReaderInputDevice}. The definition of the class for
+\texttt{InputEvent} is included. System state is set and stored within this
+controller based on the inputs. Events are recieved from the event manager and
+the other controllers which are then sent to the external server and to the
+controllers if it is deemed appropriate. This controller also maintains a list
+of the user models which is uses to check for authorization rights to see what
+the user can do in terms of security actions.
+
+Figure~\ref{fig:alarm_controller_class_diagram} provides the class diagram for
+the \texttt{AlarmController} as well as the structure of the
+\texttt{AlarmDevice}. This controller handles the operation of the alarm output
+devices and the appropriate action for each alarm severity level. There are
+several different \texttt{AlarmDevices} that are used for different levels of
+alarm severity and alarm causes. An interface is provided to be able to send
+external alarms through an HTTP based web interface.
+
+The communications stack class diagram is found in
+Figure~\ref{fig:communications_stack_class_diagram}. It represents the entire
+communications stack as a summation of three parts, the \texttt{EventManager},
+the \texttt{CommunicationsInterface}, and the \texttt{HardwareInterface}. The
+\texttt{EventManager} is the layer accessible to the controllers. It provides
+methods to access the layers beneath it indirectly. It maintains two event
+queues, one for the input events from the sensors and one priority queue for
+the alarm events. It takes a hash map of strings that map to events and
+converts it into events to pass to the controllers based on the event
+subscription list. Events are handled in a FIFO queue until it is empty and
+once it is empty, occasionaly checked on a timer to ensure that new events are
+looked after promptly.
+
+The next layer, the \texttt{CommunicationsInterface} deals with the encoding
+and decoding of the remote process communication with the sensors. Sensors are
+polled or status checked based on sensor ID which is used to get sensor data
+from the next layer down so that the RPC can be encoded properly. This class
+takes the response string from the \texttt{HardwareInterface} and converts it
+into a HashMap with the arguments and parameters from the RPC response.
+
+Hardware is communicated to through the \texttt{HardwareInterface}. It also
+stores a list of all the sensors, alarm devices, and input devices. Encoded RPC
+strings can be sent from the \texttt{CommuncationsInterface} through this layer
+to either the sensors or alarm devices. Any device can send a response as an
+encoded RPC string even if it was not requested by a controller. This provides
+a means of event driven communication between the sensors and the controllers
+without relying on tight polling from the \texttt{SensorController}.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{SensorController Class Diagram}
+    \caption{\texttt{SensorController} and \texttt{Sensor} Class Diagram}
     \label{fig:sensor_controller_class_diagram}
     \includegraphics[scale=0.5]{sensor_controller_class_diagram.png}
 \end{figure}
@@ -374,7 +436,7 @@ subscription list.
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{SystemController Class Diagram}
+    \caption{\texttt{SystemController} Class Diagram}
     \label{fig:system_controller_class_diagram}
     \includegraphics[scale=0.5]{system_controller_class_diagram.png}
 \end{figure}
@@ -384,7 +446,7 @@ subscription list.
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{AlarmController Class Diagram}
+    \caption{\texttt{AlarmController} Class Diagram}
     \label{fig:alarm_controller_class_diagram}
     \includegraphics[scale=0.5]{alarm_controller_class_diagram.png}
 \end{figure}
@@ -395,7 +457,7 @@ subscription list.
 \restylefloat{figure}
 \begin{figure}[p]
     \caption{Communications Stack Class Diagram}
-    \label{fig:communication_stack_class_diagram}
+    \label{fig:communications_stack_class_diagram}
     \includegraphics[scale=0.5]{communication_stack_class_diagram}
 \end{figure}
 %\end{landscape}
