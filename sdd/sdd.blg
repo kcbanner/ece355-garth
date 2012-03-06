@@ -2,37 +2,39 @@ This is BibTeX, Version 0.99d (TeX Live 2012/dev/Arch Linux)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: sdd.aux
 The style file: ieeetr.bst
-Database file #1: sdd.bib
-You've used 2 entries,
+I found no \bibdata command---while reading file sdd.aux
+Warning--I didn't find a database entry for "afnetworking"
+Warning--I didn't find a database entry for "zigbee"
+You've used 0 entries,
             1876 wiz_defined-function locations,
-            484 strings with 3575 characters,
-and the built_in function-call counts, 266 in all, are:
-= -- 20
-> -- 8
+            478 strings with 3474 characters,
+and the built_in function-call counts, 20 in all, are:
+= -- 0
+> -- 0
 < -- 0
-+ -- 4
-- -- 2
-* -- 12
-:= -- 45
-add.period$ -- 2
-call.type$ -- 2
-change.case$ -- 2
++ -- 0
+- -- 0
+* -- 2
+:= -- 9
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 8
-empty$ -- 37
-format.name$ -- 2
-if$ -- 63
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 1
 int.to.chr$ -- 0
-int.to.str$ -- 2
+int.to.str$ -- 0
 missing$ -- 0
-newline$ -- 9
-num.names$ -- 2
-pop$ -- 14
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 8
+skip$ -- 1
 stack$ -- 0
 substring$ -- 0
 swap$ -- 0
@@ -41,6 +43,7 @@ text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 2
-width$ -- 3
-write$ -- 16
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There was 1 error message)

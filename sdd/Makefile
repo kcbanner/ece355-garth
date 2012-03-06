@@ -9,7 +9,6 @@ FLOW = flow
 all : 
 	$(ECHO) Making sdd.pdf
 	$(LATEX) $(FILES)
-	$(BIBTEX) $(BIBFILES)
 	$(ECHO) Making sdd.pdf again for references
 	$(LATEX) $(FILES)
 	wc sdd.tex

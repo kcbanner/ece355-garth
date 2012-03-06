@@ -5,6 +5,8 @@
 \usepackage{array}
 \usepackage{pdflscape}
 \usepackage{multirow}
+\usepackage{bibentry}
+\nobibliography*
 %\usepackage[T1]{fontenc}
 %\usepackage{lscape}
 %\usepackage[parfill]{parskip}
@@ -105,7 +107,12 @@ User model defined after implementing the access array and control matrix
 
 \section{References}
 \bibliographystyle{ieeetr}
-\bibliography{sdd}
+\begin{enumerate}
+    \item M. Thompson. "Getting Started With AFNetworking," 2011
+    \item ZigBee Alliance, "Understanding ZigBee RF4CE," July 2009
+\end{enumerate}
+%\bibliography{sdd}
+
 \chapter{Architecture} % 20% - Casey
 \label{ch:architecture}
 
@@ -809,7 +816,7 @@ through HTTP requests for retrieving or modifying data.
 
 On the iOS platform, the user interface will be constructed with the Quartz and
 UIKit. These libraries provide common user interface elements such as labels,
-buttons, and more. For HTTP requests, the AFNetworking \cite{afnetworking}
+buttons, and more. For HTTP requests, the AFNetworking [1]
 library will be used as it simplifies the handling network requests and all of
 the boilerplate associated with it. On Android, the standard libraries will be
 used as they are sufficient and no third party libraries exist that are provide
@@ -885,7 +892,7 @@ terms of time sensitivity.
 Synchronization between the hardware interface and the sensors will be done
 thorugh the ZigBee protocol to ensure that the complete message has been
 received before trying to parse the information. This protocol defines error
-conditions, message packets with headers and footers, and more.\cite{zigbee}
+conditions, message packets with headers and footers, and more. [2]
 
 
 \section{Fault Handling}
