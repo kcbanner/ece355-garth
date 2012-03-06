@@ -360,14 +360,14 @@ instantated as singletons. Each controller is derived from the same super class
 that provides the abstract method for handling events and the
 implementation for subscribing to events with the event manager.
 
-The class diagram for the first controller, the SensorController, and the
-sensors are shown in Figure~\ref{fig:sensor_controller_class_diagram}. This
-diagram also describes the EventType enumeration which is omitted from the
-other diagrams for brevity The SensorController aggregates a list of sensors,
-which is fetched from the EventManager. This controller can explictely poll
-sensors, handle the sensor input data, and check the sensor statuses. It sends 
-events to the other controllers through the event manager after deciding how an
-event should be handled. 
+The class diagram for the first controller, the \texttt{SensorController}, and
+the sensors are shown in Figure~\ref{fig:sensor_controller_class_diagram}. This
+diagram also describes the \texttt{EventType} enumeration which is omitted from
+the other diagrams for brevity The \texttt{SensorController} aggregates a list
+of sensors, which is fetched from the \texttt{EventManager}. This controller can
+explictely poll sensors, handle the sensor input data, and check the sensor
+statuses. It sends events to the other controllers through the event manager
+after deciding how an event should be handled. 
 
 The sensor subsystem along with the associated sensor events are also described
 in Figure~\ref{fig:sensor_controller_class_diagram}. The methods that can be
@@ -376,11 +376,34 @@ will be eventually passed back to the controllers. Each sensor event has a
 sensor ID number associated with it as well as a specific door or window ID
 if it is from a door or a window sensor.
 
+The second controller, the \texttt{SystemController}, is described in the class
+diagram in Figure~\ref{fig:system_controller_class_diagram}. It contains all
+the methods required with handling inputs from the \texttt{KeypadInputDevice}
+and \texttt{NFCReaderInputDevice}. The definition of the class for
+\texttt{InputEvent} is included. System state is set and stored within this
+controller based on the inputs. Events are recieved from the event manager and
+the other controllers which are then sent to the external server and to the
+controllers if it is deemed appropriate. This controller also maintains a list
+of the user models which is uses to check for authorization rights to see what
+the user can do in terms of security actions.
+
+Figure~\ref{fig:alarm_controller_class_diagram} provides the class diagram for
+the \texttt{AlarmController} as well as the structure of the
+\texttt{AlarmDevice}. This controller handles the operation of the alarm output
+devices and the appropriate action for each alarm severity level. There are
+several different \texttt{AlarmDevices} that are used for different levels of
+alarm severity and alarm causes. An interface is provided to be able to send
+external alarms through an HTTP based web interface.
+
+The communications stack class diagram is found in
+Figure~\ref{fig:communications_stack_class_diagram}. It represents the entire
+communications stack as a summation of three parts, the \texttt{EventManager},
+the \texttt{CommunicationsInterface}, and the \texttt{HardwareInterface}.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{SensorController and Sensor Class Diagram}
+    \caption{\texttt{SensorController} and \texttt{Sensor} Class Diagram}
     \label{fig:sensor_controller_class_diagram}
     \includegraphics[scale=0.5]{sensor_controller_class_diagram.png}
 \end{figure}
@@ -390,7 +413,7 @@ if it is from a door or a window sensor.
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{SystemController Class Diagram}
+    \caption{\texttt{SystemController} Class Diagram}
     \label{fig:system_controller_class_diagram}
     \includegraphics[scale=0.5]{system_controller_class_diagram.png}
 \end{figure}
@@ -400,7 +423,7 @@ if it is from a door or a window sensor.
 \floatstyle{plain}
 \restylefloat{figure}
 \begin{figure}[p]
-    \caption{AlarmController Class Diagram}
+    \caption{\texttt{AlarmController} Class Diagram}
     \label{fig:alarm_controller_class_diagram}
     \includegraphics[scale=0.5]{alarm_controller_class_diagram.png}
 \end{figure}
@@ -411,7 +434,7 @@ if it is from a door or a window sensor.
 \restylefloat{figure}
 \begin{figure}[p]
     \caption{Communications Stack Class Diagram}
-    \label{fig:communication_stack_class_diagram}
+    \label{fig:communications_stack_class_diagram}
     \includegraphics[scale=0.5]{communication_stack_class_diagram}
 \end{figure}
 %\end{landscape}
