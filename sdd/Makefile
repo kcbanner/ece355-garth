@@ -1,12 +1,15 @@
 LATEX = pdflatex
+BIBTEX = bibtex
 ECHO = echo
 FILES = sdd.tex
+BIBFILES = sdd.aux
 MPOST = mpost
 FLOW = flow
 
 all : 
 	$(ECHO) Making sdd.pdf
 	$(LATEX) $(FILES)
+	$(BIBTEX) $(BIBFILES)
 	$(ECHO) Making sdd.pdf again for references
 	$(LATEX) $(FILES)
 	wc sdd.tex

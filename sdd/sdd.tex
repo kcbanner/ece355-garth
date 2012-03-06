@@ -103,8 +103,9 @@ User model defined after implementing the access array and control matrix
 \item[FIFO]
 \end{description}
 
-%\section{References}
-
+\section{References}
+\bibliographystyle{ieeetr}
+\bibliography{sdd}
 \chapter{Architecture} % 20% - Casey
 \label{ch:architecture}
 
@@ -798,14 +799,11 @@ through HTTP requests for retrieving or modifying data.
 
 On the iOS platform, the user interface will be constructed with the Quartz and
 UIKit. These libraries provide common user interface elements such as labels,
-buttons, and more. For HTTP requests, the AFNetworking library will be used as
-it simplifies the handling network requests and all of the boilerplate
-associated with it. On Android, the standard libraries will be used as they are
-sufficient and no third party libraries exist that are provide better
-functionality then the stock ones.
-
-
-% Reference this: afnetworking.org/Documentation
+buttons, and more. For HTTP requests, the AFNetworking \cite{afnetworking}
+library will be used as it simplifies the handling network requests and all of
+the boilerplate associated with it. On Android, the standard libraries will be
+used as they are sufficient and no third party libraries exist that are provide
+better functionality then the stock ones.
 
 \section{Runtime Platform}
 The platform is divided into two major types of components, controllers and
@@ -877,7 +875,8 @@ terms of time sensitivity.
 Synchronization between the hardware interface and the sensors will be done
 thorugh the ZigBee protocol to ensure that the complete message has been
 received before trying to parse the information. This protocol defines error
-conditions, 
+conditions, message packets with headers and footers, and more.\cite{zigbee}
+
 
 \section{Fault Handling}
 Errors will be handled on a case by case basis as some errors will not affect
