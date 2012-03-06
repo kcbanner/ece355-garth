@@ -3,12 +3,12 @@
 \usepackage{float}
 \usepackage{fullpage}
 \usepackage{array}
-\usepackage{pdflscape}
+%\usepackage{pdflscape}
 \usepackage{multirow}
 \usepackage{bibentry}
 %\nobibliography*
 %\usepackage[T1]{fontenc}
-%\usepackage{lscape}
+\usepackage{lscape}
 %\usepackage[parfill]{parskip}
 
 \setlength{\extrarowheight}{4pt}
@@ -635,7 +635,7 @@ result, a class simply has to send an event to the manager and the manager will
 send the event off to the appropriate receivers based on the subscription
 listing.
 
-\section{Algorithms}
+%\section{Algorithms}
 
 \section{Packages}
 The system can be divided into several packages. To increase the brevity of the
@@ -745,9 +745,10 @@ communication between the sensor and the controllers.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}[p]
+\begin{figure}[hp]
     \caption{\texttt{SensorController} and \texttt{Sensor} Class Diagram}
     \label{fig:sensor_controller_class_diagram}
+    \vspace{10pt}
     \includegraphics[scale=0.5]{sensor_controller_class_diagram.png}
 \end{figure}
 \end{landscape} 
@@ -755,9 +756,10 @@ communication between the sensor and the controllers.
 \begin{landscape} 
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}[p]
+\begin{figure}[hp]
     \caption{\texttt{SystemController} Class Diagram}
     \label{fig:system_controller_class_diagram}
+    \vspace{30pt}
     \includegraphics[scale=0.5]{system_controller_class_diagram.png}
 \end{figure}
 \end{landscape} 
@@ -765,9 +767,10 @@ communication between the sensor and the controllers.
 \begin{landscape}
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}[p]
+\begin{figure}[hp]
     \caption{\texttt{AlarmController} Class Diagram}
     \label{fig:alarm_controller_class_diagram}
+    \vspace{50pt}
     \includegraphics[scale=0.5]{alarm_controller_class_diagram.png}
 \end{figure}
 \end{landscape}
@@ -775,7 +778,7 @@ communication between the sensor and the controllers.
 %\begin{landscape}
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}[p]
+\begin{figure}[hp]
   \centering
   \caption{Communications Stack Class Diagram}
   \label{fig:communications_stack_class_diagram}
@@ -785,7 +788,7 @@ communication between the sensor and the controllers.
 
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}[p]
+\begin{figure}[hp]
     \centering
     \label{fig:external_interface_class_diagram}
     \caption{External Interface Class Diagram}
@@ -794,13 +797,14 @@ communication between the sensor and the controllers.
 
 \floatstyle{plain}
 \restylefloat{figure}
-\begin{figure}[p]
+\begin{figure}[hp]
     \centering
     \label{fig:sensor_class_diagram}
     \caption{Sensor Class Diagram}
     \includegraphics[scale=0.5]{sensor_class_diagram}
 \end{figure}
 
+\pagebreak
 \section{Dynamic Design Model}
 
 Included in the dynamic design model is a refined state diagram for GARTH's
