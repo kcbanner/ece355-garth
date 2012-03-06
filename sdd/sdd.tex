@@ -812,11 +812,35 @@ requests at the server interface. The refined state diagram is shown below in
 Figure~\ref{fig:state_machine}
 
 A further addition to the dynamic design model is a sequence diagram
-describing the flow of an \texttt{Event} object through the
+describing the typical flow of an \texttt{Event} object through the
 communications stack. As described in
 Section~\ref{sec:internal_subsystem_interfaces}, \texttt{Event}
-objects are sent and received via the Communication
-Stack. This sequence diagram is shown in Figure~\ref{fig:event_handling_sequence}.
+objects are sent and received using the Communication Stack. The
+typical flow is as follows: The \texttt{Event} object is created by a
+GARTH sensor. The \texttt{Event} is then broadcast via the
+\texttt{EventManager}. In order to broadcast the event, the
+\texttt{EventManager} serializes the \texttt{Event} to a string using
+its \texttt{serializeEvent()} method. That string is then passed to
+the \texttt{broadcastData()} method of the
+\texttt{CommunicationsInterface}. Finally, the
+\texttt{CommunicationsInterface} uses the \texttt{HardwareInterface} to
+send the raw bytes over the physical link via the \texttt{sendBytes()}
+method. 
+
+When the packets are received at the controller's side of the physical
+link, the \texttt{HardwareInterface} calls the
+\texttt{packetReceived()} method of the
+\texttt{CommunicationsInterface} with the raw bytes received. Next,
+the \texttt{CommunicationsInterface} deserializes the \texttt{Event}
+object using the \texttt{deserializeEvent()} method on the
+\texttt{EventManager} class and passes that \texttt{Event} instance to
+the \texttt{eventReceived()} method. Finally, the \texttt{Event}
+object is passed to the relevant subscribed \texttt{Controller}
+instance, in this case the \texttt{SensorController}, via the
+\texttt{handleSensorInput()} call.
+
+This sequence diagram is
+shown in Figure~\ref{fig:event_handling_sequence}.
 
 \floatstyle{plain}
 \restylefloat{figure}
