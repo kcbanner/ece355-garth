@@ -756,7 +756,8 @@ functionality then the stock ones.
 \section{Runtime Platform}
 The platform is divided into two major types of components, controllers and
 sensors. Both types have different requirements for operating systems and
-hardware. Middleware is required to interface between the two subsystems as well. 
+hardware. Middleware is required to interface between the two subsystems as
+well. 
 
 The controllers will all operate on a single server as seperate processes. The
 server will be a Linux based server orientated distribution such as CentOS or
@@ -796,19 +797,17 @@ controllers and the sensors.
 
 
 \section{Process Model}
-%Describe whether the system is multi-threaded, runs on concurrent processes, or
-%is distributed. Identify the major concurrent activities and objects (you may
-%refer to the object or dynamic model), and how they will be manifested on the
-%target system.
-
-% TODO :: More
 The system as a whole is distributed system, with subsystems consisting of
 concurrent processes or single threaded microcontrollers. The sensor network is
 one distributed subsystem that consists of many single process
-microcontrollers. The controllers located on the server are concurrent
-processes.
+microcontrollers. 
 
-% TODO :: Refer to object/dynamic model and shit.
+The controllers and the communciation stack located on the server are
+concurrent threads which can communicate freely using inter-thread techniques.
+Communication is done through the \texttt{EventManager} thread as seen in
+Figure~\ref{fig:communications_stack_class_diagram}, the communications stack
+class diagram. This enables easy synchronization through events queues where
+the events are the messages of a traditional message queue.
 
 \section{Synchronization}
 %Describe the method of coordination and synchronization between software
@@ -821,10 +820,12 @@ are handled as the messages in the event queues. These event queues will
 have different priority levels as some events are more critical then others in
 terms of time sensitivity. 
 
+Synchronization between the hardware interface and the sensors will be done
+thorugh the ZigBee protocol to ensure that the complete message has been
+received before trying to parse the information. This protocol defines error
+conditions, 
+
 \section{Fault Handling}
-%Explain how errors will be handled. For instance, describe the use of
-%exception handling in the system. Discuss how the system may recover from
-%software or hardware failure.
 Errors will be handled on a case by case basis as some errors will not affect
 day to day operation of the system. Minor errors such as a temperature misread
 or missing data from one of the passively read sensors can be ignored as long
@@ -854,5 +855,11 @@ house, then the components effected need to restart as quickly as possible to
 ensure proper and consistent operation. For other faults such as hardware
 failure in the base station or the server, then the user will need to take
 appropriate action to fix the malfunctioning hardware.
+
+All of these, if it is required, can be handled as \texttt{AlarmEvents} with
+the appropriate alarm severity. Some events, like the minor data misreads will
+not need to be report. This will ensure that all events of significant meaning
+will be forwarded to the appropriate controller and the users notified of the
+occurance of an error.
 
 \end{document}
