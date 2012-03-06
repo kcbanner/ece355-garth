@@ -56,6 +56,7 @@ User model defined after implementing the access array and control matrix
 \label{ch:architecture}
 
 \section{Overview}
+\label{sec:architecture_overview}
 
 The architecture of GARTH is both a layered architecture as well as a
 client/server architecture. All communications-related subsystems, such as
@@ -95,11 +96,7 @@ Within GARTH, the models are events which are handled by the controllers. Sensor
 and output devices are the views, which generate and display data contained within
 events.
 
-% TODO: Add high level description of MVC patterns used in GARTH.
-
 \section{Subsystem Decomposition}
-
-% TODO: Add sensors and controllers to subsystem decomposition diagram.
 
 % Subsystems
 % - Hardware interfacing (drivers for ZigBee)
@@ -111,9 +108,55 @@ events.
 % - Sensor OS
 % - Outputs (loudspeakers, etc)
 
-The GARTH system is composed of several subsystems. 
+The GARTH system is composed over many smaller subsystems which are
+interconnected using the architecture styles discussed in
+Section~\ref{sec:architecture_overview}. This section will discuss the
+role of each subsystem. Firstly, there is the communications stack
+subsystem, which many of the other GARTH subsystems use to
+communicate. Next, the Sensors, Inputs, and Outputs subsystems are
+discussed. Finally, the three GARTH controller subsystems as well as
+the External Interface subsystem will be discussed.  The subsystem
+decomposition is shown in Figure~\ref{fig:subsystem_decomposition}.
 
-The subsystem decomposition is shown in Figure~\ref{fig:subsystem_decomposition}.
+\subsection{Communications Stack}
+
+The Communications Stack subsystem is the most depended on and critical
+GARTH component, as it facilitates communications between Sensors,
+Controllers, Inputs, and Outputs. The communications stack is
+comprised of the Event Protocol, Communications Protocol, and Hardware
+Interface components.
+
+The Hardware Interface component contains all the
+functionality required to interface with the physical components used
+to communicate within GARTH. This includes communicating with the
+device drivers for the ZigBee radios and formatting ZigBee packets.
+Also, any hardware related error handling and correction logic will be
+implemented within this component. The Hardware Interface component
+comprises the bottom layer of the communications stack.
+
+The Communications Protocol component handles serializing \texttt{Event}
+objects into a form that can be sent across the Hardware
+Interface. This component also handles protocol level flow
+control. Large \texttt{Event} objects will need to be split up into multiple
+segments in order to be sent over the Hardware Interface. In this
+case, flow control and checksums are required to ensure that multipart
+data streams are received and reconstructed correctly. The
+communications protocol implements a stateful protocol similar to
+TCP/IP which allows for message reception confirmation. This component
+forms the middle layer of the communications stack.
+
+The Event Protocol component contains all the classes and constructs
+required for the \texttt{Event} object and its descendants. These
+classes form the highest layer of the communications stack and are
+used by the other GARTH systems to communicate \texttt{Event} objects
+at a high level. This layer forms the highest level of the
+communications stack.
+
+\subsection{Sensors, Inputs, and Outputs}
+
+
+
+\subsection{Controller Subsystems}
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -620,11 +663,10 @@ real time system such as a sensor. The mobile applications will be written in
 Objective-C for the iOS application and in Java for the Android version as
 required by the platforms.
 
-Several network protocols will be used. The Zigbee protocol, IEEE 802.15.4,
-will be used for the hardware level communication between sensor nodes and the
-base station. The protocol used between Zigbee devices will be TCP/IP. External
-interfaces will use TCP/IP as well through HTTP requests for retrieving or
-modifying data. 
+Several network protocols will be used. The Zigbee protocol, IEEE
+802.15.4, will be used for the hardware level communication between
+sensor nodes and the base station. External interfaces will use TCP/IP
+through HTTP requests for retrieving or modifying data.
 
 On the iOS platform, the user interface will be constructed with the Quartz and
 UIKit. These libraries provide common user interface elements such as labels,
