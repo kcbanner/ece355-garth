@@ -157,7 +157,7 @@ implemented in the prototype.
 \begin{description}
 \item[API] Application Programming Interface. An interface between different
 software applications to provide a standard with which to communicate with. For
-mobile applciations, this is usually done through HTTP requests.
+mobile applications, this is usually done through HTTP requests.
 \item[OSI Model] Open Systems Interconnection model. A prescription of characterizing
 and standardizing the functions of a communication system.
 \item[Parity Disk] A disk that contains specific bits that allow an array of disks to recover
@@ -367,7 +367,7 @@ the system (such as control panels, alarms, speakers, etc). This hardware maps
 specifically to the hardware interface of the communications stack which
 includes all wireless and RF protocol used by the system. The communications
 stack also includes the event protocol and communications protocol, which
-handle events that are trigged by the hardware. Finally, the external interface
+handle events that are triggered by the hardware. Finally, the external interface
 to the system is the software interface of the Linux server which will allow a
 user with admin privileges to configure or manipulate the system.
 
@@ -546,6 +546,7 @@ activities can all be performed through the external interface
 provided by the external web server.
 
 \section{Internal Subsystem Interfaces}
+\label{sec:internal_subsystem_interfaces}
 
 All communication between internal subsystems is done through the
 Communications Stack subsystem by sending and receiving \texttt{Event}
@@ -562,7 +563,7 @@ object is received by the Communications Stack, it is sent to any
 \texttt{EventType} of the received event. For example, when a door
 sensor detects that a door has been opened, that sensor generates a
 \texttt{DoorSensorEvent} which is then broadcast by that sensor. Once
-this \texttt{Event} has been received, it is sent to to the
+this \texttt{Event} has been received, it is sent to the
 \texttt{SensorController}.
 
 In order to actually send and receive \texttt{Event} objects to other
@@ -810,7 +811,12 @@ machine and are entered as a result of an administrator issuing the required
 requests at the server interface. The refined state diagram is shown below in
 Figure~\ref{fig:state_machine}
 
-
+A further addition to the dynamic design model is a sequence diagram
+describing the flow of an \texttt{Event} object through the
+communications stack. As described in
+Section~\ref{sec:internal_subsystem_interfaces}, \texttt{Event}
+objects are sent and received via the Communication
+Stack. This sequence diagram is shown in Figure~\ref{fig:event_handling_sequence}.
 
 \floatstyle{plain}
 \restylefloat{figure}
@@ -936,7 +942,7 @@ the devices that deal with said events. Previously, every device was able to
 talk to each other to pass event information through the system to be handled by
 the server. This resulted in a much more complicated object model as well as
 more complicated hardware. Now, the communications stack has a specific event
-protocol and framework built in in order to handle all of the events. When an 
+protocol and framework built in order to handle all of the events. When an 
 event occurs, it gets passed through this framework and is dealt with by the
 server directly which is much more efficient.
 
@@ -950,7 +956,7 @@ and configure these controller classes individually.
 Lastly, a user model class was added to the object diagram in order to help
 define the actors using the system. It became apparent that a user model would
 need to be added to the object model once the access control portion of the 
-system was fleshed out. Paramaters included in the access array such as user
+system was fleshed out. Parameters included in the access array such as user
 name strings, password hashes, and privilege levels needed to be stored in
 objects for simplicity, so this functionality was added in this iteration of the
 design.
