@@ -65,11 +65,13 @@ class TestEventManager(unittest.TestCase):
         timestamp = datetime.utcnow()
         event = Event(event_type, timestamp)
         expected_data = EventManager.serialize_event(event)
-
+        
+        # Replace the comm interface with a mock
         self.event_manager.communications_interface = comm_interface_mock
         comm_interface_mock.broadcast_data(expected_data)
         mox.Replay(comm_interface_mock)
-        
+
+        # Broadcast the event
         self.event_manager.broadcast_event(event)
 
         # Verify that broadcasting uses communications interface
