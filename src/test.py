@@ -286,6 +286,115 @@ class TestWindowSensor(unittest.TestCase):
         self.assertEqual(event.get_window_id(), self.window_id)
         self.assertEqual(event.get_opened(), is_opened)
 
+class TestFloodSensor(unittest.TestCase):
+    def setUp(self):
+        self.sensor_id = 4
+        self.status = SensorStatus.ONLINE
+        self.sensor = FloodSensor(self.sensor_id, self.status)
+   
+    def test_flood_sensor_init(self):
+        self.assertEqual(self.sensor.get_water_height(), 0)
+        self.assertEqual(self.sensor.get_delta(), 0)
+
+    def test_flood_sensor_event(self):
+        # Check the base case
+        old_height = 0
+        new_height = 10 
+        
+        self.sensor.set_water_height(new_height)
+
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.FLOOD_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_water_height(), new_height)
+        self.assertEqual(event.get_water_height(), self.sensor.get_water_height())
+        self.assertEqual(event.get_height_delta(), new_height - old_height)
+        self.assertEqual(event.get_height_delta(), self.sensor.get_delta())
+        
+        # Ensure that the new water height values are stored correctly for the
+        # delta
+        old_height = new_height
+        new_height = 20
+       
+        self.sensor.set_water_height(new_height)
+
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.FLOOD_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_water_height(), new_height)
+        self.assertEqual(event.get_water_height(), self.sensor.get_water_height())
+        self.assertEqual(event.get_height_delta(), new_height - old_height)
+        self.assertEqual(event.get_height_delta(), self.sensor.get_delta())
+        
+        # Case were the old_height > new_height, ensures that it isn't an
+        # absolute value
+        old_height = new_height
+        new_height = 10
+       
+        self.sensor.set_water_height(new_height)
+
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.FLOOD_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_water_height(), new_height)
+        self.assertEqual(event.get_water_height(), self.sensor.get_water_height())
+        self.assertEqual(event.get_height_delta(), new_height - old_height)
+        self.assertEqual(event.get_height_delta(), self.sensor.get_delta())
+
+class TestTemperatueSensor(unittest.TestCase):
+    def setUp(self):
+        self.sensor_id = 5
+        self.status = SensorStatus.ONLINE
+        self.sensor = TemperatureSensor(self.sensor_id, self.status)
+
+    def test_temp_sensor_init(self):
+        self.assertEqual(self.sensor.get_temperature(), 0)
+        self.assertEqual(self.sensor.get_delta(), 0)
+
+    def test_temp_sensor_event(self):
+        old_temp = 0
+        new_temp = 10
+
+        self.sensor.set_temperature(new_temp)
+
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.TEMP_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_temperature(), new_temp)
+        self.assertEqual(event.get_temperature(), self.sensor.get_temperature())
+        self.assertEqual(event.get_temp_delta(), new_temp - old_temp)
+        self.assertEqual(event.get_temp_delta(), self.sensor.get_delta())
+
+        old_temp = new_temp
+        new_temp = 20
+        self.sensor.set_temperature(new_temp)
+
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.TEMP_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_temperature(), new_temp)
+        self.assertEqual(event.get_temperature(), self.sensor.get_temperature())
+        self.assertEqual(event.get_temp_delta(), new_temp - old_temp)
+        self.assertEqual(event.get_temp_delta(), self.sensor.get_delta())
+        
+        old_temp = new_temp
+        new_temp = 10
+        self.sensor.set_temperature(new_temp)
+
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.TEMP_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_temperature(), new_temp)
+        self.assertEqual(event.get_temperature(), self.sensor.get_temperature())
+        self.assertEqual(event.get_temp_delta(), new_temp - old_temp)
+        self.assertEqual(event.get_temp_delta(), self.sensor.get_delta())
+
 
 
 if __name__ == '__main__':
