@@ -21,11 +21,11 @@ class Event:
 #
 
 class SensorEvent(Event):
-    def __init__(self, event_type, sensor_id):
-        Event.__init__(self, event_type)
+    def __init__(self, event_type, sensor_id, timestamp=None):
+        Event.__init__(self, event_type, timestamp)
         self.sensor_id = sensor_id
 
-    def get_sensor_id():
+    def get_sensor_id(self):
         return self.sensor_id
 
 #
@@ -33,63 +33,79 @@ class SensorEvent(Event):
 # 
 
 class DoorSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, door_id, opened):
-        SensorEvent.__init__(self, event_type, sensor_id)
+    def __init__(self, event_type, sensor_id, door_id, opened, timestamp=None):
+        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
         self.door_id = door_id
         self.opened = opened
 
-    def get_door_id():
+    def get_door_id(self):
         return self.door_id
 
-    def get_opened():
+    def get_opened(self):
         return self.opened
 
 class WindowSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, window_id, opened):
-        SensorEvent.__init__(self, event_type, sensor_id)
+    def __init__(self, event_type, sensor_id, window_id, opened, 
+                timestamp=None):
+        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
         self.window_id = window_id
         self.opened = opened
 
-    def get_window_id():
+    def get_window_id(self):
         return self.window_id
 
-    def get_opened():
+    def get_opened(self):
         return self.opened
 
 class TempSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, temperature, delta):
-        SensorEvent.__init__(self, event_type, sensor_id)
+    def __init__(self, event_type, sensor_id, temperature, delta,
+                timestamp=None):
+        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
         self.temperature = temperature
         self.delta = delta
     
-    def get_temperature():
+    def get_temperature(self):
         return self.temperature
 
-    def get_temp_delta():
+    def get_temp_delta(self):
         return self.delta
 
 class FloodSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, water_height, delta):
-        SensorEvent.__init__(self, event_type, sensor_id)
+    def __init__(self, event_type, sensor_id, water_height, delta, 
+                timestamp=None):
+        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
         self.water_height = water_height
         self.delta = delta
 
-    def get_water_height():
+    def get_water_height(self):
         return self.water_height
 
-    def get_height_delta():
+    def get_height_delta(self):
         return self.delta
 
+class MotionSensorEvent(SensorEvent):
+    def __init__(self, event_type, sensor_id, current_threshold, start_time,
+    timestamp=None):
+        SensorEvent.__init__(self, event_type, sensor_id)
+        self.current_threshold = current_threshold
+        self.start_time = start_time
+
+    def get_threshold(self):
+        return self.current_threshold
+
+    def get_duration(self):
+        return datetime.utcnow() - self.start_time
+        
 #
 # Input Event Base Class
 #
 
 class InputEvent(Event):
-    def __init__(self, event_type, input_device_id):
-        Event.__init__(self, event_type)
+    def __init__(self, event_type, input_device_id, timestamp=None):
+        Event.__init__(self, event_type, timestamp)
         self.input_device_id = input_device_id
 
-    def get_device_id():
+    def get_device_id(self):
         return self.input_device_id
 
 #
@@ -97,19 +113,19 @@ class InputEvent(Event):
 #
 
 class KeypadEvent(InputEvent):
-    def __init__(self, event_type, input_device_id, input_char):
-        InputEvent.__init__(self, event_type, input_device_id)
+    def __init__(self, event_type, input_device_id, input_char, timestamp=None):
+        InputEvent.__init__(self, event_type, input_device_id, timestamp)
         self.input_char = input_char
 
-    def get_input():
+    def get_input(self):
         return self.input_char
 
 class NFCEvent(InputEvent):
-    def __init__(self, event_type, input_device_id, data):
-        InputEvent.__init__(self, event_type, input_device_id)
+    def __init__(self, event_type, input_device_id, data, timestamp=None):
+        InputEvent.__init__(self, event_type, input_device_id, timestamp)
         self.data = data
 
-    def get_NFC_string():
+    def get_NFC_string(self):
         return self.data
             
 #
@@ -122,18 +138,19 @@ class AlarmSeverity:
     MINOR_ALARM     = 3
 
 class AlarmEvent(Event):
-    def __init__(self, event_type, severity, description, speech_message):
-        Event.__init__(self, event_type)
+    def __init__(self, event_type, severity, description, speech_message,
+                timestamp=None):
+        Event.__init__(self, event_type, timestamp)
         self.severity = severity
         self.description = description
         self.speech_message = speech_message
     
-    def get_severity():
+    def get_severity(self):
         return self.severity
 
-    def get_description():
+    def get_description(self):
         return self.description
 
-    def get_speech_message():
+    def get_speech_message(self):
         return self.speech_message
 
