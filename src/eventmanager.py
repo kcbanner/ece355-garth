@@ -12,14 +12,19 @@ class EventManager:
 
         # Start thread to listen for incoming events    
         if listen_port:
-            self.incoming_event_thread = threading.Thread(
-                target=CommunicationsInterface.listen,
-                args=(self, listen_port))
-            self.incoming_event_thread.daemon = True
-            self.incoming_event_thread.start()
+            self.listener_thread = CommunicationsInterface.listen(self, listen_port)
+            self.listener_thread.daemon = True
+            self.listener_thread.start()
+
+    def is_listening(self):
+        return self.listener_thread.is_listening()
+
+    def shutdown(self):
+        self.listener_thread.stop()
+        self.listener_thread.join()
 
     @classmethod
-    def serialize_event(cls, event):        
+    def serialize_event(cls, event):
         return pickle.dumps(event)
 
     @classmethod

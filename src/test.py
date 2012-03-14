@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 
+import new
 import mox
 import time
 import socket
@@ -105,45 +106,73 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(event.get_NFC_string(), data_string)
 
 class TestEventManager(unittest.TestCase):
-    def setUp(self):
-        self.event_manager = EventManager([]);
+    def test_listen(self):
+        listen_port = 8000
+        test_message = pickle.dumps('test_message')
+        event_manager = EventManager([], listen_port);
+
+        # Wait for thread to be ready
+        while not event_manager.is_listening():
+            time.sleep(0)
+
+        m = mox.Mox()
+        mock_event_received = m.CreateMockAnything()
+        event_manager.event_received = new.instancemethod(mock_event_received,
+                                                          event_manager)
+        mock_event_received(event_manager, 'test_message')
+        m.ReplayAll()
+
+        s = socket.create_connection((socket.gethostname(), listen_port))
+        s.sendall(test_message)
+        s.shutdown(socket.SHUT_RDWR)
+        s.close()
+
+        # Wait for network
+        time.sleep(0.5)
         
+        m.VerifyAll()
+        event_manager.shutdown()
+
     def test_subscribe(self):
         event_type = 'test_event_type'
         controller = 'dummy_controller'
-        
-        self.event_manager.subscribe(event_type,
+
+        event_manager = EventManager([]);
+        event_manager.subscribe(event_type,
                                      controller)
 
-        self.assertIsNotNone(self.event_manager.subscriptions[event_type])
-        self.assertEqual(self.event_manager.subscriptions[event_type][0],
+        self.assertIsNotNone(event_manager.subscriptions[event_type])
+        self.assertEqual(event_manager.subscriptions[event_type][0],
                          controller)
-        self.assertEqual(len(self.event_manager.subscriptions[event_type]), 1)
+        self.assertEqual(len(event_manager.subscriptions[event_type]), 1)
 
     def test_subscribe_same(self):
         event_type = 'test_event_type'
         controller = 'dummy_controller'
-        
-        self.event_manager.subscribe(event_type, controller)
-        self.event_manager.subscribe(event_type, controller)
-        self.assertEqual(len(self.event_manager.subscriptions[event_type]), 1)
+
+        event_manager = EventManager([]);
+        event_manager.subscribe(event_type, controller)
+        event_manager.subscribe(event_type, controller)
+        self.assertEqual(len(event_manager.subscriptions[event_type]), 1)
 
     def test_subscribe_multiple(self):
         event_type = 'test_event_type'
         controller = 'dummy_controller'
         other_controller = 'dummy_controller_other'
         
-        self.event_manager.subscribe(event_type, controller)
-        self.event_manager.subscribe(event_type, other_controller)
-        self.assertEqual(len(self.event_manager.subscriptions[event_type]), 2)
+        event_manager = EventManager([]);
+        event_manager.subscribe(event_type, controller)
+        event_manager.subscribe(event_type, other_controller)
+        self.assertEqual(len(event_manager.subscriptions[event_type]), 2)
 
     def test_serialize_deserialize_event(self):
         event_type = EventType.DOOR_SENSOR_EVENT
         timestamp = datetime.utcnow()
         event = Event(event_type, timestamp)
-
-        serialized = self.event_manager.serialize_event(event)
-        deserialized = self.event_manager.deserialize_event(serialized)
+        
+        event_manager = EventManager([]);
+        serialized = event_manager.serialize_event(event)
+        deserialized = event_manager.deserialize_event(serialized)
 
         self.assertIsInstance(deserialized, Event)
         self.assertEqual(deserialized.get_event_type(), event_type)
@@ -151,7 +180,8 @@ class TestEventManager(unittest.TestCase):
 
     def test_broadcast_event(self):
         comm_interface_mock = mox.MockObject(CommunicationsInterface)
-    
+        event_manager = EventManager([]);
+
         # Test Event
         event_type = EventType.DOOR_SENSOR_EVENT
         timestamp = datetime.utcnow()
@@ -159,12 +189,12 @@ class TestEventManager(unittest.TestCase):
         expected_data = EventManager.serialize_event(event)
         
         # Replace the comm interface with a mock
-        self.event_manager.communications_interface = comm_interface_mock
+        event_manager.communications_interface = comm_interface_mock
         comm_interface_mock.broadcast_data(expected_data, [])
         mox.Replay(comm_interface_mock)
 
         # Broadcast the event
-        self.event_manager.broadcast_event(event)
+        event_manager.broadcast_event(event)
 
         # Verify that broadcasting uses communications interface
         mox.Verify(comm_interface_mock)
@@ -183,9 +213,10 @@ class TestEventManager(unittest.TestCase):
         controller.handle_event(event)
         mox.Replay(controller)
 
-        self.event_manager.subscribe(event_type, controller)
-        self.event_manager.event_received(event)
-        self.event_manager.process_events()
+        event_manager = EventManager([]);
+        event_manager.subscribe(event_type, controller)
+        event_manager.event_received(event)
+        event_manager.process_events()
 
         mox.Verify(controller)
 
@@ -206,14 +237,13 @@ class TestEventManager(unittest.TestCase):
         window_controller = mox.MockObject(Controller)
         mox.Replay(window_controller)
 
-        self.event_manager.subscribe(EventType.DOOR_SENSOR_EVENT,
-                                     door_controller)
-        self.event_manager.subscribe(EventType.WINDOW_SENSOR_EVENT, 
-                                     window_controller)
+        event_manager = EventManager([]);
+        event_manager.subscribe(EventType.DOOR_SENSOR_EVENT, door_controller)
+        event_manager.subscribe(EventType.WINDOW_SENSOR_EVENT, window_controller)
 
         # Send event
-        self.event_manager.event_received(door_event)
-        self.event_manager.process_events()
+        event_manager.event_received(door_event)
+        event_manager.process_events()
 
         mox.Verify(door_controller)
         mox.Verify(window_controller)
