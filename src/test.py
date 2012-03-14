@@ -6,6 +6,7 @@ import mox
 from datetime import datetime
 
 from event import *
+from sensor import *
 from event_type import EventType
 from eventmanager import EventManager
 from communicationsinterface import CommunicationsInterface
@@ -208,6 +209,84 @@ class TestEventManager(unittest.TestCase):
 
         mox.Verify(door_controller)
         mox.Verify(window_controller)
+
+class TestSensor(unittest.TestCase):
+    def test_sensor_init(self):
+        sensor_id = 1
+        status = SensorStatus.ONLINE
+        
+        sensor = Sensor(sensor_id, status)
+
+        self.assertEqual(sensor.get_sensor_id(), sensor_id)
+        self.assertEqual(sensor.get_sensor_status(), status)
+  
+class TestDoorSensor(unittest.TestCase):
+    def setUp(self):
+        self.sensor_id = 2
+        self.status = SensorStatus.ONLINE
+        self.door_id = 1
+        
+        self.sensor = DoorSensor(self.sensor_id, self.status, self.door_id)
+
+    def test_door_sensor_init(self):
+        self.assertEqual(self.sensor.get_door_id(), self.door_id)
+
+    def test_door_sensor_event(self):
+        is_opened = False
+        self.sensor.set_opened(is_opened)
+        # Create an event from the sensor, assuming closed
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.DOOR_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_door_id(), self.door_id)
+        self.assertEqual(event.get_opened(), is_opened)
+        
+        # Checking if it is opened setter
+        is_opened = True
+        self.sensor.set_opened(is_opened)
+
+        # Create another event...
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.DOOR_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_door_id(), self.door_id)
+        self.assertEqual(event.get_opened(), is_opened)
+
+class TestWindowSensor(unittest.TestCase):
+    def setUp(self):
+        self.sensor_id = 3
+        self.status = SensorStatus.ONLINE
+        self.window_id = 1
+        self.sensor = WindowSensor(self.sensor_id, self.status, self.window_id) 
+    
+    def test_window_sensor_init(self):
+        self.assertEqual(self.sensor.get_window_id(), self.window_id)
+    
+    def test_window_sensor_event(self):
+        is_opened = False
+        self.sensor.set_opened(is_opened)
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.WINDOW_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_window_id(), self.window_id)
+        self.assertEqual(event.get_opened(), is_opened)
+        
+        # Checking if it is opened setter
+        is_opened = True
+        self.sensor.set_opened(is_opened)
+
+        # Create another event...
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.WINDOW_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_window_id(), self.window_id)
+        self.assertEqual(event.get_opened(), is_opened)
+
+
 
 if __name__ == '__main__':
     unittest.main()
