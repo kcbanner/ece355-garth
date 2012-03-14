@@ -21,7 +21,9 @@ class EventManager:
         self.communications_interface.broadcast_data(data)
         
     def event_received(self, event):
-        pass
+        if event.event_type in self.subscriptions:
+            for controller in self.subscriptions[event.event_type]:
+                controller.handle_event(event)
         
     def subscribe(self, event_type, controller):
         if not event_type in self.subscriptions:
@@ -29,5 +31,3 @@ class EventManager:
         
         if controller not in self.subscriptions[event_type]:
             self.subscriptions[event_type].append(controller)
-
-    
