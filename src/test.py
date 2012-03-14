@@ -129,11 +129,9 @@ class TestEventManager(unittest.TestCase):
         s.shutdown(socket.SHUT_RDWR)
         s.close()
 
-        # Wait for network
-        time.sleep(0.5)
+        event_manager.shutdown()
         
         m.VerifyAll()
-        event_manager.shutdown()
 
     def test_subscribe(self):
         event_type = 'test_event_type'
