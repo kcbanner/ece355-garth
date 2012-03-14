@@ -8,15 +8,18 @@ class EventManager:
         self.communications_interface = CommunicationsInterface(self)
         self.subscriptions = {}
 
-    def serialize_event(self, event):        
+    @classmethod
+    def serialize_event(cls, event):        
         return pickle.dumps(event)
 
-    def deserialize_event(self, event_string):
+    @classmethod
+    def deserialize_event(cls, event_string):
         return pickle.loads(event_string)
         
     def broadcast_event(self, event):
-        pass
-
+        data = self.serialize_event(event)       
+        self.communications_interface.broadcast_data(data)
+        
     def event_received(self, event):
         pass
         
