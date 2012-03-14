@@ -1,5 +1,5 @@
 from event import *
-
+from datetime import datetime
 from event_type import EventType
 
 class SensorStatus():
@@ -99,12 +99,22 @@ class MotionSensor(Sensor):
     def __init__(self, sensor_id, status, motion_threshold):
         Sensor.__init__(self, sensor_id, status)
         self.motion_threshold = motion_threshold
+        self.motion_started = 0
     
     def get_motion_threshold(self):
         return self.motion_threshold
 
     def set_motion_threshold(self, motion_threshold):
         self.motion_threshold = motion_threshold
+   
+    # This is for testing purposes...
+    def set_motion_started_time(self, motion_started_time):
+        self.motion_started = motion_started_time
 
+    def motion_detected(self):
+        self.motion_started = datetime.utcnow()
+        
     def generate_sensor_event(self):
+        return MotionSensorEvent(EventType.MOTION_SENSOR_EVENT, self.sensor_id,
+                        self.motion_threshold, self.motion_started)
         pass

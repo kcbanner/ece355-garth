@@ -83,6 +83,19 @@ class FloodSensorEvent(SensorEvent):
     def get_height_delta(self):
         return self.delta
 
+class MotionSensorEvent(SensorEvent):
+    def __init__(self, event_type, sensor_id, current_threshold, start_time,
+    timestamp=None):
+        SensorEvent.__init__(self, event_type, sensor_id)
+        self.current_threshold = current_threshold
+        self.start_time = start_time
+
+    def get_threshold(self):
+        return self.current_threshold
+
+    def get_duration(self):
+        return datetime.utcnow() - self.start_time
+        
 #
 # Input Event Base Class
 #

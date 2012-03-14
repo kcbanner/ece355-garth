@@ -395,7 +395,40 @@ class TestTemperatueSensor(unittest.TestCase):
         self.assertEqual(event.get_temp_delta(), new_temp - old_temp)
         self.assertEqual(event.get_temp_delta(), self.sensor.get_delta())
 
+class TestMotionSensor(unittest.TestCase):
+    def setUp(self):
+        self.sensor_id = 6
+        self.status = SensorStatus.ONLINE
+        self.motion_threshold = 10
+        self.sensor = MotionSensor(self.sensor_id, self.status, self.motion_threshold)
+        
+    def test_motion_sensor_init(self):
+        self.assertEqual(self.sensor.get_motion_threshold(), self.motion_threshold)
+        self.motion_threshold = 20
+        self.sensor.set_motion_threshold(self.motion_threshold)
+        self.assertEqual(self.sensor.get_motion_threshold(), self.motion_threshold)
+    
+    def test_motion_sensor_event(self):
+        time = datetime.utcnow()        
 
+        self.sensor.motion_detected()
+
+        event = self.sensor.generate_sensor_event()
+        
+        self.assertEqual(event.get_event_type(), EventType.MOTION_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_threshold(), self.motion_threshold)
+        #self.assertTrue(event.get_duration() > 0)
+
+        self.sensor.set_motion_started_time(time)
+
+        event = self.sensor.generate_sensor_event()
+
+        self.assertEqual(event.get_event_type(), EventType.MOTION_SENSOR_EVENT)
+        self.assertEqual(event.get_sensor_id(), self.sensor_id)
+        self.assertEqual(event.get_threshold(), self.motion_threshold)
+        self.assertTrue(event.get_duration() <= datetime.utcnow() - time)
+        
 
 if __name__ == '__main__':
     unittest.main()

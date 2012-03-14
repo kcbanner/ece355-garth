@@ -6,3 +6,4 @@ class EventType:
     ALARM_SENSOR_EVENT  = 5
     KEYPAD_EVENT        = 6
     NFC_EVENT           = 7
+    MOTION_SENSOR_EVENT = 8
