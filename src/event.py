@@ -95,3 +95,45 @@ class InputEvent(Event):
 #
 # Input Events
 #
+
+class KeypadEvent(InputEvent):
+    def __init__(self, event_type, input_device_id, input_char):
+        InputEvent.__init__(self, event_type, input_device_id)
+        self.input_char = input_char
+
+    def get_input():
+        return self.input_char
+
+class NFCEvent(InputEvent):
+    def __init__(self, event_type, input_device_id, data):
+        InputEvent.__init__(self, event_type, input_device_id)
+        self.data = data
+
+    def get_NFC_string():
+        return self.data
+            
+#
+# Alarm Events
+#
+
+class AlarmSeverity:
+    CRITICAL_ALARM  = 1
+    MAJOR_ALARM     = 2
+    MINOR_ALARM     = 3
+
+class AlarmEvent(Event):
+    def __init__(self, event_type, severity, description, speech_message):
+        Event.__init__(self, event_type)
+        self.severity = severity
+        self.description = description
+        self.speech_message = speech_message
+    
+    def get_severity():
+        return self.severity
+
+    def get_description():
+        return self.description
+
+    def get_speech_message():
+        return self.speech_message
+
