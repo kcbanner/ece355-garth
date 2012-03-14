@@ -1,8 +1,11 @@
 #!/usr/bin/env python2
 
-import unittest
-import pickle
 import mox
+import time
+import socket
+import pickle
+import logging
+import unittest
 from datetime import datetime
 
 from event import Event
@@ -22,7 +25,7 @@ class TestEvent(unittest.TestCase):
 
 class TestEventManager(unittest.TestCase):
     def setUp(self):
-        self.event_manager = EventManager();
+        self.event_manager = EventManager([]);
         
     def test_subscribe(self):
         event_type = 'test_event_type'
@@ -76,7 +79,7 @@ class TestEventManager(unittest.TestCase):
         
         # Replace the comm interface with a mock
         self.event_manager.communications_interface = comm_interface_mock
-        comm_interface_mock.broadcast_data(expected_data)
+        comm_interface_mock.broadcast_data(expected_data, [])
         mox.Replay(comm_interface_mock)
 
         # Broadcast the event
@@ -101,8 +104,10 @@ class TestEventManager(unittest.TestCase):
 
         self.event_manager.subscribe(event_type, controller)
         self.event_manager.event_received(event)
+        self.event_manager.process_events()
 
         mox.Verify(controller)
+
 
     #
     # Verify that events are only sent to the appropriate controllers
@@ -122,14 +127,16 @@ class TestEventManager(unittest.TestCase):
 
         self.event_manager.subscribe(EventType.DOOR_SENSOR_EVENT,
                                      door_controller)
-        self.event_manager.subscribe(EventType.WINDOW_SENSOR_EVENT,
+        self.event_manager.subscribe(EventType.WINDOW_SENSOR_EVENT, 
                                      window_controller)
 
         # Send event
         self.event_manager.event_received(door_event)
+        self.event_manager.process_events()
 
         mox.Verify(door_controller)
         mox.Verify(window_controller)
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG)
     unittest.main()
