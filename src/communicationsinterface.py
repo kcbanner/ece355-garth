@@ -5,6 +5,8 @@ import threading
 
 class ListenerThread(threading.Thread):
     def __init__(self, event_manager, listen_port):
+        Thread.__init__(self)
+        
         self._listen_port = listen_port
         self._event_manager = event_manager
         self._stop = threading.Event()
