@@ -3,9 +3,16 @@ import socket
 import logging
 import threading
 
-class CommunicationsInterface:
-    @classmethod
-    def listen(cls, event_manager, listen_port):
+class ListenerThread(threading.Thread):
+    def __init__(self, event_manager, listen_port):
+        self._listen_port = listen_port
+        self._event_manager = event_manager
+        self._stop = threading.Event()
+
+    def stop(self):
+        self._stop.set()
+
+    def run(self):
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setblocking(0)
         server_socket.bind((socket.gethostname(), listen_port))
@@ -13,7 +20,7 @@ class CommunicationsInterface:
 
         logging.debug("Bound socket on port %s" % listen_port)        
 
-        while True:
+        while not self._stop.isSet():
 
             # Check if there is input
             readable, writable, exceptional = select.select(
@@ -30,10 +37,23 @@ class CommunicationsInterface:
                     if not data:
                         break
                 logging.debug("Received data: \"%s\"" % data_received)
-
+            time.sleep(0)
+                
         server_socket.close()
         logging.debug("Listener thread finished")
+  
 
+class CommunicationsInterface:
+
+    #
+    # Returns a ListenerThread which will handle listening for data,
+    # parsing received data into Event objects, and calling
+    # event_received() on the EventManager.
+    #
+    
+    @classmethod
+    def listen(cls, event_manager, listen_port):
+        return ListenerThread(event_manager, listen_port)
 
     #
     # Broadcast data to all peers

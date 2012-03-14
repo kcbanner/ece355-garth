@@ -3,7 +3,6 @@ import threading
 import Queue
 from communicationsinterface import CommunicationsInterface
 
-
 class EventManager:
     def __init__(self, peers, listen_port=None):
         self.peers = peers
