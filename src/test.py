@@ -2,11 +2,13 @@
 
 import unittest
 import pickle
+import mox
 from datetime import datetime
 
 from event import Event
 from event_type import EventType
 from eventmanager import EventManager
+from communicationsinterface import CommunicationsInterface
 
 class TestEvent(unittest.TestCase):
     def test_event_init(self):
@@ -54,6 +56,24 @@ class TestEventManager(unittest.TestCase):
         self.assertIsInstance(deserialized, Event)
         self.assertEqual(deserialized.get_event_type(), event_type)
         self.assertEqual(deserialized.get_timestamp(), timestamp)
+
+    def test_broadcast_event(self):
+        comm_interface_mock = mox.MockObject(CommunicationsInterface)
+    
+        # Test Event
+        event_type = EventType.DOOR_SENSOR_EVENT
+        timestamp = datetime.utcnow()
+        event = Event(event_type, timestamp)
+        expected_data = EventManager.serialize_event(event)
+
+        self.event_manager.communications_interface = comm_interface_mock
+        comm_interface_mock.broadcast_data(expected_data)
+        mox.Replay(comm_interface_mock)
+        
+        self.event_manager.broadcast_event(event)
+
+        # Verify that broadcasting uses communications interface
+        mox.Verify(comm_interface_mock)
 
 if __name__ == '__main__':
     unittest.main()
