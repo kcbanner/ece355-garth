@@ -1,3 +1,4 @@
+import event_type
 from datetime import datetime
 
 class Event:
