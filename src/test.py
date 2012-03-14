@@ -7,10 +7,12 @@ import pickle
 import logging
 import unittest
 from datetime import datetime
+from datetime import timedelta
 
 from event import *
 from sensor import *
 from event_type import EventType
+from inputdevice import *
 from eventmanager import EventManager
 from communicationsinterface import CommunicationsInterface
 from controller import Controller
@@ -424,7 +426,7 @@ class TestMotionSensor(unittest.TestCase):
         self.assertEqual(event.get_event_type(), EventType.MOTION_SENSOR_EVENT)
         self.assertEqual(event.get_sensor_id(), self.sensor_id)
         self.assertEqual(event.get_threshold(), self.motion_threshold)
-        #self.assertTrue(event.get_duration() > 0)
+        self.assertTrue(event.get_duration() > timedelta(0))
 
         self.sensor.set_motion_started_time(time)
 
@@ -435,6 +437,54 @@ class TestMotionSensor(unittest.TestCase):
         self.assertEqual(event.get_threshold(), self.motion_threshold)
         self.assertTrue(event.get_duration() <= datetime.utcnow() - time)
         
+class TestInputDevice(unittest.TestCase):
+    def setUp(self):
+        return
+
+    def test_input_device_init(self):
+        device_id = 1
+        device = InputDevice(device_id)
+
+        self.assertEqual(device.get_device_id(), device_id)
+         
+
+class TestNFCReaderInputDevice(unittest.TestCase):
+    def setUp(self):
+        self.device_id = 2
+        self.device = NFCReaderInputDevice(self.device_id)
+    
+    def test_nfc_reader_event(self):
+        event = self.device.generate_NFC_event()
+        self.assertEqual(event.get_device_id(), self.device_id)
+        self.assertEqual(event.get_NFC_string(), None)
+        self.assertEqual(event.get_event_type(), EventType.NFC_EVENT)
+
+        data = "TEST STRING"
+        self.device.set_data(data)
+
+        event = self.device.generate_NFC_event()
+        self.assertEqual(event.get_device_id(), self.device_id)
+        self.assertEqual(event.get_NFC_string(), data)
+        self.assertEqual(event.get_event_type(), EventType.NFC_EVENT)
+
+class TestKeypadInputDevice(unittest.TestCase):
+    def setUp(self):
+        self.device_id = 3
+        self.device = KeypadInputDevice(self.device_id)    
+
+    def test_keypad_input_event(self):
+        event = self.device.generate_keypad_event()
+        self.assertEqual(event.get_device_id(), self.device_id)
+        self.assertEqual(event.get_event_type(), EventType.KEYPAD_EVENT)
+        self.assertEqual(event.get_input(), None)
+        
+        char = "b"
+        self.device.set_input_char(char)
+
+        event = self.device.generate_keypad_event()
+        self.assertEqual(event.get_device_id(), self.device_id)
+        self.assertEqual(event.get_event_type(), EventType.KEYPAD_EVENT)
+        self.assertEqual(event.get_input(), char)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
