@@ -14,8 +14,10 @@ from sensor import *
 from event_type import EventType
 from inputdevice import *
 from eventmanager import EventManager
+
 from communicationsinterface import CommunicationsInterface
 from controller import Controller
+from sensorcontroller import SensorController
 
 class TestEvent(unittest.TestCase):
     def test_event_init(self):
@@ -485,6 +487,22 @@ class TestKeypadInputDevice(unittest.TestCase):
         self.assertEqual(event.get_device_id(), self.device_id)
         self.assertEqual(event.get_event_type(), EventType.KEYPAD_EVENT)
         self.assertEqual(event.get_input(), char)
+
+class TestSensorController(unittest.TestCase):
+    def setUp(self):
+        self.sensor_controller = SensorController(None)
+        
+    def test_handle_event(self):
+        pass 
+    
+    def test_poll_sensor(self):
+        pass
+    
+    def test_handle_sensor_input(self):
+        pass 
+
+    def test_check_sensor_status(self):
+        pass
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
