@@ -19,7 +19,7 @@ from eventmanager import EventManager
 from communicationsinterface import CommunicationsInterface
 from controller import Controller
 from sensorcontroller import SensorController
-
+from systemcontroller import SystemController
 class TestEvent(unittest.TestCase):
     def test_event_init(self):
         event_type = EventType.DOOR_SENSOR_EVENT
@@ -530,6 +530,13 @@ class TestSensorController(unittest.TestCase):
         pass 
 
     def test_check_sensor_status(self):
+        pass
+
+class TestSystemController(unittest.TestCase):
+    def setUp(self):
+        self.system_controller = SystemController(None)
+    
+    def test_handle_event(self):
         pass
 
 if __name__ == '__main__':

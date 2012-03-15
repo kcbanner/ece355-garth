@@ -1,4 +1,6 @@
 from controller import Controller
+from event_type import EventType
+from event import *
 
 class SystemState:
     ARMED           = 1
@@ -13,6 +15,15 @@ class SystemController(Controller):
         self.system_state = SystemState.UNKNOWN
         self.user_list = []
         self.input_devices = []
+        self.event_handling_functions = {
+            EventType.DOOR_SENSOR_EVENT : self.__handle_door_event,
+            EventType.WINDOW_SENSOR_EVENT : self.__handle_window_event,
+            EventType.FLOOD_SENSOR_EVENT : self.__handle_flood_event,
+            EventType.TEMP_SENSOR_EVENT : self.__handle_temp_event,
+            EventType.MOTION_SENSOR_EVENT : self.__handle_motion_event,
+            EventType.ALARM_SENSOR_EVENT : self.__handle_alarm_event,
+            EventType.KEYPAD_EVENT : self.__handle_keypad_event,
+            EventType.NFC_EVENT : self.__handle_nfc_event}
 
     def get_input_devices(self):
         return self.input_devices
@@ -24,21 +35,46 @@ class SystemController(Controller):
         return self.user_list
 
     def handle_event(self, event):
+        event_type = event.get_event_type()
+        self.event_handling_functions[event_type](event)  
         pass
 
-    def arm_system(self):
+    def __handle_door_event(self, event):
         pass
 
-    def disarm_system(self):
+    def __handle_window_event(self, event):
+        pass
+    
+    def __handle_flood_event(self, event):
+        pass
+
+    def __handle_temp_event(self, event):
+        pass
+
+    def __handle_motion_event(self, event):
+        pass
+
+    def __handle_alarm_event(self, event):
+        pass
+
+    def __arm_system(self):
+        self.system_state = SystemState.ARMED
+
+    def __disarm_system(self):
+        self.system_state = SystemState.DISARMED
         pass
 
     def log_event_to_server(self, event):
         pass
-    
-    def handle_nfc_input(self, nfc_event):
+
+    # 
+    # Outside of implementation scope
+    #
+
+    def __handle_nfc_event(self, nfc_event):
         pass
-    
-    def handle_keypad_input(self, keypad_event):
+
+    def __handle_keypad_event(self, keypad_event):
         pass
     
     def raise_alarm(self, alarm_event):
