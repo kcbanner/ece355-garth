@@ -9,13 +9,18 @@ class Event:
             self.timestamp = timestamp
         else:        
             self.timestamp = datetime.utcnow()
-    
+   
+    def __str__(self):
+        s = "Event: type = " + str(self.event_type) + ", timestamp = " + str(self.timestamp)
+        print s
+        return s
+
     def get_event_type(self):
         return self.event_type
     
     def get_timestamp(self):
         return self.timestamp
-
+    
 #
 # Sensor Event Base Class
 #
@@ -24,6 +29,10 @@ class SensorEvent(Event):
     def __init__(self, event_type, sensor_id, timestamp=None):
         Event.__init__(self, event_type, timestamp)
         self.sensor_id = sensor_id
+    
+    def __str__(self):
+        return "SensorEvent: type = " + str(self.event_type) + ", timestamp = ",
+        + str(self.timestamp) + ", sensor_id = " + str(self.sensor_id)
 
     def get_sensor_id(self):
         return self.sensor_id

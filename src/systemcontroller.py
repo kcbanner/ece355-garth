@@ -1,6 +1,7 @@
 from controller import Controller
 from event_type import EventType
 from event import *
+import logging
 
 class SystemState:
     ARMED           = 1
@@ -15,6 +16,7 @@ class SystemController(Controller):
         self.system_state = SystemState.UNKNOWN
         self.user_list = []
         self.input_devices = []
+
         self.event_handling_functions = {
             EventType.DOOR_SENSOR_EVENT : self.__handle_door_event,
             EventType.WINDOW_SENSOR_EVENT : self.__handle_window_event,
@@ -23,7 +25,8 @@ class SystemController(Controller):
             EventType.MOTION_SENSOR_EVENT : self.__handle_motion_event,
             EventType.ALARM_SENSOR_EVENT : self.__handle_alarm_event,
             EventType.KEYPAD_EVENT : self.__handle_keypad_event,
-            EventType.NFC_EVENT : self.__handle_nfc_event}
+            EventType.NFC_EVENT : self.__handle_nfc_event
+        }
 
     def get_input_devices(self):
         return self.input_devices
@@ -36,8 +39,8 @@ class SystemController(Controller):
 
     def handle_event(self, event):
         event_type = event.get_event_type()
+        self.log_event_to_server(event)
         self.event_handling_functions[event_type](event)  
-        pass
 
     def __handle_door_event(self, event):
         pass
@@ -62,9 +65,10 @@ class SystemController(Controller):
 
     def __disarm_system(self):
         self.system_state = SystemState.DISARMED
-        pass
 
     def log_event_to_server(self, event):
+        #print str(event)
+        #logging.debug(str(event))
         pass
 
     # 

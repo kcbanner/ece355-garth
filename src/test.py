@@ -20,6 +20,8 @@ from communicationsinterface import CommunicationsInterface
 from controller import Controller
 from sensorcontroller import SensorController
 from systemcontroller import SystemController
+from systemcontroller import SystemState
+
 class TestEvent(unittest.TestCase):
     def test_event_init(self):
         event_type = EventType.DOOR_SENSOR_EVENT
@@ -537,7 +539,22 @@ class TestSystemController(unittest.TestCase):
         self.system_controller = SystemController(None)
     
     def test_handle_event(self):
+        event = DoorSensorEvent(EventType.DOOR_SENSOR_EVENT, 1, 1, True)
+        self.system_controller.handle_event(event)
+
         pass
+
+    def test_arm_system(self):
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, "a")
+        
+        initial_state = self.system_controller.get_system_state()
+        
+        self.system_controller.handle_event(event)
+        self.assertEqual(self.system_controller.get_system_state(),
+                         initial_state)
+                         
+    
+
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
