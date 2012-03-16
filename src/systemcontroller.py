@@ -59,16 +59,17 @@ class SystemController(Controller):
 
     def __handle_alarm_event(self, event):
         pass
-
+    
+# Tested
     def __arm_system(self):
         self.system_state = SystemState.ARMED
 
+# Tested
     def __disarm_system(self):
         self.system_state = SystemState.DISARMED
 
     def log_event_to_server(self, event):
-        #print str(event)
-        #logging.debug(str(event))
+        logging.debug(event.__str__())
         pass
 
     # 
@@ -77,9 +78,15 @@ class SystemController(Controller):
 
     def __handle_nfc_event(self, nfc_event):
         pass
-
+    
+    #
+    # "a" or "A" => arm system
+    # "d" or "D" => disarm system
+    # "s" or "S" => stop alarms
+    #
     def __handle_keypad_event(self, keypad_event):
         pass
     
     def raise_alarm(self, alarm_event):
         pass
+
