@@ -85,11 +85,11 @@ class SystemController(Controller):
     # "s" or "S" => stop alarms
     #
     def _handle_keypad_event(self, keypad_event):
-        if keypad_event.input_char == 'a':
+        if keypad_event.input_char.lower() == 'a':
             self.system_state = SystemState.ARMED;
-        elif keypad_event.input_char == 'd':
+        elif keypad_event.input_char.lower() == 'd':
             self.system_state = SystemState.DISARMED;
-        elif keypad_event.input_char == 's':
+        elif keypad_event.input_char.lower() == 's':
             pass
     
     def raise_alarm(self, alarm_event):

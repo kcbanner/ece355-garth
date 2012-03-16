@@ -547,19 +547,35 @@ class TestSystemController(unittest.TestCase):
         pass
 
     def test_system_state(self):
-        
         # Check controller's initial state
         self.assertEqual(self.system_controller.get_system_state(),
                          SystemState.UNKNOWN) 
         
         # Try to arm with KEYPAD_EVENT
-        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, "a")
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'a')
         self.system_controller.handle_event(event)
         self.assertEqual(self.system_controller.get_system_state(),
                          SystemState.ARMED)
         
         # Try to disarm with KEYPAD_EVENT
-        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, "d")
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'd')
+        self.system_controller.handle_event(event)
+        self.assertEqual(self.system_controller.get_system_state(), 
+                         SystemState.DISARMED)
+
+    def test_system_state_caps(self):
+        # Check controller's initial state
+        self.assertEqual(self.system_controller.get_system_state(),
+                         SystemState.UNKNOWN) 
+        
+        # Try to arm with KEYPAD_EVENT
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
+        self.system_controller.handle_event(event)
+        self.assertEqual(self.system_controller.get_system_state(),
+                         SystemState.ARMED)
+        
+        # Try to disarm with KEYPAD_EVENT
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'D')
         self.system_controller.handle_event(event)
         self.assertEqual(self.system_controller.get_system_state(), 
                          SystemState.DISARMED)
