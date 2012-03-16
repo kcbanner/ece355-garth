@@ -18,14 +18,14 @@ class SystemController(Controller):
         self.input_devices = []
 
         self.event_handling_functions = {
-            EventType.DOOR_SENSOR_EVENT : self.__handle_door_event,
-            EventType.WINDOW_SENSOR_EVENT : self.__handle_window_event,
-            EventType.FLOOD_SENSOR_EVENT : self.__handle_flood_event,
-            EventType.TEMP_SENSOR_EVENT : self.__handle_temp_event,
-            EventType.MOTION_SENSOR_EVENT : self.__handle_motion_event,
-            EventType.ALARM_SENSOR_EVENT : self.__handle_alarm_event,
-            EventType.KEYPAD_EVENT : self.__handle_keypad_event,
-            EventType.NFC_EVENT : self.__handle_nfc_event
+            EventType.DOOR_SENSOR_EVENT : self._handle_door_event,
+            EventType.WINDOW_SENSOR_EVENT : self._handle_window_event,
+            EventType.FLOOD_SENSOR_EVENT : self._handle_flood_event,
+            EventType.TEMP_SENSOR_EVENT : self._handle_temp_event,
+            EventType.MOTION_SENSOR_EVENT : self._handle_motion_event,
+            EventType.ALARM_SENSOR_EVENT : self._handle_alarm_event,
+            EventType.KEYPAD_EVENT : self._handle_keypad_event,
+            EventType.NFC_EVENT : self._handle_nfc_event
         }
 
     def get_input_devices(self):
@@ -42,41 +42,41 @@ class SystemController(Controller):
         self.log_event_to_server(event)
         self.event_handling_functions[event_type](event)  
 
-    def __handle_door_event(self, event):
+    def _handle_door_event(self, event):
         pass
 
-    def __handle_window_event(self, event):
+    def _handle_window_event(self, event):
         pass
     
-    def __handle_flood_event(self, event):
+    def _handle_flood_event(self, event):
         pass
 
-    def __handle_temp_event(self, event):
+    def _handle_temp_event(self, event):
         pass
 
-    def __handle_motion_event(self, event):
+    def _handle_motion_event(self, event):
         pass
 
-    def __handle_alarm_event(self, event):
+    def _handle_alarm_event(self, event):
         pass
     
 # Tested
-    def __arm_system(self):
+    def _arm_system(self):
         self.system_state = SystemState.ARMED
 
 # Tested
-    def __disarm_system(self):
+    def _disarm_system(self):
         self.system_state = SystemState.DISARMED
 
     def log_event_to_server(self, event):
-        logging.debug(event.__str__())
+        logging.debug(str(event))
         pass
 
     # 
     # Outside of implementation scope
     #
 
-    def __handle_nfc_event(self, nfc_event):
+    def _handle_nfc_event(self, nfc_event):
         pass
     
     #
@@ -84,8 +84,13 @@ class SystemController(Controller):
     # "d" or "D" => disarm system
     # "s" or "S" => stop alarms
     #
-    def __handle_keypad_event(self, keypad_event):
-        pass
+    def _handle_keypad_event(self, keypad_event):
+        if keypad_event.input_char == 'a':
+            self.system_state = SystemState.ARMED;
+        elif keypad_event.input_char == 'd':
+            self.system_state = SystemState.DISARMED;
+        elif keypad_event.input_char == 's':
+            pass
     
     def raise_alarm(self, alarm_event):
         pass

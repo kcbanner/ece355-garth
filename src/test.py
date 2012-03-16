@@ -119,6 +119,7 @@ class TestEventManager(unittest.TestCase):
         while not event_manager.is_listening():
             time.sleep(0)
 
+        # Mock the event_received method
         m = mox.Mox()
         mock_event_received = m.CreateMockAnything()
         event_manager.event_received = new.instancemethod(mock_event_received,
@@ -133,6 +134,7 @@ class TestEventManager(unittest.TestCase):
 
         event_manager.shutdown()
         
+        # Make sure event_received was called on the EventManager
         m.VerifyAll()
 
     def test_subscribe(self):
