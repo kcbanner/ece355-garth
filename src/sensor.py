@@ -71,8 +71,9 @@ class FloodSensor(Sensor):
         self.current_water_height = water_height
 
     def generate_sensor_event(self):
-        return FloodSensorEvent(EventType.FLOOD_SENSOR_EVENT, self.sensor_id,
-                                self.current_water_height, self.get_delta())
+        return FloodSensorEvent(self.sensor_id,
+                                self.current_water_height,
+                                self.get_delta())
 
 class TemperatureSensor(Sensor):
     def __init__(self, sensor_id, status, current_temperature=0):

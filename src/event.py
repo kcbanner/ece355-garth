@@ -79,9 +79,11 @@ class TempSensorEvent(SensorEvent):
         return self.delta
 
 class FloodSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, water_height, delta, 
-                timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
+    def __init__(self, sensor_id, water_height, delta, timestamp=None):
+        SensorEvent.__init__(self,
+                             EventType.FLOOD_SENSOR_EVENT,
+                             sensor_id,
+                             timestamp)
         self.water_height = water_height
         self.delta = delta
 
