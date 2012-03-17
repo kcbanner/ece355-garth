@@ -517,11 +517,12 @@ class TestSystemController(unittest.TestCase):
     def setUp(self):
         self.system_controller = SystemController(None)
     
-    def test_handle_event(self):
-        event = DoorSensorEvent(EventType.DOOR_SENSOR_EVENT, 1, 1, True)
-        self.system_controller.handle_event(event)
+    def test_handle_bad_events(self):
+        event = Event(1000)
+        ret_value = self.system_controller.handle_event(event)
+        
+        self.assertFalse(ret_value)
 
-        pass
 
     def test_system_state(self):
         # Check controller's initial state
