@@ -3,12 +3,28 @@ from event_type import EventType
 from event import *
 import logging
 
+STR_ALARM_DOOR_DESC = ""
+STR_ALARM_DOOR_SPEECH = ""
+STR_ALARM_WINDOW_DESC = ""
+STR_ALARM_WINDOW_SPEECH = ""
+
+STR_ALARM_FLOOD_MAJOR_DESC = ""
+STR_ALARM_FLOOD_MAJAR_SPEECH = ""
+STR_ALARM_FLOOD_CRIT_DESC = ""
+STR_ALARM_FLOOD_CRIT_SPEECH = ""
+
+STR_ALARM_TEMP_DESC = ""
+STR_ALARM_TEMP_SPEECH = ""
+
+FLOOD_DELTA_HEIGHT_CRIT = 3
+
 class SystemState:
     ARMED           = 1
     DISARMED        = 2
     ERROR_ARMED     = 3
     ERROR_DISARMED  = 4
     UNKNOWN         = 5
+
 
 
 class SystemController(Controller):
@@ -47,26 +63,43 @@ class SystemController(Controller):
         event_type = event.get_event_type()
         self.log_event_to_server(event)
         try:
-            self.event_handling_functions[event_type](event)  
+            return self.event_handling_functions[event_type](event)  
         except:
             return False
-        return True
 
     def _handle_door_event(self, event):
         #if event.get_opened and self.system_state == SystemState.ARMED:
         pass   
 
     def _handle_window_event(self, event):
-        if event.get_opened and self.system_state == SystemState.ARMED:
+        if event.get_opened() and self.system_state == SystemState.ARMED:
             logging.debug("Window opened while system armed")
             description = STR_ALARM_WINDOW_DESC
             speech_message = STR_ALARM_WINDOW_SPEECH
-            alarm = AlarmEvent(EventType.ALARM_EVENT,
-                                AlarmSeverity.MAJOR_ALARM,
+            alarm = AlarmEvent(EventType.ALARM_EVENT, AlarmSeverity.MAJOR_ALARM,
                                 description, speech_message) 
+            self.raise_alarm(alarm)
+            return True
+        return False
     
     def _handle_flood_event(self, event):
-        pass
+        description = ""
+        message = ""
+        severity = AlarmSeverity.MINOR_ALARM
+
+        if event.get_height_delta() > FLOOD_DELTA_HEIGHT_CRIT:
+            description = STR_ALARM_FLOOD_CRIT_DESC
+            message = STR_ALARM_FLOOD_CRIT_SPEECH
+            severity = AlarmSeverity.CRITICAL_ALARM
+        elif event.get_water_height() > 1 or event.get_height_delta() > 1:
+            description = STR_ALARM_FLOOD_CRIT_DESC
+            message = STR_ALARM_FLOOD_CRIT_SPEECH
+            severity = AlarmSeverity.CRITICAL_ALARM
+        else: 
+            return false
+        alarm = AlarmEvent(severity, description, message)
+        self.raise_alarm(alarm)
+        return true
 
     def _handle_temp_event(self, event):
         pass

@@ -61,6 +61,14 @@ class WindowSensorEvent(SensorEvent):
         self.window_id = window_id
         self.opened = opened
 
+    def __str__(self):
+        s = "WindowSensorEvent: type = %s, timestamp = %s, sensor_id = %s," \
+            " opened = %s" % \
+            ( self.event_type, self.timestamp, self.sensor_id, self.opened)
+        return s
+
+
+
     def get_window_id(self):
         return self.window_id
 
