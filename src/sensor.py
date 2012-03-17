@@ -36,8 +36,7 @@ class DoorSensor(Sensor):
         self.opened = opened
     
     def generate_sensor_event(self):
-        return DoorSensorEvent(EventType.DOOR_SENSOR_EVENT, self.sensor_id,
-        self.door_id, self.opened) 
+        return DoorSensorEvent(self.sensor_id, self.door_id, self.opened) 
 
 class WindowSensor(Sensor):
     def __init__(self, sensor_id, status, window_id, opened=False):

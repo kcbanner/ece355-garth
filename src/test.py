@@ -45,7 +45,7 @@ class TestEvent(unittest.TestCase):
         door_id = 1
         opened = True
 
-        event = DoorSensorEvent(event_type, sensor_id, door_id, opened )
+        event = DoorSensorEvent(sensor_id, door_id, opened )
 
         self.assertEqual(event.get_door_id(), door_id)
         self.assertEqual(event.get_opened(), opened)

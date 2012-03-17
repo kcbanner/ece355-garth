@@ -1,4 +1,4 @@
-import event_type
+from event_type import EventType
 from datetime import datetime
 
 class Event:
@@ -41,8 +41,8 @@ class SensorEvent(Event):
 # 
 
 class DoorSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, door_id, opened, timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
+    def __init__(self, sensor_id, door_id, opened, timestamp=None):
+        SensorEvent.__init__(self, EventType.DOOR_SENSOR_EVENT, sensor_id, timestamp)
         self.door_id = door_id
         self.opened = opened
 
