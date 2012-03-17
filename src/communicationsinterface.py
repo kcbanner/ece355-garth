@@ -71,7 +71,7 @@ class CommunicationsInterface:
         
     @classmethod
     def broadcast_data(cls, data, peers):
-        logging.debug("Broadcasting data: %s" % data)
+        logging.debug("Broadcasting data")
 
         for peer in peers:
             try:
