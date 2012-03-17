@@ -92,9 +92,9 @@ class FloodSensorEvent(SensorEvent):
         return self.delta
 
 class MotionSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, current_threshold, start_time,
+    def __init__(self, sensor_id, current_threshold, start_time,
     timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id)
+        SensorEvent.__init__(self, EventType.MOTION_SENSOR_EVENT, sensor_id)
         self.current_threshold = current_threshold
         self.start_time = start_time
 

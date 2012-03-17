@@ -114,6 +114,7 @@ class MotionSensor(Sensor):
         self.motion_started = datetime.utcnow()
         
     def generate_sensor_event(self):
-        return MotionSensorEvent(EventType.MOTION_SENSOR_EVENT, self.sensor_id,
-                        self.motion_threshold, self.motion_started)
+        return MotionSensorEvent(self.sensor_id,
+                                 self.motion_threshold,
+                                 self.motion_started)
         pass
