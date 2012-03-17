@@ -12,6 +12,7 @@ class EventManager:
 
         # Start thread to listen for incoming events    
         if listen_port:
+            self.peers.append(('localhost', listen_port))
             self.listener_thread = CommunicationsInterface.listen(self, listen_port)
             self.listener_thread.daemon = True
             self.listener_thread.start()
@@ -48,7 +49,10 @@ class EventManager:
     def process_events(self):
 
         # Get an event from the incoming queue and dispatch it to subscribers
-        event = self.in_event_queue.get()
-        if event.event_type in self.subscriptions:
-            for controller in self.subscriptions[event.event_type]:
-                controller.handle_event(event)
+        try:
+            event = self.in_event_queue.get(timeout=1)
+            if event.event_type in self.subscriptions:
+                for controller in self.subscriptions[event.event_type]:
+                    controller.handle_event(event)
+        except Queue.Empty:
+            pass
