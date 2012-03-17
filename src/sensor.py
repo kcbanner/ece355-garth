@@ -51,8 +51,7 @@ class WindowSensor(Sensor):
         self.opened = opened
 
     def generate_sensor_event(self):
-        return WindowSensorEvent(EventType.WINDOW_SENSOR_EVENT, self.sensor_id,
-                                self.window_id, self.opened)
+        return WindowSensorEvent(self.sensor_id, self.window_id, self.opened)
 
 class FloodSensor(Sensor):
     def __init__(self, sensor_id, status, current_water_height=0):

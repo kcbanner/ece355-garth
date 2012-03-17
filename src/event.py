@@ -53,9 +53,11 @@ class DoorSensorEvent(SensorEvent):
         return self.opened
 
 class WindowSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, window_id, opened, 
-                timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
+    def __init__(self, sensor_id, window_id, opened, timestamp=None):
+        SensorEvent.__init__(self,
+                             EventType.WINDOW_SENSOR_EVENT,
+                             sensor_id,
+                             timestamp)
         self.window_id = window_id
         self.opened = opened
 

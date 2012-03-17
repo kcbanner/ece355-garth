@@ -56,7 +56,7 @@ class TestEvent(unittest.TestCase):
         window_id = 2
         opened = True
 
-        event = WindowSensorEvent(event_type, sensor_id, window_id, opened)
+        event = WindowSensorEvent(sensor_id, window_id, opened)
 
         self.assertEqual(event.get_window_id(), window_id)
         self.assertEqual(event.get_opened(), opened)
