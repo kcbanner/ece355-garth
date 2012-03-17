@@ -89,7 +89,6 @@ class SystemController(Controller):
     # "d" or "D" => disarm system
     # "s" or "S" => stop alarms
     #
-
     def _handle_keypad_event(self, keypad_event):
         if keypad_event.input_char.lower() == 'a':
             self.system_state = SystemState.ARMED;
