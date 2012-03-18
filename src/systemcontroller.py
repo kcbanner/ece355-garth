@@ -20,7 +20,6 @@ STR_ALARM_TEMP_MAJOR_SPEECH = ""
 STR_ALARM_TEMP_CRIT_DESC = ""
 STR_ALARM_TEMP_CRIT_SPEECH = ""
 
-
 FLOOD_DELTA_HEIGHT_CRIT = 3
 
 class SystemState:
@@ -29,7 +28,6 @@ class SystemState:
     ERROR_ARMED     = 3
     ERROR_DISARMED  = 4
     UNKNOWN         = 5
-
 
 
 class SystemController(Controller):
@@ -109,6 +107,8 @@ class SystemController(Controller):
         return True
 
     def _handle_temp_event(self, event):
+        # TODO :: make numbers less magic
+
         description = ""
         message = ""
         severity = AlarmSeverity.MINOR_ALARM
