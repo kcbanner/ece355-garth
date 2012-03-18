@@ -525,13 +525,7 @@ class TestSystemController(unittest.TestCase):
     def test_system_state(self):
         # Check controller's initial state
         self.assertEqual(self.system_controller.get_system_state(),
-                         SystemState.UNKNOWN) 
-        
-        # Try to arm with KEYPAD_EVENT
-        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'a')
-        self.system_controller.handle_event(event)
-        self.assertEqual(self.system_controller.get_system_state(),
-                         SystemState.ARMED)
+                         SystemState.ARMED) 
         
         # Try to disarm with KEYPAD_EVENT
         event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'd')
@@ -539,23 +533,30 @@ class TestSystemController(unittest.TestCase):
         self.assertEqual(self.system_controller.get_system_state(), 
                          SystemState.DISARMED)
 
-    def test_system_state_caps(self):
-        # Check controller's initial state
-        self.assertEqual(self.system_controller.get_system_state(),
-                         SystemState.UNKNOWN) 
-        
         # Try to arm with KEYPAD_EVENT
-        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'a')
         self.system_controller.handle_event(event)
         self.assertEqual(self.system_controller.get_system_state(),
                          SystemState.ARMED)
+        
+
+    def test_system_state_caps(self):
+        # Check controller's initial state
+        self.assertEqual(self.system_controller.get_system_state(),
+                         SystemState.ARMED) 
         
         # Try to disarm with KEYPAD_EVENT
         event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'D')
         self.system_controller.handle_event(event)
         self.assertEqual(self.system_controller.get_system_state(), 
                          SystemState.DISARMED)
-                
+
+        # Try to arm with KEYPAD_EVENT
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
+        self.system_controller.handle_event(event)
+        self.assertEqual(self.system_controller.get_system_state(),
+                         SystemState.ARMED)
+        
     def test_window_event_handler(self):
         # Arm the system
         event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')

@@ -35,7 +35,7 @@ class SystemState:
 class SystemController(Controller):
     def __init__(self, event_manager):
         Controller.__init__(self, event_manager)
-        self.system_state = SystemState.UNKNOWN
+        self.system_state = SystemState.ARMED
         self.user_list = []
         self.input_devices = []
 
@@ -79,6 +79,7 @@ class SystemController(Controller):
 
     def _handle_window_event(self, event):
         if event.get_opened() and self.system_state == SystemState.ARMED:
+            logging.debug("Window opened while system armed")
             description = STR_ALARM_WINDOW_DESC
             speech_message = STR_ALARM_WINDOW_SPEECH
             alarm = AlarmEvent(EventType.ALARM_EVENT, AlarmSeverity.MAJOR_ALARM,
