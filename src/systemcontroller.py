@@ -60,7 +60,7 @@ class SystemController(Controller):
         }
 
         # Subscribe to events
-        if self.event_manager != None:
+        if self.event_manager is not None:
             for event_type in self.event_handling_functions.keys():
                 self.event_manager.subscribe(event_type, self)
 

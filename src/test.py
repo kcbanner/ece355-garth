@@ -640,7 +640,8 @@ class TestSensorController(unittest.TestCase):
 
 class TestSystemController(unittest.TestCase):
     def setUp(self):
-        self.system_controller = SystemController(None)
+        event_manager = EventManager([])
+        self.system_controller = SystemController(event_manager)
     
     def test_handle_bad_events(self):
         event = Event(1000)
