@@ -295,6 +295,13 @@ class TestEventManager(unittest.TestCase):
         self.assertEqual(deserialized.get_event_type(), event_type)
         self.assertEqual(deserialized.get_timestamp(), timestamp)
 
+    def test_empty_event_queue(self):
+        event_manager = EventManager([]);
+
+        # No exception should be raised here
+        event_manager.process_events()
+        
+
     #
     # Verify events are sent to subscribed controllers
     #
