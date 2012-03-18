@@ -29,8 +29,9 @@ class SystemController(Controller):
         }
 
         # Subscribe to events
-        for event_type in self.event_handling_functions.keys():
-            self.event_manager.subscribe(event_type, self)
+        if self.event_manager != None:
+            for event_type in self.event_handling_functions.keys():
+                self.event_manager.subscribe(event_type, self)
 
     def get_input_devices(self):
         return self.input_devices
