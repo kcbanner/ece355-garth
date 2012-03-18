@@ -17,7 +17,7 @@ class NFCReaderInputDevice(InputDevice):
         self.data = data
         
     def generate_NFC_event(self):
-        return NFCEvent(EventType.NFC_EVENT, self.device_id, self.data)
+        return NFCEvent(self.device_id, self.data)
 
 class KeypadInputDevice(InputDevice):
     def __init__(self, device_id):
