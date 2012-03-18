@@ -67,7 +67,7 @@ class TestEvent(unittest.TestCase):
         temperature = 25
         delta = 1
 
-        event = TempSensorEvent(event_type, sensor_id, temperature, delta)
+        event = TempSensorEvent(sensor_id, temperature, delta)
 
         self.assertEqual(event.get_temperature(), temperature)
         self.assertEqual(event.get_temp_delta(), delta)
@@ -566,8 +566,12 @@ class TestSystemController(unittest.TestCase):
         # Test an window opening with system armed
         event = WindowSensorEvent(1, 1, True)
         ret_value = self.system_controller.handle_event(event)
-        print ret_value
         self.assertTrue(ret_value)
+        
+        # Test a closed window...
+        event = WindowSensorEvent(1,1,False)
+        ret_value = self.system_controller.handle_event(event)
+        self.assertFalse(ret_value)
 
         # Disarm the system
         event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'd')
@@ -578,8 +582,72 @@ class TestSystemController(unittest.TestCase):
         ret_value = self.system_controller.handle_event(event)
         self.assertFalse(ret_value)
 
+        # Test a closed window...
+        event = WindowSensorEvent(1,1,False)
+        ret_value = self.system_controller.handle_event(event)
+        self.assertFalse(ret_value)
+
+    def test_flood_event_handler(self):
+        # Arm the system
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
+        self.system_controller.handle_event(event)
+        self.assertEqual(self.system_controller.get_system_state(),
+                         SystemState.ARMED)
+        test_vector = [
+                        {'height' : 0 , 'delta' : 0, 'ret_value' : False},
+                        {'height' : 1 , 'delta' : 0, 'ret_value' : True},
+                        {'height' : 0 , 'delta' : 1, 'ret_value' : True},
+                        {'height' : 3 , 'delta' : 0, 'ret_value' : True}
+                      ]
+
+        for test in test_vector:
+            event = FloodSensorEvent(1,test['height'], test['delta'])
+            ret_value = self.system_controller.handle_event(event)
+            self.assertEqual(ret_value, test['ret_value'])
+
+        # Disarm the system -- Nothing should change in the test cases...
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'D')
+        self.system_controller.handle_event(event)
         
-    
+        for test in test_vector:
+            event = FloodSensorEvent(1,test['height'], test['delta'])
+            ret_value = self.system_controller.handle_event(event)
+            self.assertEqual(ret_value, test['ret_value'])
+
+    def test_temp_sensor_event(self):
+        # TODO :: setup mox to get the alarm event severity...
+        # Arm the system.
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'a')
+        self.system_controller.handle_event(event)
+        
+        test_vector = [
+                        {'temp' : 0, 'delta' : 0, 'ret_value' : True},
+                        {'temp' : 18, 'delta' : 0, 'ret_value' : False},
+                        {'temp' : 25, 'delta' : 0, 'ret_value' : False},
+                        {'temp' : 27, 'delta' : 0, 'ret_value' : True},
+                        {'temp' : 15, 'delta' : 0, 'ret_value' : True},
+                        {'temp' : 33, 'delta' : 0, 'ret_value' : True},
+                        {'temp' : 25, 'delta' : 2, 'ret_value' : False},
+                        {'temp' : 25, 'delta' : 3, 'ret_value' : True},
+                        {'temp' : 25, 'delta' : 5, 'ret_value' : True},
+                        {'temp' : 25, 'delta' : 10, 'ret_value' : True}
+                      ]
+        
+        for test in test_vector:
+            print "%s %s" % (test['temp'], test['delta'])
+            event = TempSensorEvent(1, test['temp'], test['delta'], )
+            ret_value = self.system_controller.handle_event(event)
+            self.assertEqual(ret_value, test['ret_value'])
+        
+        # Disarm the system, ensure that it is system state independent...
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'd')
+        self.system_controller.handle_event(event)
+
+        for test in test_vector:
+            event = TempSensorEvent(1, test['temp'], test['delta'])
+            ret_value = self.system_controller.handle_event(event)
+            self.assertEqual(ret_value, test['ret_value'])
+        
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)

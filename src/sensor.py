@@ -91,8 +91,7 @@ class TemperatureSensor(Sensor):
         self.current_temperature = temperature
 
     def generate_sensor_event(self):
-        return TempSensorEvent(EventType.TEMP_SENSOR_EVENT, self.sensor_id, 
-                                self.get_temperature(), self.get_delta())
+        return TempSensorEvent(self.sensor_id, self.get_temperature(), self.get_delta())
 
 class MotionSensor(Sensor):
     def __init__(self, sensor_id, status, motion_threshold):

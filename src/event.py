@@ -64,7 +64,7 @@ class WindowSensorEvent(SensorEvent):
     def __str__(self):
         s = "WindowSensorEvent: type = %s, timestamp = %s, sensor_id = %s," \
             " opened = %s" % \
-            ( self.event_type, self.timestamp, self.sensor_id, self.opened)
+            (self.event_type, self.timestamp, self.sensor_id, self.opened)
         return s
 
 
@@ -76,9 +76,9 @@ class WindowSensorEvent(SensorEvent):
         return self.opened
 
 class TempSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, temperature, delta,
+    def __init__(self, sensor_id, temperature, delta,
                 timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
+        SensorEvent.__init__(self, EventType.TEMP_SENSOR_EVENT, sensor_id, timestamp)
         self.temperature = temperature
         self.delta = delta
     
@@ -158,9 +158,9 @@ class AlarmSeverity:
     MINOR_ALARM     = 3
 
 class AlarmEvent(Event):
-    def __init__(self, event_type, severity, description, speech_message,
+    def __init__(self, severity, description, speech_message,
                 timestamp=None):
-        Event.__init__(self, event_type, timestamp)
+        Event.__init__(self, EventType.ALARM_EVENT, timestamp)
         self.severity = severity
         self.description = description
         self.speech_message = speech_message

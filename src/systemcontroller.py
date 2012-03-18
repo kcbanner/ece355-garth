@@ -9,12 +9,17 @@ STR_ALARM_WINDOW_DESC = ""
 STR_ALARM_WINDOW_SPEECH = ""
 
 STR_ALARM_FLOOD_MAJOR_DESC = ""
-STR_ALARM_FLOOD_MAJAR_SPEECH = ""
+STR_ALARM_FLOOD_MAJOR_SPEECH = ""
 STR_ALARM_FLOOD_CRIT_DESC = ""
 STR_ALARM_FLOOD_CRIT_SPEECH = ""
 
-STR_ALARM_TEMP_DESC = ""
-STR_ALARM_TEMP_SPEECH = ""
+STR_ALARM_TEMP_MINOR_DESC = ""
+STR_ALARM_TEMP_MINOR_SPEECH = ""
+STR_ALARM_TEMP_MAJOR_DESC = ""
+STR_ALARM_TEMP_MAJOR_SPEECH = ""
+STR_ALARM_TEMP_CRIT_DESC = ""
+STR_ALARM_TEMP_CRIT_SPEECH = ""
+
 
 FLOOD_DELTA_HEIGHT_CRIT = 3
 
@@ -64,7 +69,8 @@ class SystemController(Controller):
         self.log_event_to_server(event)
         try:
             return self.event_handling_functions[event_type](event)  
-        except:
+        except Exception as e:
+            logging.debug(e)
             return False
 
     def _handle_door_event(self, event):
@@ -82,26 +88,53 @@ class SystemController(Controller):
         return False
     
     def _handle_flood_event(self, event):
+        # TODO :: make this better
         description = ""
         message = ""
         severity = AlarmSeverity.MINOR_ALARM
 
-        if event.get_height_delta() > FLOOD_DELTA_HEIGHT_CRIT:
+        if event.get_height_delta() >= FLOOD_DELTA_HEIGHT_CRIT:
             description = STR_ALARM_FLOOD_CRIT_DESC
             message = STR_ALARM_FLOOD_CRIT_SPEECH
             severity = AlarmSeverity.CRITICAL_ALARM
-        elif event.get_water_height() > 1 or event.get_height_delta() > 1:
-            description = STR_ALARM_FLOOD_CRIT_DESC
-            message = STR_ALARM_FLOOD_CRIT_SPEECH
-            severity = AlarmSeverity.CRITICAL_ALARM
+        elif event.get_water_height() >= 1 or event.get_height_delta() >= 1:
+            description = STR_ALARM_FLOOD_MAJOR_DESC
+            message = STR_ALARM_FLOOD_MAJOR_SPEECH
+            severity = AlarmSeverity.MAJOR_ALARM
         else: 
-            return false
+            return False
         alarm = AlarmEvent(severity, description, message)
         self.raise_alarm(alarm)
-        return true
+        return True
 
     def _handle_temp_event(self, event):
-        pass
+        description = ""
+        message = ""
+        severity = AlarmSeverity.MINOR_ALARM
+        
+        temp = event.get_temperature()
+        delta = event.get_temp_delta()
+        if (temp >= 26 and temp < 30) or \
+           (temp < 18 and temp >= 15) or \
+           (abs(delta) <= 3 and abs(delta) > 2):  
+            description = STR_ALARM_TEMP_MINOR_DESC
+            message = STR_ALARM_TEMP_MINOR_SPEECH
+            severity = AlarmSeverity.MINOR_ALARM
+        elif (temp >= 30 and temp < 35) or \
+           (temp < 15 and temp >= 12) or \
+           (abs(delta) > 3  and abs(delta) <= 5):
+            description = STR_ALARM_TEMP_MAJOR_DESC
+            message = STR_ALARM_TEMP_MAJOR_SPEECH
+            severity = AlarmSeverity.MAJOR_ALARM
+        elif (temp >= 35) or (temp < 12) or (abs(delta) > 5):
+            description = STR_ALARM_TEMP_CRIT_DESC
+            message = STR_ALARM_TEMP_CRIT_SPEECH
+            severity = AlarmSeverity.CRITICAL_ALARM
+        else: 
+            return False
+        alarm = AlarmEvent(severity, description, message)
+        self.raise_alarm(alarm)
+        return True
 
     def _handle_motion_event(self, event):
         pass
