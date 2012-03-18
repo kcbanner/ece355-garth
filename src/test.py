@@ -713,7 +713,30 @@ class TestSystemController(unittest.TestCase):
             time.sleep(0)
 
         m.VerifyAll()
+    
+    def test_door_event_handler_opened_disarmed(self):
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
+        self.system_controller.handle_event(event)
 
+        event = DoorSensorEvent(1,2,True)
+         
+        self.system_controller.door_timer_delay = 0.2
+        m = mox.Mox()
+        mock_raise_alarm = m.CreateMockAnything()
+        self.system_controller.raise_alarm = new.instancemethod(mock_raise_alarm,
+                                                        self.system_controller)
+        m.ReplayAll()
+        self.system_controller.handle_event(event)
+
+        # Disarm the system in the mean time.
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'd')
+        self.system_controller.handle_event(event)
+
+        thread_count = threading.active_count()
+        while threading.active_count() == thread_count:
+            time.sleep(0)
+
+        m.VerifyAll()
 
     def test_window_event_handler(self):
         # Arm the system
