@@ -15,22 +15,11 @@ class SensorFrame(wx.Frame):
         
         panel = wx.Panel(self)
 
-        button_door_open = wx.Button(panel,
-                                     wx.ID_ANY,
-                                     'Send Door Open Event')
-        button_door_closed = wx.Button(panel,
-                                       wx.ID_ANY,
-                                       'Send Door Closed Event')
-        button_window_open = wx.Button(panel,
-                                       wx.ID_ANY,
-                                       'Send Window Open Event')
-        button_window_closed = wx.Button(panel,
-                                         wx.ID_ANY,
-                                         'Send Window Closed Event')
-        button_flood = wx.Button(panel,
-                                 wx.ID_ANY,
-                                 'Send Flood Sensor Event')
-
+        button_door_open = wx.Button(panel, wx.ID_ANY, 'Send Door Open Event')
+        button_door_closed = wx.Button(panel, wx.ID_ANY, 'Send Door Closed Event')
+        button_window_open = wx.Button(panel, wx.ID_ANY, 'Send Window Open Event')
+        button_window_closed = wx.Button(panel, wx.ID_ANY,'Send Window Closed Event')
+        button_flood = wx.Button(panel, wx.ID_ANY, 'Send Flood Sensor Event')
         
         self.Bind(wx.EVT_BUTTON, self.OnDoorOpen, button_door_open)
         self.Bind(wx.EVT_BUTTON, self.OnDoorClosed, button_door_closed)
@@ -62,7 +51,7 @@ class SensorFrame(wx.Frame):
         self.event_manager.broadcast_event(e)
 
     def OnWindowOpen(self, wx_event):
-        e = event.WindowSensorEvent(1, 0, False)
+        e = event.WindowSensorEvent(1, 0, True)
         self.event_manager.broadcast_event(e)
 
     def OnWindowClosed(self, wx_event):
