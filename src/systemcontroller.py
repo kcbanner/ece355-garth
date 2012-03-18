@@ -206,7 +206,7 @@ class SystemController(Controller):
     #
 
     def _handle_nfc_event(self, nfc_event):
-        pass
+        return False
     
     #
     # "a" or "A" => arm system
@@ -215,12 +215,18 @@ class SystemController(Controller):
     #
     def _handle_keypad_event(self, keypad_event):
         if keypad_event.input_char.lower() == 'a':
-            self.system_state = SystemState.ARMED;
+            self._arm_system()
+            return True
         elif keypad_event.input_char.lower() == 'd':
+            self._disarm_system()
             self.system_state = SystemState.DISARMED;
+            return True
         elif keypad_event.input_char.lower() == 's':
-            pass
+            return True
+        else: 
+            return False
     
     def raise_alarm(self, alarm_event):
-        pass
+        if self.event_manager != None:
+            self.event_manager.broadcast_event(alarm_event)
 

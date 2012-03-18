@@ -641,7 +641,7 @@ class TestSystemController(unittest.TestCase):
         user_list = self.system_controller.get_user_list()
         self.assertEqual(user_list, [])
 
-    def test_system_state(self):
+    def test_system_state_and_keypad_events(self):
         # Check controller's initial state
         self.assertEqual(self.system_controller.get_system_state(),
                          SystemState.ARMED) 
@@ -654,10 +654,22 @@ class TestSystemController(unittest.TestCase):
 
         # Try to arm with KEYPAD_EVENT
         event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'a')
-        self.system_controller.handle_event(event)
+        ret_value = self.system_controller.handle_event(event)
         self.assertEqual(self.system_controller.get_system_state(),
                          SystemState.ARMED)
+        self.assertTrue(ret_value)
         
+        # Turn off alarms
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 's')
+        ret_value = self.system_controller.handle_event(event)
+        self.assertTrue(ret_value)
+
+        # Bad input
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, "r3d")
+        ret_value = self.system_controller.handle_event(event)
+        self.assertFalse(ret_value)
+
+
 
     def test_system_state_caps(self):
         # Check controller's initial state
@@ -779,7 +791,8 @@ class TestSystemController(unittest.TestCase):
                         {'height' : 0 , 'delta' : 0, 'ret_value' : False},
                         {'height' : 1 , 'delta' : 0, 'ret_value' : True},
                         {'height' : 0 , 'delta' : 1, 'ret_value' : True},
-                        {'height' : 3 , 'delta' : 0, 'ret_value' : True}
+                        {'height' : 3 , 'delta' : 0, 'ret_value' : True},
+                        {'height' : 1 , 'delta' : 3, 'ret_value' : True}
                       ]
 
         for test in test_vector:
@@ -797,7 +810,8 @@ class TestSystemController(unittest.TestCase):
             self.assertEqual(ret_value, test['ret_value'])
 
     def test_temp_sensor_event(self):
-        # TODO :: setup mox to get the alarm event severity...
+        # TODO :: setup mox to check the alarm event severity...
+
         # Arm the system.
         event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'a')
         self.system_controller.handle_event(event)
@@ -879,7 +893,18 @@ class TestSystemController(unittest.TestCase):
                                       test['end_time'])
             ret_value = self.system_controller.handle_event(event)
             self.assertEqual(ret_value, False)
-
+    
+    def test_alarm_handler(self):
+        event = AlarmEvent(AlarmSeverity.MINOR_ALARM, "","")
+        ret_value = self.system_controller.handle_event(event)
+        self.assertTrue(ret_value)
+    
+    def test_nfc_event_handler(self):
+        # Should just return False, nothing should happen in this case since it
+        # is outside of implementation scope. This is for complete coverage.
+        event = NFCEvent(1,"test")
+        ret_value = self.system_controller.handle_event(event)
+        self.assertFalse(ret_value)
 if __name__ == '__main__':
     #logging.basicConfig(level=logging.DEBUG)
     unittest.main()
