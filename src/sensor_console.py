@@ -27,11 +27,16 @@ class SensorFrame(wx.Frame):
         button_window_closed = wx.Button(panel,
                                          wx.ID_ANY,
                                          'Send Window Closed Event')
+        button_flood = wx.Button(panel,
+                                 wx.ID_ANY,
+                                 'Send Flood Sensor Event')
+
         
         self.Bind(wx.EVT_BUTTON, self.OnDoorOpen, button_door_open)
         self.Bind(wx.EVT_BUTTON, self.OnDoorClosed, button_door_closed)
         self.Bind(wx.EVT_BUTTON, self.OnWindowOpen, button_window_open)
         self.Bind(wx.EVT_BUTTON, self.OnWindowClosed, button_window_closed)
+        self.Bind(wx.EVT_BUTTON, self.OnFlood, button_flood)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(panel, 0, wx.EXPAND)
@@ -41,6 +46,7 @@ class SensorFrame(wx.Frame):
         button_sizer.Add(button_door_closed, 0, wx.EXPAND)
         button_sizer.Add(button_window_open, 0, wx.EXPAND)
         button_sizer.Add(button_window_closed, 0, wx.EXPAND)
+        button_sizer.Add(button_flood, 0, wx.EXPAND)
 
         self.SetSizer(sizer)
         panel.SetSizer(button_sizer)
@@ -56,11 +62,15 @@ class SensorFrame(wx.Frame):
         self.event_manager.broadcast_event(e)
 
     def OnWindowOpen(self, wx_event):
-        e = event.WindowSensorEvent(0, 0, False)
+        e = event.WindowSensorEvent(1, 0, False)
         self.event_manager.broadcast_event(e)
 
     def OnWindowClosed(self, wx_event):
-        e = event.WindowSensorEvent(0, 0, False)
+        e = event.WindowSensorEvent(1, 0, False)
+        self.event_manager.broadcast_event(e)
+
+    def OnFlood(self, wx_event):
+        e = event.FloodSensorEvent(2, 2, 0, False)
         self.event_manager.broadcast_event(e)
 
 
