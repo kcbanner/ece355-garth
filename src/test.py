@@ -185,6 +185,21 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(description, event.get_description())
         self.assertEqual(speech_message, event.get_speech_message())
 
+    def test_motion_event(self):
+        start_time = datetime.utcnow() - timedelta(seconds=10)
+        end_time = datetime.utcnow()
+        current_threshold = 5
+        sensor_id = 0
+        
+        event = MotionSensorEvent(sensor_id,
+                                  current_threshold,
+                                  start_time,
+                                  end_time)
+        
+        self.assertEqual(start_time, event.get_start_time())
+        self.assertEqual(end_time, event.get_end_time())
+        self.assertEqual(current_threshold, event.get_threshold())
+        
 
 class TestEventManager(unittest.TestCase):
     def test_broadcast_event(self):
@@ -514,8 +529,10 @@ class TestMotionSensor(unittest.TestCase):
         self.sensor_id = 6
         self.status = SensorStatus.ONLINE
         self.motion_threshold = 10
-        self.sensor = MotionSensor(self.sensor_id, self.status, self.motion_threshold)
-        
+        self.sensor = MotionSensor(self.sensor_id,
+                                   self.status,
+                                   self.motion_threshold)
+
     def test_motion_sensor_init(self):
         self.assertEqual(self.sensor.get_motion_threshold(), self.motion_threshold)
         self.motion_threshold = 20
@@ -795,8 +812,12 @@ class TestSystemController(unittest.TestCase):
 
         # Motion started
         for test in test_vector:
-            event = MotionSensorEvent(1, test['threshold'], test['start_time'],
+            event = MotionSensorEvent(1,
+                                      test['threshold'],
+                                      test['start_time'],
                                       test['end_time'])
+            
+
             ret_value = self.system_controller.handle_event(event)
             self.assertEqual(ret_value, test['ret_value']) 
 
