@@ -141,8 +141,8 @@ class KeypadEvent(InputEvent):
         return self.input_char
 
 class NFCEvent(InputEvent):
-    def __init__(self, event_type, input_device_id, data, timestamp=None):
-        InputEvent.__init__(self, event_type, input_device_id, timestamp)
+    def __init__(self, input_device_id, data, timestamp=None):
+        InputEvent.__init__(self, EventType.NFC_EVENT, input_device_id, timestamp)
         self.data = data
 
     def get_NFC_string(self):
@@ -158,8 +158,11 @@ class AlarmSeverity:
     MINOR_ALARM     = 3
 
 class AlarmEvent(Event):
-    def __init__(self, severity, description, speech_message,
-                timestamp=None):
+    def __init__(self,
+                 severity,
+                 description,
+                 speech_message,
+                 timestamp=None):
         Event.__init__(self, EventType.ALARM_EVENT, timestamp)
         self.severity = severity
         self.description = description

@@ -3,10 +3,12 @@
 import new
 import mox
 import time
+import select
 import socket
 import pickle
 import logging
 import unittest
+import threading
 from datetime import datetime
 from datetime import timedelta
 
@@ -16,11 +18,75 @@ from event_type import EventType
 from inputdevice import *
 from eventmanager import EventManager
 
-from communicationsinterface import CommunicationsInterface
+from communicationsinterface import CommunicationsInterface, ListenerThread
 from controller import Controller
 from sensorcontroller import SensorController
 from systemcontroller import SystemController
 from systemcontroller import SystemState
+
+class TestController(unittest.TestCase):
+    def test_handle_event(self):
+        # This function should be a no-op, nothing should be called on
+        # the EventManager
+        mock_event_manager = mox.MockObject(EventManager)
+        mox.Replay(mock_event_manager)
+
+        controller = Controller(mock_event_manager)
+        controller.handle_event('foo')
+
+        mox.Verify(mock_event_manager)
+
+    def test_stop(self):
+        mock_event_manager = mox.MockObject(EventManager)
+        mox.Replay(mock_event_manager)
+
+        controller = Controller(mock_event_manager)
+        controller.stop()
+        controller.run()
+
+        mox.Verify(mock_event_manager)
+
+
+class TestCommunicationsInterface(unittest.TestCase):
+    def test_listen(self):
+
+        # listen should return a ListenerThread instance
+        thread = CommunicationsInterface.listen(None, None)
+        self.assertIsInstance(thread, ListenerThread)
+        
+    def test_broadcast_data(self):
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket.setblocking(0)
+        server_socket.bind(('localhost', 8001))
+        server_socket.listen(1)
+
+        test_message = 'test_message'
+
+        # Verify that broadcast data is sent via socket
+        CommunicationsInterface.broadcast_data(test_message, [('localhost', 8001)])
+
+        readable, writable, exceptional = select.select(
+            [server_socket], [], [], 1)
+        
+        self.assertEqual(len(readable), 1)
+        
+        (client_socket, address) = readable[0].accept()
+        received_data = ''
+        while True:
+            data = client_socket.recv(1024)
+            received_data += data
+            if not data:
+                break
+
+        self.assertEqual(received_data, test_message)
+
+    def test_broadcast_data_error(self):
+        # No exception should be raised here
+        CommunicationsInterface.broadcast_data('test_message',
+                                               [('localhost', 8001)])
+        
+
+
 
 class TestEvent(unittest.TestCase):
     def test_event_init(self):
@@ -101,15 +167,44 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(event.get_input(), input_char)
     
     def test_NFC_input_event(self):
-        event_type = EventType.NFC_EVENT
         input_device_id = 20
         data_string = "asdfasdfasdf"
 
-        event = NFCEvent(event_type, input_device_id, data_string)
+        event = NFCEvent(input_device_id, data_string)
 
         self.assertEqual(event.get_NFC_string(), data_string)
+        self.assertEqual(event.get_event_type(), EventType.NFC_EVENT)
+
+    def test_alarm_event(self):
+        description = 'Test Alarm'
+        speech_message = 'Test Speech Message'
+        event = AlarmEvent(AlarmSeverity.MINOR_ALARM,
+                           description,
+                           speech_message)
+        self.assertEqual(AlarmSeverity.MINOR_ALARM, event.get_severity())
+        self.assertEqual(description, event.get_description())
+        self.assertEqual(speech_message, event.get_speech_message())
+
 
 class TestEventManager(unittest.TestCase):
+    def test_broadcast_event(self):
+        test_message = 'test_message'
+        peers = []
+        event_manager = EventManager(peers);
+
+        m = mox.Mox()
+        mock_broadcast_data = m.CreateMockAnything()
+        event_manager._broadcast_data = new.instancemethod(mock_broadcast_data,
+                                                           event_manager)
+        mock_broadcast_data(event_manager,
+                            EventManager.serialize_event(test_message),
+                            peers)
+        m.ReplayAll()
+
+        event_manager.broadcast_event(test_message)
+
+        m.VerifyAll()
+
     def test_listen(self):
         listen_port = 8000
         test_message = pickle.dumps('test_message')
@@ -651,5 +746,5 @@ class TestSystemController(unittest.TestCase):
         
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    #logging.basicConfig(level=logging.DEBUG)
     unittest.main()

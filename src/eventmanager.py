@@ -37,7 +37,11 @@ class EventManager:
         
     def broadcast_event(self, event):
         data = self.serialize_event(event)
-        CommunicationsInterface.broadcast_data(data, self.peers)
+        self._broadcast_data(data, self.peers)
+
+    @classmethod
+    def _broadcast_data(cls, data, peers):
+        CommunicationsInterface.broadcast_data(data, peers)    
    
     def subscribe(self, event_type, controller):
         if not event_type in self.subscriptions:
