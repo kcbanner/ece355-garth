@@ -2,11 +2,13 @@
 
 import new
 import mox
+import json
 import time
+import pickle
 import select
 import socket
-import pickle
 import logging
+import urllib2
 import unittest
 import threading
 from datetime import datetime
@@ -18,12 +20,61 @@ from event_type import EventType
 from inputdevice import *
 from eventmanager import EventManager
 
+import jsonrpc
 from communicationsinterface import CommunicationsInterface, ListenerThread
 from controller import Controller
 from sensorcontroller import SensorController
 from systemcontroller import SystemController
 from systemcontroller import SystemState
 
+class TestJsonRpc(unittest.TestCase):
+    def test_get_rpc_json(self):
+        method = 'foo'
+        params = {'a':1, 'b':'foo'}
+        id = 'test_id'
+        expected_rpc_json = json.dumps({
+                'jsonrpc':'2.0',
+                'method':method,
+                'params':params,
+                'id':id});
+
+        rpc_json = jsonrpc._get_rpc_json(method, params, id)
+
+        self.assertEqual(rpc_json, expected_rpc_json)
+
+    def test_rpc_id(self):
+        method = 'foo'
+        params = {'a':1, 'b':'foo'}
+
+        rpc_json = jsonrpc._get_rpc_json(method, params)
+        rpc = json.loads(rpc_json)
+        
+        self.assertIsNotNone(rpc['id'])
+        self.assertEquals(len(rpc['id']), jsonrpc.ID_LENGTH)
+
+    def test_rpc(self):
+        url = 'http://localhost'
+        method = 'foo'
+        params = {'a':1, 'b':'foo'}
+        id = 'test_id'
+        rpc_json = jsonrpc._get_rpc_json(method, params, id)
+        response_json = '{"jsonrpc": "2.0", "result": "", "id": "%s"}' % id
+        expected_response = json.loads(response_json)
+
+        m = mox.Mox()
+        mock_file = m.CreateMock(file)
+        mock_file.read().AndReturn(response_json)
+
+        m.StubOutWithMock(urllib2, 'urlopen')
+        urllib2.urlopen(mox.IgnoreArg(), rpc_json).AndReturn(mock_file)
+        
+        m.ReplayAll()
+
+        response = jsonrpc.rpc(method, params, url, id)
+        self.assertEqual(expected_response, response)
+
+        m.VerifyAll()
+        
 class TestController(unittest.TestCase):
     def test_handle_event(self):
         # This function should be a no-op, nothing should be called on
