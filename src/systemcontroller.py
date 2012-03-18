@@ -1,6 +1,7 @@
 from controller import Controller
 from event_type import EventType
 from event import *
+from datetime import timedelta
 import logging
 
 STR_ALARM_DOOR_DESC = ""
@@ -20,7 +21,13 @@ STR_ALARM_TEMP_MAJOR_SPEECH = ""
 STR_ALARM_TEMP_CRIT_DESC = ""
 STR_ALARM_TEMP_CRIT_SPEECH = ""
 
+STR_ALARM_MOTION_SPEECH = ""
+STR_ALARM_MOTION_DESC = ""
+
+
 FLOOD_DELTA_HEIGHT_CRIT = 3
+
+ALARM_MOTION_DURATION = timedelta(0, 30)
 
 class SystemState:
     ARMED           = 1
@@ -75,6 +82,7 @@ class SystemController(Controller):
         #if event.get_opened and self.system_state == SystemState.ARMED:
         pass   
 
+    # Tested
     def _handle_window_event(self, event):
         if event.get_opened() and self.system_state == SystemState.ARMED:
             logging.debug("Window opened while system armed")
@@ -86,6 +94,7 @@ class SystemController(Controller):
             return True
         return False
     
+    # Tested
     def _handle_flood_event(self, event):
         # TODO :: make this better
         description = ""
@@ -105,7 +114,8 @@ class SystemController(Controller):
         alarm = AlarmEvent(severity, description, message)
         self.raise_alarm(alarm)
         return True
-
+    
+    # Tested
     def _handle_temp_event(self, event):
         # TODO :: make numbers less magic
 
@@ -136,12 +146,31 @@ class SystemController(Controller):
         alarm = AlarmEvent(severity, description, message)
         self.raise_alarm(alarm)
         return True
-
+    
+    # Tested
     def _handle_motion_event(self, event):
-        pass
+        description = ""
+        message = ""
+        severity = AlarmSeverity.MINOR_ALARM
+                
+        duration = event.get_duration()
+        if event.get_end_time() == None or \
+           self.system_state == SystemState.DISARMED :
+            return False
+        elif (duration >= ALARM_MOTION_DURATION):
+            message = STR_ALARM_MOTION_SPEECH
+            description = STR_ALARM_MOTION_DESC
+            severity = AlarmSeverity.MAJOR_ALARM
+        else:
+            return False
+        
+        alarm = AlarmEvent(severity, description, message)
+        self.raise_alarm(alarm)
+        return True
 
     def _handle_alarm_event(self, event):
-        pass
+        self.raise_alarm(event)
+        return True
     
     # Tested
     def _arm_system(self):
