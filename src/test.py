@@ -730,7 +730,6 @@ class TestSystemController(unittest.TestCase):
                       ]
         
         for test in test_vector:
-            print "%s %s" % (test['temp'], test['delta'])
             event = TempSensorEvent(1, test['temp'], test['delta'], )
             ret_value = self.system_controller.handle_event(event)
             self.assertEqual(ret_value, test['ret_value'])
@@ -744,6 +743,52 @@ class TestSystemController(unittest.TestCase):
             ret_value = self.system_controller.handle_event(event)
             self.assertEqual(ret_value, test['ret_value'])
         
+    def test_motion_event(self):
+        # Arm the system
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, "a")
+        self.system_controller.handle_event(event)
+        
+        test_vector = [
+                        # Start a motion event, but it doesn't have an end time
+                        {'threshold' : 10, 'start_time' : datetime.utcnow(),
+                        'end_time' : None, 'ret_value' : False}, 
+                        # Motion event that will send an alarm
+                        {'threshold' : 10, 'start_time' : datetime.utcnow(),
+                        'end_time' : datetime.utcnow() + timedelta(0,3600),
+                        'ret_value' : True},
+                        # Motion event representing a glitch
+                        {'threshold' : 10, 'start_time' : datetime.utcnow(),
+                        'end_time' : datetime.utcnow() + timedelta(0,5), 
+                        'ret_value' : False},
+                        # Motion event in the past that will send an alarm
+                        {'threshold' : 10, 
+                        'start_time' : datetime(2012, 3, 15, 23, 33),
+                        'end_time' : datetime(2012,3,15,23,35), 
+                        'ret_value' : True},
+                        # Motion event in the past that will not send an alarm
+                        {'threshold' : 10, 
+                        'start_time' : datetime(2012, 3, 15, 23, 33),
+                        'end_time' : datetime(2012,3,15,23,33,5),
+                        'ret_value' : False}
+                      ]
+
+        # Motion started
+        for test in test_vector:
+            event = MotionSensorEvent(1, test['threshold'], test['start_time'],
+                                      test['end_time'])
+            ret_value = self.system_controller.handle_event(event)
+            self.assertEqual(ret_value, test['ret_value']) 
+
+        # Disarm the system
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, "d")
+        self.system_controller.handle_event(event)
+        
+        # Everything should return False
+        for test in test_vector:
+            event = MotionSensorEvent(1, test['threshold'], test['start_time'],
+                                      test['end_time'])
+            ret_value = self.system_controller.handle_event(event)
+            self.assertEqual(ret_value, False)
 
 if __name__ == '__main__':
     #logging.basicConfig(level=logging.DEBUG)

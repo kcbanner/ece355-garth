@@ -105,16 +105,26 @@ class FloodSensorEvent(SensorEvent):
 
 class MotionSensorEvent(SensorEvent):
     def __init__(self, sensor_id, current_threshold, start_time,
-    timestamp=None):
+                end_time=None, timestamp=None):
         SensorEvent.__init__(self, EventType.MOTION_SENSOR_EVENT, sensor_id)
         self.current_threshold = current_threshold
         self.start_time = start_time
+        self.end_time = end_time
 
     def get_threshold(self):
         return self.current_threshold
+    
+    def get_start_time(self):
+        return self.start_time
+    
+    def get_end_time(self):
+        return self.end_time
 
     def get_duration(self):
-        return datetime.utcnow() - self.start_time
+        if self.end_time != None:
+            return self.end_time - self.start_time
+        else:
+            return datetime.utcnow() - self.start_time
         
 #
 # Input Event Base Class
