@@ -21,7 +21,8 @@ class Sensor():
         return self.status
 
     def generate_sensor_event(self):
-        raise "Generate sensor event called on base sensor class"
+        raise NotImplementedError(
+            "Generate sensor event called on base sensor class")
 
 class DoorSensor(Sensor):
     def __init__(self, sensor_id, status, door_id, opened=False):

@@ -300,7 +300,6 @@ class TestEventManager(unittest.TestCase):
 
         # No exception should be raised here
         event_manager.process_events()
-        
 
     #
     # Verify events are sent to subscribed controllers
@@ -359,6 +358,10 @@ class TestSensor(unittest.TestCase):
         self.assertEqual(sensor.get_sensor_id(), sensor_id)
         self.assertEqual(sensor.get_sensor_status(), status)
   
+    def test_sensor_invalid_use(self):
+        sensor = Sensor(0, SensorStatus.ONLINE)
+        self.assertRaises(NotImplementedError, sensor.generate_sensor_event)
+
 class TestDoorSensor(unittest.TestCase):
     def setUp(self):
         self.sensor_id = 2
