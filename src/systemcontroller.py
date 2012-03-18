@@ -46,6 +46,7 @@ class SystemController(Controller):
         self.system_state = SystemState.ARMED
         self.user_list = []
         self.input_devices = []
+        self.door_timer_delay = DOOR_EVENT_TIMER_DELAY
 
         self.event_handling_functions = {
             EventType.DOOR_SENSOR_EVENT : self._handle_door_event,
@@ -86,7 +87,7 @@ class SystemController(Controller):
         if self.system_state == SystemState.DISARMED:
             return False
         elif event.get_opened() and self.system_state == SystemState.ARMED:
-            t = Timer(DOOR_EVENT_TIMER_DELAY, self._door_timer)
+            t = Timer(self.door_timer_delay, self._door_timer, daemon=True)
             t.start()
             return True
         else:
