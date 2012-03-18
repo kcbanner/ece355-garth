@@ -182,6 +182,10 @@ class AlarmEvent(Event):
         self.description = description
         self.speech_message = speech_message
     
+    def __eq__(self, other):
+        return (other.description == self.description and \
+                other.speech_message == self.speech_message and \
+                other.severity == self.severity)
     def get_severity(self):
         return self.severity
 

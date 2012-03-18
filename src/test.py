@@ -697,21 +697,20 @@ class TestSystemController(unittest.TestCase):
         self.system_controller.handle_event(event)
         
         event = DoorSensorEvent(1, 2, True)
-        
+         
         m = mox.Mox()
         mock_raise_alarm = m.CreateMockAnything()
-        self.system_controller.door_timer_delay = 1
+        self.system_controller.door_timer_delay = 0.1
         self.system_controller.raise_alarm = new.instancemethod(mock_raise_alarm,
                                                         self.system_controller)
         mock_raise_alarm(self.system_controller,
                             AlarmEvent(AlarmSeverity.MAJOR_ALARM,"",""))
 
         m.ReplayAll()
-        
         self.system_controller.handle_event(event)
         thread_count = threading.active_count()
         while threading.active_count() == thread_count:
-            time.sleep(0.1)
+            time.sleep(0)
 
         m.VerifyAll()
 

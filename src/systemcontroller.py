@@ -78,16 +78,16 @@ class SystemController(Controller):
         self.log_event_to_server(event)
         try:
             return self.event_handling_functions[event_type](event)  
-        except Exception as e:
-            logging.debug(e)
+        except KeyError as e:
+            logging.error(e)
             return False
 
     def _handle_door_event(self, event):
         # Start timer, when fired call broadcast event
         if self.system_state == SystemState.DISARMED:
             return False
-        elif event.get_opened() and self.system_state == SystemState.ARMED:
-            t = Timer(self.door_timer_delay, self._door_timer, daemon=True)
+        elif (event.get_opened() and self.system_state == SystemState.ARMED):
+            t = Timer(self.door_timer_delay, self._door_timer)
             t.start()
             return True
         else:
