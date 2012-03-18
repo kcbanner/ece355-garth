@@ -520,9 +520,7 @@ class TestSystemController(unittest.TestCase):
     def test_handle_bad_events(self):
         event = Event(1000)
         ret_value = self.system_controller.handle_event(event)
-        
         self.assertFalse(ret_value)
-
 
     def test_system_state(self):
         # Check controller's initial state
@@ -558,6 +556,30 @@ class TestSystemController(unittest.TestCase):
         self.assertEqual(self.system_controller.get_system_state(), 
                          SystemState.DISARMED)
                 
+    def test_window_event_handler(self):
+        # Arm the system
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
+        self.system_controller.handle_event(event)
+        self.assertEqual(self.system_controller.get_system_state(),
+                         SystemState.ARMED)
+        
+        # Test an window opening with system armed
+        event = WindowSensorEvent(1, 1, True)
+        ret_value = self.system_controller.handle_event(event)
+        print ret_value
+        self.assertTrue(ret_value)
+
+        # Disarm the system
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'd')
+        self.system_controller.handle_event(event)
+
+         # Test an window opening with system disarmed
+        event = WindowSensorEvent(1, 1, True)
+        ret_value = self.system_controller.handle_event(event)
+        self.assertFalse(ret_value)
+
+        
+    
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
