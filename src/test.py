@@ -204,21 +204,24 @@ class TestEvent(unittest.TestCase):
 class TestEventManager(unittest.TestCase):
     def test_broadcast_event(self):
         test_message = 'test_message'
-        peers = []
+        peers = [('localhost', 8000)]
         event_manager = EventManager(peers);
+        event = 'test_event'
 
-        m = mox.Mox()
-        mock_broadcast_data = m.CreateMockAnything()
-        event_manager._broadcast_data = new.instancemethod(mock_broadcast_data,
-                                                           event_manager)
-        mock_broadcast_data(event_manager,
-                            EventManager.serialize_event(test_message),
-                            peers)
-        m.ReplayAll()
+        # Create a mock EventManager to verify it receives the test event
+        mock_event_manager = mox.MockObject(EventManager)
+        mock_event_manager.event_received(event)
+        mox.Replay(mock_event_manager)
 
-        event_manager.broadcast_event(test_message)
+        thread = ListenerThread(mock_event_manager, 8000)
+        thread.start()
 
-        m.VerifyAll()
+        event_manager.broadcast_event(event)
+        
+        thread.stop()
+        thread.join()
+
+        mox.Verify(mock_event_manager)
 
     def test_listen(self):
         listen_port = 8000
