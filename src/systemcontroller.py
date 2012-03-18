@@ -76,11 +76,11 @@ class SystemController(Controller):
     def _handle_alarm_event(self, event):
         pass
     
-# Tested
+    # Tested
     def _arm_system(self):
         self.system_state = SystemState.ARMED
 
-# Tested
+    # Tested
     def _disarm_system(self):
         self.system_state = SystemState.DISARMED
 
@@ -100,6 +100,7 @@ class SystemController(Controller):
     # "d" or "D" => disarm system
     # "s" or "S" => stop alarms
     #
+
     def _handle_keypad_event(self, keypad_event):
         if keypad_event.input_char.lower() == 'a':
             self.system_state = SystemState.ARMED;

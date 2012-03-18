@@ -51,8 +51,7 @@ class WindowSensor(Sensor):
         self.opened = opened
 
     def generate_sensor_event(self):
-        return WindowSensorEvent(EventType.WINDOW_SENSOR_EVENT, self.sensor_id,
-                                self.window_id, self.opened)
+        return WindowSensorEvent(self.sensor_id, self.window_id, self.opened)
 
 class FloodSensor(Sensor):
     def __init__(self, sensor_id, status, current_water_height=0):
@@ -71,8 +70,9 @@ class FloodSensor(Sensor):
         self.current_water_height = water_height
 
     def generate_sensor_event(self):
-        return FloodSensorEvent(EventType.FLOOD_SENSOR_EVENT, self.sensor_id,
-                                self.current_water_height, self.get_delta())
+        return FloodSensorEvent(self.sensor_id,
+                                self.current_water_height,
+                                self.get_delta())
 
 class TemperatureSensor(Sensor):
     def __init__(self, sensor_id, status, current_temperature=0):
@@ -114,6 +114,7 @@ class MotionSensor(Sensor):
         self.motion_started = datetime.utcnow()
         
     def generate_sensor_event(self):
-        return MotionSensorEvent(EventType.MOTION_SENSOR_EVENT, self.sensor_id,
-                        self.motion_threshold, self.motion_started)
+        return MotionSensorEvent(self.sensor_id,
+                                 self.motion_threshold,
+                                 self.motion_started)
         pass

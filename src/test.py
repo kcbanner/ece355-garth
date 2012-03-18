@@ -56,7 +56,7 @@ class TestEvent(unittest.TestCase):
         window_id = 2
         opened = True
 
-        event = WindowSensorEvent(event_type, sensor_id, window_id, opened)
+        event = WindowSensorEvent(sensor_id, window_id, opened)
 
         self.assertEqual(event.get_window_id(), window_id)
         self.assertEqual(event.get_opened(), opened)
@@ -78,7 +78,7 @@ class TestEvent(unittest.TestCase):
         water_height = 1
         delta = 1
 
-        event = FloodSensorEvent(event_type, sensor_id, water_height, delta)
+        event = FloodSensorEvent(sensor_id, water_height, delta)
         
         self.assertEqual(event.get_water_height(), water_height)
         self.assertEqual(event.get_height_delta(), delta)

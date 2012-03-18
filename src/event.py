@@ -53,9 +53,11 @@ class DoorSensorEvent(SensorEvent):
         return self.opened
 
 class WindowSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, window_id, opened, 
-                timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
+    def __init__(self, sensor_id, window_id, opened, timestamp=None):
+        SensorEvent.__init__(self,
+                             EventType.WINDOW_SENSOR_EVENT,
+                             sensor_id,
+                             timestamp)
         self.window_id = window_id
         self.opened = opened
 
@@ -79,9 +81,11 @@ class TempSensorEvent(SensorEvent):
         return self.delta
 
 class FloodSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, water_height, delta, 
-                timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id, timestamp)
+    def __init__(self, sensor_id, water_height, delta, timestamp=None):
+        SensorEvent.__init__(self,
+                             EventType.FLOOD_SENSOR_EVENT,
+                             sensor_id,
+                             timestamp)
         self.water_height = water_height
         self.delta = delta
 
@@ -92,9 +96,9 @@ class FloodSensorEvent(SensorEvent):
         return self.delta
 
 class MotionSensorEvent(SensorEvent):
-    def __init__(self, event_type, sensor_id, current_threshold, start_time,
+    def __init__(self, sensor_id, current_threshold, start_time,
     timestamp=None):
-        SensorEvent.__init__(self, event_type, sensor_id)
+        SensorEvent.__init__(self, EventType.MOTION_SENSOR_EVENT, sensor_id)
         self.current_threshold = current_threshold
         self.start_time = start_time
 
