@@ -2,10 +2,12 @@ from controller import Controller
 from event_type import EventType
 from event import *
 from datetime import timedelta
+from threading import Timer
 import logging
 
 STR_ALARM_DOOR_DESC = ""
 STR_ALARM_DOOR_SPEECH = ""
+
 STR_ALARM_WINDOW_DESC = ""
 STR_ALARM_WINDOW_SPEECH = ""
 
@@ -28,6 +30,7 @@ STR_ALARM_MOTION_DESC = ""
 FLOOD_DELTA_HEIGHT_CRIT = 3
 
 ALARM_MOTION_DURATION = timedelta(0, 30)
+DOOR_EVENT_TIMER_DELAY = 30
 
 class SystemState:
     ARMED           = 1
@@ -79,8 +82,21 @@ class SystemController(Controller):
             return False
 
     def _handle_door_event(self, event):
-        #if event.get_opened and self.system_state == SystemState.ARMED:
-        pass   
+        # Start timer, when fired call broadcast event
+        if self.system_state == SystemState.DISARMED:
+            return False
+        elif event.get_opened() and self.system_state == SystemState.ARMED:
+            t = Timer(DOOR_EVENT_TIMER_DELAY, self._door_timer)
+            t.start()
+            return True
+        else:
+            return False
+
+    def _door_timer(self):
+        if self.system_state == SystemState.ARMED:
+            alarm = AlarmEvent(AlarmSeverity.MAJOR_ALARM, 
+                                STR_ALARM_DOOR_DESC, STR_ALARM_DOOR_SPEECH)
+            self.raise_alarm(alarm)
 
     # Tested
     def _handle_window_event(self, event):

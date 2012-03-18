@@ -521,6 +521,13 @@ class TestSystemController(unittest.TestCase):
         event = Event(1000)
         ret_value = self.system_controller.handle_event(event)
         self.assertFalse(ret_value)
+    
+    def test_getters(self):
+        inputs = self.system_controller.get_input_devices()
+        self.assertEqual(inputs, [])
+        
+        user_list = self.system_controller.get_user_list()
+        self.assertEqual(user_list, [])
 
     def test_system_state(self):
         # Check controller's initial state
@@ -556,7 +563,21 @@ class TestSystemController(unittest.TestCase):
         self.system_controller.handle_event(event)
         self.assertEqual(self.system_controller.get_system_state(),
                          SystemState.ARMED)
+    
+    def test_door_event_handler(self):
+        # Arm the system
+        event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
+        self.system_controller.handle_event(event)
         
+        test_vector = [
+                        {'opened' : False, 'ret_value' : False},
+                        {'opened' : True, 'ret_value' : True},
+                      ] 
+        for test in test_vector:
+            event = DoorSensorEvent(1, 2, test['opened'])
+            ret_value = self.system_controller.handle_event(event)
+            self.assertEqual(ret_value, test['ret_value'])
+
     def test_window_event_handler(self):
         # Arm the system
         event = KeypadEvent(EventType.KEYPAD_EVENT, 1, 'A')
