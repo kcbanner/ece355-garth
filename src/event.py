@@ -45,7 +45,7 @@ class EventEncoder(json.JSONEncoder):
                     fields['input_char'] = obj.input_char
                 elif isinstance(obj, NFCEvent):
                     fields['data'] = obj.data
-            
+            # AlarmEvent 
             elif isinstance(obj, AlarmEvent):
                 fields['severity'] = obj.severity
                 fields['description'] = obj.description
