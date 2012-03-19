@@ -5,6 +5,7 @@ from datetime import timedelta
 from threading import Timer
 import logging
 import jsonrpc
+import urllib2
 
 STR_ALARM_DOOR_DESC = ""
 STR_ALARM_DOOR_SPEECH = ""
@@ -202,7 +203,10 @@ class SystemController(Controller):
         logging.debug("Sensor_controller::log_event_to_server %s" % event)
 
         if self._server_url:
-            jsonrpc.rpc('log_event', [event], self._server_url)
+            try:
+                jsonrpc.rpc('log_event', [event], self._server_url)
+            except urllib2.URLError, e:
+                logging.error("RPC Error: %s" % e)            
 
     # 
     # Outside of implementation scope
