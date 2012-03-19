@@ -92,7 +92,7 @@ class TestEventEncoder(unittest.TestCase):
 
         self.assertEqual(expected, self.encoder.default(event))
 
-    def test_window_sensor_event(self):
+    def test_temp_sensor_event(self):
         timestamp = datetime.utcnow()
         event_type = EventType.TEMP_SENSOR_EVENT
         sensor_id = 0
@@ -104,8 +104,67 @@ class TestEventEncoder(unittest.TestCase):
                     'sensor_id':sensor_id,
                     'temperature':temperature,
                     'delta':delta}
-
         self.assertEqual(expected, self.encoder.default(event))
+
+    def test_motion_sensor_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.MOTION_SENSOR_EVENT
+        sensor_id = 0
+        start_time = datetime.utcnow()
+        end_time = datetime.utcnow() - timedelta(0,5)
+        current_threshold = 2
+        event = MotionSensorEvent(sensor_id, current_threshold, start_time,
+                                    end_time, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'sensor_id':sensor_id,
+                    'current_threshold':current_threshold,
+                    'start_time':time.mktime(start_time.timetuple()),
+                    'end_time' : time.mktime(end_time.timetuple()),
+                    'duration' : event.get_duration()}
+        self.assertEqual(expected, self.encoder.default(event))
+
+    def test_keypad_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.KEYPAD_EVENT
+        input_device_id = 2
+        input_char = "a"
+        event = KeypadEvent(event_type, input_device_id, input_char, timestamp)
+
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'input_device_id' :input_device_id,
+                    'input_char': input_char}
+        self.assertEqual(expected, self.encoder.default(event))
+
+    def test_nfc_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.NFC_EVENT
+        input_device_id = 2
+        data = "asdfasdf"
+        event = NFCEvent(input_device_id, data, timestamp)
+
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'input_device_id': input_device_id,
+                    'data': data}
+        self.assertEqual(expected, self.encoder.default(event))
+
+    def test_alarm_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.ALARM_EVENT
+        severity = AlarmSeverity.MINOR_ALARM
+        description = "Alarm event 1"
+        speech_message = "Alarm Speech Message 1"
+        event = AlarmEvent(severity, description, speech_message, timestamp)
+
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'severity' : severity,
+                    'description' : description,
+                    'speech_message' : speech_message}
+        self.assertEqual(expected, self.encoder.default(event))
+
 
 
 

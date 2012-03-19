@@ -34,8 +34,8 @@ class EventEncoder(json.JSONEncoder):
                     fields['delta'] = obj.delta
                 elif isinstance(obj, MotionSensorEvent):
                     fields['current_threshold'] = obj.current_threshold
-                    fields['start_time'] = obj.start_time
-                    fields['end_time'] = obj.end_time
+                    fields['start_time'] = time.mktime(obj.start_time.timetuple())
+                    fields['end_time'] = time.mktime(obj.end_time.timetuple())
                     fields['duration'] = obj.get_duration()
             # InputEvent
             elif isinstance(obj, InputEvent):
