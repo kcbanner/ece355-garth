@@ -29,8 +29,8 @@ class EventEncoder(json.JSONEncoder):
                 elif isinstance(obj, TempSensorEvent):
                     fields['temperature'] = obj.temperature
                     fields['delta'] = obj.delta
-                
-
+        else:
+            json.JSONEncoder.default(self, obj)
 
         return fields
 
