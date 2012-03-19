@@ -81,7 +81,7 @@ class SystemController(Controller):
         try:
             return self.event_handling_functions[event_type](event)  
         except KeyError as e:
-            logging.error(e)
+            #logging.error(e)
             return False
 
     def _handle_door_event(self, event):
