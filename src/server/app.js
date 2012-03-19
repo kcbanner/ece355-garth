@@ -1,6 +1,5 @@
 var rpc = require('jsonrpc2');
 
-
 var server = new rpc.Server();
 var event_log = [];
 

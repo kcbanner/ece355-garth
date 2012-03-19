@@ -27,6 +27,88 @@ from sensorcontroller import SensorController
 from systemcontroller import SystemController
 from systemcontroller import SystemState
 
+class TestEventEncoder(unittest.TestCase):
+    def setUp(self):
+        self.encoder = EventEncoder()
+
+    def test_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.DOOR_SENSOR_EVENT
+        event = Event(event_type, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple())}
+
+        self.assertEqual(expected, self.encoder.default(event))
+
+    def test_sensor_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.DOOR_SENSOR_EVENT
+        sensor_id = 0
+        event = SensorEvent(event_type, sensor_id, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'sensor_id':sensor_id}
+
+        self.assertEqual(expected, self.encoder.default(event))
+        
+    def test_sensor_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.DOOR_SENSOR_EVENT
+        sensor_id = 0
+        event = SensorEvent(event_type, sensor_id, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'sensor_id':sensor_id}
+
+        self.assertEqual(expected, self.encoder.default(event))
+    
+    def test_door_sensor_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.DOOR_SENSOR_EVENT
+        sensor_id = 0
+        door_id = 1
+        opened = True
+        event = DoorSensorEvent(sensor_id, door_id, opened, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'sensor_id':sensor_id,
+                    'door_id':door_id,
+                    'opened':opened}
+
+        self.assertEqual(expected, self.encoder.default(event))
+
+    def test_window_sensor_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.WINDOW_SENSOR_EVENT
+        sensor_id = 0
+        window_id = 1
+        opened = True
+        event = WindowSensorEvent(sensor_id, window_id, opened, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'sensor_id':sensor_id,
+                    'window_id':window_id,
+                    'opened':opened}
+
+        self.assertEqual(expected, self.encoder.default(event))
+
+    def test_window_sensor_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.TEMP_SENSOR_EVENT
+        sensor_id = 0
+        temperature = 20
+        delta = 2
+        event = TempSensorEvent(sensor_id, temperature, delta, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'sensor_id':sensor_id,
+                    'temperature':temperature,
+                    'delta':delta}
+
+        self.assertEqual(expected, self.encoder.default(event))
+        
+
+
 class TestJsonRpc(unittest.TestCase):
     def test_get_rpc_json(self):
         method = 'foo'

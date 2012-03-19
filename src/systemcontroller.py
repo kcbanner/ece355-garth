@@ -4,6 +4,7 @@ from event import *
 from datetime import timedelta
 from threading import Timer
 import logging
+import jsonrpc
 
 STR_ALARM_DOOR_DESC = ""
 STR_ALARM_DOOR_SPEECH = ""
@@ -41,8 +42,9 @@ class SystemState:
 
 
 class SystemController(Controller):
-    def __init__(self, event_manager):
+    def __init__(self, event_manager, server_url=None):
         Controller.__init__(self, event_manager)
+        self._server_url = server_url
         self.system_state = SystemState.ARMED
         self.user_list = []
         self.input_devices = []
@@ -199,7 +201,9 @@ class SystemController(Controller):
 
     def log_event_to_server(self, event):
         logging.debug("Sensor_controller::log_event_to_server %s" % str(event))
-        pass
+
+        if self._server_url:
+            jsonrpc.rpc('log_event', event, self._server_url)
 
     # 
     # Outside of implementation scope
