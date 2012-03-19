@@ -199,7 +199,7 @@ class SystemController(Controller):
         self.system_state = SystemState.DISARMED
 
     def log_event_to_server(self, event):
-        logging.debug("Sensor_controller::log_event_to_server %s" % str(event))
+        logging.debug("Sensor_controller::log_event_to_server %s" % event)
 
         if self._server_url:
             jsonrpc.rpc('log_event', [event], self._server_url)
