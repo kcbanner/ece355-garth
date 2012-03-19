@@ -188,7 +188,6 @@ class SystemController(Controller):
         return True
 
     def _handle_alarm_event(self, event):
-        self.raise_alarm(event)
         return True
     
     # Tested
@@ -203,7 +202,7 @@ class SystemController(Controller):
         logging.debug("Sensor_controller::log_event_to_server %s" % str(event))
 
         if self._server_url:
-            jsonrpc.rpc('log_event', event, self._server_url)
+            jsonrpc.rpc('log_event', [event], self._server_url)
 
     # 
     # Outside of implementation scope
