@@ -3,6 +3,8 @@ import string
 import random
 import urllib2
 
+from event import EventEncoder
+
 ID_LENGTH = 10
 
 def _get_rpc_json(method, params, id=None):
@@ -18,7 +20,7 @@ def _get_rpc_json(method, params, id=None):
             'params':params,
             'id':id}
 
-    call_str = json.dumps(call)
+    call_str = json.dumps(call, cls=EventEncoder)
     return call_str
     
 def rpc(method, params, url, id=None):

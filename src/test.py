@@ -106,7 +106,7 @@ class TestEventEncoder(unittest.TestCase):
                     'delta':delta}
 
         self.assertEqual(expected, self.encoder.default(event))
-        
+
 
 
 class TestJsonRpc(unittest.TestCase):
