@@ -7,61 +7,76 @@ import argparse
 import event
 from eventmanager import EventManager
 
-class SensorFrame(wx.Frame):
-    def __init__(self, parent, title, peers):
-        wx.Frame.__init__(self, parent, title=title)
+class DoorWindowPage(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent)
 
-        self.event_manager = EventManager(peers)
-        
-        panel = wx.Panel(self)
+        button_door_open = wx.Button(self, wx.ID_ANY, 'Send Door Open Event')
+        button_door_closed = wx.Button(self, wx.ID_ANY, 'Send Door Closed Event')
+        button_window_open = wx.Button(self, wx.ID_ANY, 'Send Window Open Event')
+        button_window_closed = wx.Button(self, wx.ID_ANY, 'Send Window Closed Event')
 
-        button_door_open = wx.Button(panel, wx.ID_ANY, 'Send Door Open Event')
-        button_door_closed = wx.Button(panel, wx.ID_ANY, 'Send Door Closed Event')
-        button_window_open = wx.Button(panel, wx.ID_ANY, 'Send Window Open Event')
-        button_window_closed = wx.Button(panel, wx.ID_ANY,'Send Window Closed Event')
-        button_flood = wx.Button(panel, wx.ID_ANY, 'Send Flood Sensor Event')
-        
         self.Bind(wx.EVT_BUTTON, self.OnDoorOpen, button_door_open)
         self.Bind(wx.EVT_BUTTON, self.OnDoorClosed, button_door_closed)
         self.Bind(wx.EVT_BUTTON, self.OnWindowOpen, button_window_open)
         self.Bind(wx.EVT_BUTTON, self.OnWindowClosed, button_window_closed)
-        self.Bind(wx.EVT_BUTTON, self.OnFlood, button_flood)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(panel, 0, wx.EXPAND)
-
-        button_sizer = wx.BoxSizer(wx.VERTICAL)
-        button_sizer.Add(button_door_open, 0, wx.EXPAND)        
-        button_sizer.Add(button_door_closed, 0, wx.EXPAND)
-        button_sizer.Add(button_window_open, 0, wx.EXPAND)
-        button_sizer.Add(button_window_closed, 0, wx.EXPAND)
-        button_sizer.Add(button_flood, 0, wx.EXPAND)
-
+        sizer.Add(button_door_open, 0, wx.EXPAND)        
+        sizer.Add(button_door_closed, 0, wx.EXPAND)
+        sizer.Add(button_window_open, 0, wx.EXPAND)        
+        sizer.Add(button_window_closed, 0, wx.EXPAND)
         self.SetSizer(sizer)
-        panel.SetSizer(button_sizer)
-
-        self.Show(True)
 
     def OnDoorOpen(self, wx_event):
         e = event.DoorSensorEvent(0, 0, True)
-        self.event_manager.broadcast_event(e)
+        g_event_manager.broadcast_event(e)
 
     def OnDoorClosed(self, wx_event):
         e = event.DoorSensorEvent(0, 0, False)
-        self.event_manager.broadcast_event(e)
+        g_event_manager.broadcast_event(e)
 
     def OnWindowOpen(self, wx_event):
         e = event.WindowSensorEvent(1, 0, True)
-        self.event_manager.broadcast_event(e)
+        g_event_manager.broadcast_event(e)
 
     def OnWindowClosed(self, wx_event):
         e = event.WindowSensorEvent(1, 0, False)
-        self.event_manager.broadcast_event(e)
+        g_event_manager.broadcast_event(e)
+
+
+class FloodPage(wx.Panel):
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent)
+        
+        button_flood = wx.Button(self, wx.ID_ANY, 'Send Flood Sensor Event')
+        
+        self.Bind(wx.EVT_BUTTON, self.OnFlood, button_flood)
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(button_flood, 0, wx.EXPAND)
+        self.SetSizer(sizer)
 
     def OnFlood(self, wx_event):
         e = event.FloodSensorEvent(2, 2, 0, False)
-        self.event_manager.broadcast_event(e)
+        g_event_manager.broadcast_event(e)
+        
+        
+class SensorFrame(wx.Frame):
+    def __init__(self, parent, title):
+        wx.Frame.__init__(self, parent, title=title)
+        
+        panel = wx.Panel(self)
+        notebook = wx.Notebook(panel)
 
+        notebook.AddPage(DoorWindowPage(notebook), "Door and Window Events")
+        notebook.AddPage(FloodPage(notebook), "Flood Events")
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(notebook, 0, wx.EXPAND)
+        panel.SetSizer(sizer)
+
+        self.Show(True)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -85,7 +100,9 @@ if __name__ == '__main__':
     for peer in args.peers.split(','):
         peer_list.append(tuple(peer.split(':')))
 
+    g_event_manager = EventManager(peer_list)
+
     app = wx.App(False)
-    frame = SensorFrame(None, 'GARTH Sensor Demo Console', peer_list)
+    frame = SensorFrame(None, 'GARTH Sensor Demo Console')
 
     app.MainLoop()
