@@ -31,6 +31,10 @@ class TestEventEncoder(unittest.TestCase):
     def setUp(self):
         self.encoder = EventEncoder()
 
+    def test_fallback(self):
+        test_object = {'foo':1, 'bar':'a'}
+        self.assertRaises(TypeError, self.encoder.default, test_object)
+
     def test_event(self):
         timestamp = datetime.utcnow()
         event_type = EventType.DOOR_SENSOR_EVENT
@@ -62,6 +66,21 @@ class TestEventEncoder(unittest.TestCase):
 
         self.assertEqual(expected, self.encoder.default(event))
     
+    def test_flood_sensor_event(self):
+        timestamp = datetime.utcnow()
+        event_type = EventType.FLOOD_SENSOR_EVENT
+        sensor_id = 0
+        water_height = 1
+        delta = 0.5
+        event = FloodSensorEvent(sensor_id, water_height, delta, timestamp)
+        expected = {'event_type':event_type,
+                    'timestamp':time.mktime(timestamp.timetuple()),
+                    'sensor_id':sensor_id,
+                    'water_height':water_height,
+                    'delta':delta}
+
+        self.assertEqual(expected, self.encoder.default(event))
+
     def test_door_sensor_event(self):
         timestamp = datetime.utcnow()
         event_type = EventType.DOOR_SENSOR_EVENT

@@ -50,10 +50,11 @@ class EventEncoder(json.JSONEncoder):
                 fields['severity'] = obj.severity
                 fields['description'] = obj.description
                 fields['speech_message'] = obj.speech_message
-        else:
-            json.JSONEncoder.default(self, obj)
 
-        return fields
+            return fields
+        else:
+            raise TypeError('Provided object was not an Event')
+
 
 class Event:
     def __init__(self, event_type, timestamp=None):
