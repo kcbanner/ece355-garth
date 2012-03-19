@@ -22,6 +22,12 @@ if __name__ == '__main__':
                         type=int,
                         required=True,
                         dest='port')
+    parser.add_argument('-r',
+                        '--remote-url',
+                        required=True,
+                        type=str,
+                        dest='remote_url',
+                        help='URL of remote server')
     parser.add_argument('-v',
                         '--verbose',
                         default=False,
@@ -32,6 +38,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
 
     # Parse peer list
     peer_list = []
@@ -42,7 +50,7 @@ if __name__ == '__main__':
     # Setup EventManager and Controllers
     event_manager = EventManager(peer_list, args.port)
     sensor_controller = SensorController(event_manager)
-    system_controller = SystemController(event_manager)
+    system_controller = SystemController(event_manager, args.remote_url)
 
     # Start controllers
     controllers = (system_controller, sensor_controller)
@@ -52,6 +60,8 @@ if __name__ == '__main__':
         thread = threading.Thread(target=controller.run)
         thread.start()
         threads.append(thread)
+
+    logging.info('Controllers started')
 
     # Watch threads
     while len(threads) > 0:

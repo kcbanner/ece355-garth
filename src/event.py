@@ -1,5 +1,38 @@
+import json
+import time
 from event_type import EventType
 from datetime import datetime
+
+#
+# JSON Encoder for Events
+#
+
+class EventEncoder(json.JSONEncoder):
+    def default(self, obj):
+        fields = {}
+
+        # Event
+        if isinstance(obj, Event):
+            fields['timestamp'] = time.mktime(obj.timestamp.timetuple())
+            fields['event_type'] = obj.event_type
+        
+            # SensorEvent
+            if isinstance(obj, SensorEvent):
+                fields['sensor_id'] = obj.sensor_id
+                
+                if isinstance(obj, DoorSensorEvent):
+                    fields['door_id'] = obj.door_id
+                    fields['opened'] = obj.opened
+                elif isinstance(obj, WindowSensorEvent):
+                    fields['window_id'] = obj.window_id
+                    fields['opened'] = obj.opened
+                elif isinstance(obj, TempSensorEvent):
+                    fields['temperature'] = obj.temperature
+                    fields['delta'] = obj.delta
+        else:
+            json.JSONEncoder.default(self, obj)
+
+        return fields
 
 class Event:
     def __init__(self, event_type, timestamp=None):
@@ -67,8 +100,6 @@ class WindowSensorEvent(SensorEvent):
             (self.event_type, self.timestamp, self.sensor_id, self.opened)
         return s
 
-
-
     def get_window_id(self):
         return self.window_id
 
@@ -76,8 +107,7 @@ class WindowSensorEvent(SensorEvent):
         return self.opened
 
 class TempSensorEvent(SensorEvent):
-    def __init__(self, sensor_id, temperature, delta,
-                timestamp=None):
+    def __init__(self, sensor_id, temperature, delta, timestamp=None):
         SensorEvent.__init__(self, EventType.TEMP_SENSOR_EVENT, sensor_id, timestamp)
         self.temperature = temperature
         self.delta = delta
