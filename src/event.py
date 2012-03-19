@@ -29,6 +29,27 @@ class EventEncoder(json.JSONEncoder):
                 elif isinstance(obj, TempSensorEvent):
                     fields['temperature'] = obj.temperature
                     fields['delta'] = obj.delta
+                elif isinstance(obj, FloodSensorEvent):
+                    fields['water_height'] = obj.water_height
+                    fields['delta'] = obj.delta
+                elif isinstance(obj, MotionSensorEvent):
+                    fields['current_threshold'] = obj.current_threshold
+                    fields['start_time'] = obj.start_time
+                    fields['end_time'] = obj.end_time
+                    fields['duration'] = obj.get_duration()
+            # InputEvent
+            elif isinstance(obj, InputEvent):
+                fields['input_device_id'] = obj.input_device_id
+
+                if isinstance(obj, KeypadEvent):
+                    fields['input_char'] = obj.input_char
+                elif isinstance(obj, NFCEvent):
+                    fields['data'] = obj.data
+            
+            elif isinstance(obj, AlarmEvent):
+                fields['severity'] = obj.severity
+                fields['description'] = obj.description
+                fields['speech_message'] = obj.speech_message
         else:
             json.JSONEncoder.default(self, obj)
 

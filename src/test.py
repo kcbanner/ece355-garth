@@ -225,20 +225,15 @@ class TestEvent(unittest.TestCase):
     def test_event_init(self):
         event_type = EventType.DOOR_SENSOR_EVENT
         timestamp = datetime.utcnow()
-        json_str = '{"timestamp": "%s", "event_type": %s}' % \
-                    (str(timestamp), event_type)
         event = Event(event_type, timestamp)
 
         self.assertEqual(event.get_event_type(), event_type)
         self.assertEqual(event.get_timestamp(), timestamp)
-        self.assertEqual(event.to_json_str(), json_str)
 
     def test_sensor_event(self):
         event_type = EventType.DOOR_SENSOR_EVENT
         sensor_id = 12 
         event = SensorEvent(event_type, sensor_id)
-        json_str = '{"timestamp": "%s", "event_type": %s, "sensor_id": %s}' % \
-                    (str(event.get_timestamp()), event_type, sensor_id)
         self.assertEqual(event.get_sensor_id(), sensor_id)
 
     def test_door_sensor_event(self):
@@ -248,15 +243,8 @@ class TestEvent(unittest.TestCase):
         opened = True
         
         event = DoorSensorEvent(sensor_id, door_id, opened )
-        a_dict = {"sensor_id": sensor_id, \
-                  "timestamp": str(event.get_timestamp()), \
-                  "door_id": door_id, \
-                  "opened": opened,\
-                  "event_type": event_type}
-
         self.assertEqual(event.get_door_id(), door_id)
         self.assertEqual(event.get_opened(), opened)
-        self.assertTrue(compare_dicts(json.loads(event.to_json_str()), a_dict))
 
     def test_window_sensor_event(self):
         event_type = EventType.WINDOW_SENSOR_EVENT
@@ -265,14 +253,8 @@ class TestEvent(unittest.TestCase):
         opened = True
 
         event = WindowSensorEvent(sensor_id, window_id, opened)
-        a_dict = {"sensor_id": sensor_id, 
-                  "timestamp": str(event.get_timestamp()), 
-                  "window_id": window_id, 
-                  "opened": opened,
-                  "event_type": event_type}
         self.assertEqual(event.get_window_id(), window_id)
         self.assertEqual(event.get_opened(), opened)
-        self.assertTrue(compare_dicts(json.loads(event.to_json_str()), a_dict))
     
     def test_temp_sensor_event(self):
         event_type = EventType.TEMP_SENSOR_EVENT
@@ -281,15 +263,9 @@ class TestEvent(unittest.TestCase):
         delta = 1
 
         event = TempSensorEvent(sensor_id, temperature, delta)
-        a_dict = {"sensor_id": sensor_id, 
-                  "timestamp": str(event.get_timestamp()), 
-                  "temperature": temperature, 
-                  "delta": delta,
-                  "event_type": event_type}
 
         self.assertEqual(event.get_temperature(), temperature)
         self.assertEqual(event.get_temp_delta(), delta)
-        self.assertTrue(compare_dicts(json.loads(event.to_json_str()), a_dict))
 
     def test_flood_sensor_event(self):
         event_type = EventType.FLOOD_SENSOR_EVENT
@@ -298,11 +274,6 @@ class TestEvent(unittest.TestCase):
         delta = 1
 
         event = FloodSensorEvent(sensor_id, water_height, delta)
-        a_dict = {"sensor_id": sensor_id, 
-                  "timestamp": str(event.get_timestamp()), 
-                  "water_height": water_height, 
-                  "delta": delta,
-                  "event_type": event_type}
 
         self.assertEqual(event.get_water_height(), water_height)
         self.assertEqual(event.get_height_delta(), delta)
@@ -354,11 +325,6 @@ class TestEvent(unittest.TestCase):
                                   start_time,
                                   end_time)
         
-        a_dict = {"sensor_id": sensor_id, 
-                  "timestamp": str(event.get_timestamp()), 
-                  "current_threshold": current_threshold, 
-                  "start_time": start_time,
-                  "end_time": end_time}
         self.assertEqual(start_time, event.get_start_time())
         self.assertEqual(end_time, event.get_end_time())
         self.assertEqual(current_threshold, event.get_threshold())
